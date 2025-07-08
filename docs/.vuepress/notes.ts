@@ -39,6 +39,12 @@ const web3Note = defineNoteConfig({
   sidebar: ['', 'foo', 'bar'],
 })
 
+const nuxtNote = defineNoteConfig({
+  dir: 'nuxt',
+  link: '/nuxt',
+  sidebar: ['', 'server-side-render'],
+})
+
 /**
  * 导出所有的 note
  * 每一个 note 都应该填入到 `notes.notes` 数组中
@@ -47,5 +53,5 @@ const web3Note = defineNoteConfig({
 export default defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [web3Note],
+  notes: [nuxtNote],
 })

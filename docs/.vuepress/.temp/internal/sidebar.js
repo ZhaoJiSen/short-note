@@ -1,1 +1,0 @@
-export const sidebar = {"/":{"/web3":{"items":["","foo","bar"],"prefix":"/notes/web3/"}},"__auto__":{},"__home__":{}}

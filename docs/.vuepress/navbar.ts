@@ -13,6 +13,6 @@ export default defineNavbarConfig([
   { text: '归档', link: '/blog/archives/' },
   {
     text: '笔记',
-    items: [{ text: 'web3', link: '/notes/web3/foo.md' }],
+    items: [{ text: 'web3', link: '/notes/web3/foo.md' }, { text: 'Nuxt', link: '/notes/nuxt/server-side-render.md' }],
   },
 ]);
