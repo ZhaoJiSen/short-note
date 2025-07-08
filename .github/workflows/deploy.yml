@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
+          # "最近更新时间" 等 git 日志相关信息，需要拉取全部提交记录
           # "Last updated time" and other git log-related information require fetching all commit records.
           fetch-depth: 0
 
@@ -35,28 +35,34 @@ jobs:
           # 选择要使用的 node 版本
           node-version: 22
 
-
       # 安装依赖
       # Install dependencies
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-
 
       # 运行构建脚本
       # Run the build script
       - name: Build VuePress site
         run: pnpm run docs:build
 
-
-      # 查看 workflow 的文档来获取更多信息
-      # @see https://github.com/crazy-max/ghaction-github-pages
-      - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v4
+      # 配置 GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      # 上传构建产物
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          # 部署到 gh-pages 分支
-          target_branch: gh-pages
-          # 部署目录为 VuePress 的默认输出目录
-          build_dir: docs/.vuepress/dist
-        env:
-          # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: docs/.vuepress/dist
+
+  # 部署到 GitHub Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: docs
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
