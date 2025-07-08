@@ -33,6 +33,12 @@ const demoNote = defineNoteConfig({
   // sidebar: 'auto',
 })
 
+const web3Note = defineNoteConfig({
+  dir: 'web3',
+  link: '/web3',
+  sidebar: ['', 'foo', 'bar'],
+})
+
 /**
  * 导出所有的 note
  * 每一个 note 都应该填入到 `notes.notes` 数组中
@@ -41,5 +47,5 @@ const demoNote = defineNoteConfig({
 export default defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [demoNote],
+  notes: [web3Note],
 })

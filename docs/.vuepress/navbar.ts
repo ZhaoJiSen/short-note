@@ -4,7 +4,7 @@
  * Navbar 配置文件，它在 `.vuepress/plume.config.ts` 中被导入。
  */
 
-import { defineNavbarConfig } from 'vuepress-theme-plume'
+import { defineNavbarConfig } from 'vuepress-theme-plume';
 
 export default defineNavbarConfig([
   { text: '首页', link: '/' },
@@ -13,6 +13,6 @@ export default defineNavbarConfig([
   { text: '归档', link: '/blog/archives/' },
   {
     text: '笔记',
-    items: [{ text: '示例', link: '/notes/demo/README.md' }]
+    items: [{ text: 'web3', link: '/notes/web3/foo.md' }],
   },
-])
+]);
