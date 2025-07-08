@@ -44,6 +44,8 @@ jobs:
       # Run the build script
       - name: Build VuePress site
         run: pnpm run docs:build
+        env:
+          NODE_ENV: production
 
       # 配置 GitHub Pages
       - name: Setup Pages
