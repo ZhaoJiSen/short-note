@@ -10,21 +10,19 @@
  * 特别的，请不要在两个配置文件中重复配置相同的项，当前文件的配置项会覆盖 `.vuepress/config.ts` 文件中的配置
  */
 
-import { defineThemeConfig } from 'vuepress-theme-plume'
-import navbar from './navbar'
-import notes from './notes'
+import { defineThemeConfig } from 'vuepress-theme-plume';
+import navbar from './navbar';
+import notes from './notes';
 
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
  */
 export default defineThemeConfig({
-  logo: 'https://theme-plume.vuejs.press/plume.png',
+  logo: 'avatar.jpg',
 
-  appearance: true,  // 配置 深色模式
+  appearance: true, // 配置 深色模式
 
-  social: [
-    { icon: 'github', link: '/' },
-  ],
+  social: [{ icon: 'github', link: 'https://github.com/ZhaoJiSen/short-note' }],
   // navbarSocialInclude: ['github'], // 允许显示在导航栏的 social 社交链接
   // aside: true, // 页内侧边栏， 默认显示在右侧
   // outline: [2, 3], // 页内大纲， 默认显示 h2, h3
@@ -49,7 +47,7 @@ export default defineThemeConfig({
    * @see https://theme-plume.vuejs.press/config/basic/#profile
    */
   profile: {
-    avatar: 'https://theme-plume.vuejs.press/plume.png',
+    avatar: 'avatar.jpg',
     name: '弟弟森的编程小笔记',
     description: '个人笔记存放处',
     // circle: true,
@@ -77,5 +75,4 @@ export default defineThemeConfig({
   //   postList: true,    // 启用 博客文章列表过渡动画
   //   appearance: 'fade',  // 启用 深色模式切换过渡动画, 或配置过渡动画类型
   // },
-
-})
+});
