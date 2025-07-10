@@ -13,6 +13,11 @@ export default defineNavbarConfig([
   { text: '归档', link: '/blog/archives/' },
   {
     text: '笔记',
-    items: [{ text: 'web3', link: '/notes/web3/foo.md' }, { text: 'Nuxt', link: '/notes/nuxt/server-side-render.md' }],
+    items: [
+      {
+        text: '浏览器',
+        link: '/notes/browser/宏观视角下的浏览器/浏览器的进程模型.md',
+      },
+    ],
   },
 ]);
