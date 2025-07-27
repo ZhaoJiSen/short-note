@@ -33,8 +33,14 @@ const browserNote = defineNoteConfig({
   sidebar: 'auto',
 });
 
+const rustNote = defineNoteConfig({
+  dir: 'rust',
+  link: '/rust',
+  sidebar: 'auto',
+});
+
 export default defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [browserNote],
+  notes: [browserNote, rustNote],
 });

@@ -15,6 +15,11 @@ export default defineNavbarConfig([
     text: '笔记',
     items: [
       {
+        text: 'Rust',
+        link: '/notes/rust/index.md',
+        icon: 'tabler:rust',
+      },
+      {
         text: '浏览器',
         link: '/notes/browser/宏观视角下的浏览器/1.浏览器的进程模型.md',
         icon: 'tabler:browser',
