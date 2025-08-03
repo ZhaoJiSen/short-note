@@ -116,10 +116,10 @@ export default defineUserConfig({
      */
     markdown: {
       annotation: true,
-      table: {
-        align: 'center',
-        maxContent: false,
-      }
+      // table: {
+      //   align: 'center',
+      //   maxContent: false,
+      // }
     },
 
     /**
