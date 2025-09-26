@@ -1,6 +1,3 @@
 {
-  "cSpell.words": [
-    "isize",
-    "usize"
-  ]
+  "cSpell.words": ["isize", "mpsc", "usize"]
 }
