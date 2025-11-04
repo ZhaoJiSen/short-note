@@ -13,16 +13,21 @@ export default defineNavbarConfig([
   { text: '归档', link: '/blog/archives/' },
   {
     text: '笔记',
-    items: [
-      {
-        text: 'Rust',
-        link: '/notes/rust/index.md',
-        icon: 'devicon-plain:rust',
-      },
+    items: [  
       {
         text: '浏览器',
         link: '/notes/browser/宏观视角下的浏览器/1.浏览器的进程模型.md',
         icon: 'meteor-icons:chrome',
+      },
+      {
+        text: "工程化",
+        link: "/notes/engineering/Babel/1.使用与编译过程.md",
+        icon: "lucide:hammer"
+      },
+      {
+        text: 'Rust',
+        link: '/notes/rust/index.md',
+        icon: 'devicon-plain:rust',
       },
     ],
   },

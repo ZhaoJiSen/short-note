@@ -149,8 +149,48 @@ const rustNote = defineNoteConfig({
   ],
 });
 
+const engineeringNotes = defineNoteConfig({
+  dir: 'engineering',
+  link: '/engineering',
+  sidebar: [
+    {
+      text: "Babel",
+      collapsed: false,
+      icon: "vscode-icons:file-type-babel2",
+      items: [
+        {
+          text: "1.Babel 的使用与编译过程",
+          link: "/engineering/sd6e128i/"
+        },
+        {
+          text: "2.编译原理",
+          link: "/engineering/3yt2zsv4/"
+        }
+      ]
+    },
+    {
+      text: "Webpack",
+      collapsed: false,
+      icon: "vscode-icons:file-type-webpack"
+    },
+    {
+      text: "Vite",
+      collapsed: false,
+      icon: "vscode-icons:file-type-vite",
+      items: [
+        {
+          text: "1.基本使用",
+          link: "/engineering/nqqf1ea4/"
+        }
+      ]
+    }
+  ]
+});
+
+
 export default defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [browserNote, rustNote],
+  notes: [browserNote, engineeringNotes, rustNote],
 });
+
