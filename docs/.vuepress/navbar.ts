@@ -21,7 +21,7 @@ export default defineNavbarConfig([
       },
       {
         text: "工程化",
-        link: "/notes/engineering/Babel/1.使用与编译过程.md",
+        link: "/notes/engineering/Modularization/index.md",
         icon: "lucide:hammer"
       },
       {

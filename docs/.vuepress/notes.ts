@@ -154,6 +154,20 @@ const engineeringNotes = defineNoteConfig({
   link: '/engineering',
   sidebar: [
     {
+      text: "模块化",
+      collapsed: false,
+      icon: "streamline-sharp-color:module",
+      items: [
+        {
+          text: "1.CommonJS",
+          link: "/engineering/8hn64fr6/"
+        },
+        {
+          text: "2.ES Modules",
+        }
+      ]
+    },
+    {
       text: "Babel",
       collapsed: false,
       icon: "vscode-icons:file-type-babel2",
