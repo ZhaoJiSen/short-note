@@ -164,6 +164,7 @@ const engineeringNotes = defineNoteConfig({
         },
         {
           text: "2.ES Modules",
+          link: "/engineering/laegs7pa/"
         }
       ]
     },
