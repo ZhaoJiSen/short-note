@@ -159,14 +159,23 @@ const engineeringNotes = defineNoteConfig({
       icon: "streamline-sharp-color:module",
       items: [
         {
-          text: "1.CommonJS",
+          text: "CommonJS",
           link: "/engineering/8hn64fr6/"
         },
         {
-          text: "2.ES Modules",
+          text: "AMD 与 CMD",
+          link: "/engineering/kxn1b2d2/"
+        },
+        {
+          text: "ES Modules",
           link: "/engineering/laegs7pa/"
         }
       ]
+    },
+    {
+      text: "包管理器",
+      collapsed: false,
+      icon: "catppuccin:yarn"
     },
     {
       text: "Babel",

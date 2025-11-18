@@ -15,20 +15,35 @@ export default defineNavbarConfig([
     text: '笔记',
     items: [  
       {
-        text: '浏览器',
-        link: '/notes/browser/宏观视角下的浏览器/1.浏览器的进程模型.md',
-        icon: 'meteor-icons:chrome',
-      },
-      {
-        text: "工程化",
-        link: "/notes/engineering/Modularization/index.md",
-        icon: "lucide:hammer"
+        text: "JavaScript",
+        link: "",
+        icon: "catppuccin:javascript",
       },
       {
         text: 'Rust',
         link: '/notes/rust/index.md',
-        icon: 'devicon-plain:rust',
+        icon: "catppuccin:rust"
       },
+      {
+        text: '浏览器',
+        link: '/notes/browser/宏观视角下的浏览器/1.浏览器的进程模型.md',
+        icon: "catppuccin:http"
+      },
+      {
+        text: "工程化",
+        link: "/notes/engineering/Modularization/index.md",
+        icon: "catppuccin:webpack"
+      },
+      {
+        text: "Vue",
+        link: "",
+        icon: "catppuccin:vue"
+      },
+      {
+        text: "React",
+        link: "",
+        icon: "catppuccin:typescript-react"
+      }
     ],
   },
 ]);
