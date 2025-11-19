@@ -40,7 +40,7 @@ CommonJS 使用 `exports` 导出模块，使用 `require` 导入模块
 :::
 
 为了实现 CommonJS 规范，NodeJS 对模块作出了如下处理：
-1. 为保证执行效率，NodeJS 仅加载必要的模块，只有执行到 `require` 函数时才会加载并执行模块
+1. 为保证执行效率，NodeJS 仅加载必要的模块，只有执行到 `require` 函数时才会加载并执行模块，这也被称为：==依赖延迟声明==
 2. 为保证避免污染全局变量，NodeJS 执行模块时，会将模块中的所有代码放入 IIFE
 3. 为保证顺利导出模块内容，NodeJS 会在模块开始执行前，初始化 `module.exports = {}`
 4. 为方便开发者便捷导出内容，初始化 `module.exports` 后会额外声明 `exports = module.exports`

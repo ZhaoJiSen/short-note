@@ -163,10 +163,6 @@ const engineeringNotes = defineNoteConfig({
           link: "/engineering/8hn64fr6/"
         },
         {
-          text: "AMD 与 CMD",
-          link: "/engineering/kxn1b2d2/"
-        },
-        {
           text: "ES Modules",
           link: "/engineering/laegs7pa/"
         }
