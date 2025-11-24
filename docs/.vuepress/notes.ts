@@ -156,14 +156,14 @@ const engineeringNotes = defineNoteConfig({
     {
       text: "模块化",
       collapsed: false,
-      icon: "streamline-sharp-color:module",
+      icon: "catppuccin:devcontainer",
       items: [
         {
-          text: "CommonJS",
+          text: "1.CommonJS",
           link: "/engineering/8hn64fr6/"
         },
         {
-          text: "ES Modules",
+          text: "2.ES Module",
           link: "/engineering/laegs7pa/"
         }
       ]
@@ -171,12 +171,26 @@ const engineeringNotes = defineNoteConfig({
     {
       text: "包管理器",
       collapsed: false,
-      icon: "catppuccin:yarn"
+      icon: "catppuccin:lib",
+      items: [
+        {
+          text: "npm",
+          icon: "catppuccin:npm"
+        },
+        {
+          text: "yarn",
+          icon: "catppuccin:yarn"
+        },
+        {
+          text: "pnpm",
+          icon: "catppuccin:pnpm"
+        }
+      ]
     },
     {
       text: "Babel",
       collapsed: false,
-      icon: "vscode-icons:file-type-babel2",
+      icon: "catppuccin:babel",
       items: [
         {
           text: "1.Babel 的使用与编译过程",
@@ -189,14 +203,19 @@ const engineeringNotes = defineNoteConfig({
       ]
     },
     {
+      text: "Gulp",
+      collapsed: false,
+      icon: "catppuccin:gulp"
+    },
+    {
       text: "Webpack",
       collapsed: false,
-      icon: "vscode-icons:file-type-webpack"
+      icon: "catppuccin:webpack"
     },
     {
       text: "Vite",
       collapsed: false,
-      icon: "vscode-icons:file-type-vite",
+      icon: "catppuccin:vite",
       items: [
         {
           text: "1.基本使用",
