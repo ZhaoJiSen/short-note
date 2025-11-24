@@ -49,6 +49,10 @@ export default defineUserConfig({
     // contributors: true,
     // changelog: false,
 
+    contributors: {
+      mode: "block"
+    },
+
     /**
      * 博客
      * @see https://theme-plume.vuejs.press/config/basic/#blog
