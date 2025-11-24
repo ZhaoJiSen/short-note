@@ -118,7 +118,7 @@ export default defineUserConfig({
       annotation: true,
       abbr: true,
       repl: {
-        rust: true
+        rust: true,
       },
       // table: {
       //   align: 'center',
@@ -136,17 +136,17 @@ export default defineUserConfig({
      * 评论 comments
      * @see https://theme-plume.vuejs.press/guide/features/comments/
      */
-    // comment: {
-    //   provider: '', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
-    //   comment: true,
-    //   repo: '',
-    //   repoId: '',
-    //   category: '',
-    //   categoryId: '',
-    //   mapping: 'pathname',
-    //   reactionsEnabled: true,
-    //   inputPosition: 'top',
-    // },
+    comment: {
+      provider: 'Giscus',
+      comment: true,
+      repo: 'ZhaoJiSen/short-note',
+      repoId: '1015987929',
+      category: 'announcements',
+      categoryId: 'categoryId',
+      mapping: 'pathname',
+      reactionsEnabled: true,
+      inputPosition: 'top',
+    },
 
     /**
      * 资源链接替换
