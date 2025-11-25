@@ -87,7 +87,8 @@ const rustNote = defineNoteConfig({
           collapsed: true,
           items: [
             { text: '1. 动态数组', link: '/rust/bkb5lpbm/' },
-            { text: '2. hashMap', link: '/rust/88xu261b/' },
+            { text: '2. 字符串', link: '/rust/nytp8hdg/' },
+            { text: '2. HashMap', link: '/rust/88xu261b/' },
           ],
         },
         {
@@ -154,82 +155,80 @@ const engineeringNotes = defineNoteConfig({
   link: '/engineering',
   sidebar: [
     {
-      text: "模块化",
+      text: '模块化',
       collapsed: false,
-      icon: "catppuccin:devcontainer",
+      icon: 'catppuccin:devcontainer',
       items: [
         {
-          text: "1.CommonJS",
-          link: "/engineering/8hn64fr6/"
+          text: '1.CommonJS',
+          link: '/engineering/8hn64fr6/',
         },
         {
-          text: "2.ES Module",
-          link: "/engineering/laegs7pa/"
-        }
-      ]
+          text: '2.ES Module',
+          link: '/engineering/laegs7pa/',
+        },
+      ],
     },
     {
-      text: "包管理器",
+      text: '包管理器',
       collapsed: false,
-      icon: "catppuccin:lib",
+      icon: 'catppuccin:lib',
       items: [
         {
-          text: "npm",
-          icon: "catppuccin:npm"
+          text: 'npm',
+          icon: 'catppuccin:npm',
         },
         {
-          text: "yarn",
-          icon: "catppuccin:yarn"
+          text: 'yarn',
+          icon: 'catppuccin:yarn',
         },
         {
-          text: "pnpm",
-          icon: "catppuccin:pnpm"
-        }
-      ]
+          text: 'pnpm',
+          icon: 'catppuccin:pnpm',
+        },
+      ],
     },
     {
-      text: "Babel",
+      text: 'Babel',
       collapsed: false,
-      icon: "catppuccin:babel",
+      icon: 'catppuccin:babel',
       items: [
         {
-          text: "1.Babel 的使用与编译过程",
-          link: "/engineering/sd6e128i/"
+          text: '1.Babel 的使用与编译过程',
+          link: '/engineering/sd6e128i/',
         },
         {
-          text: "2.编译原理",
-          link: "/engineering/3yt2zsv4/"
-        }
-      ]
+          text: '2.编译原理',
+          link: '/engineering/3yt2zsv4/',
+        },
+      ],
     },
     {
-      text: "Gulp",
+      text: 'Gulp',
       collapsed: false,
-      icon: "catppuccin:gulp"
+      icon: 'catppuccin:gulp',
     },
     {
-      text: "Webpack",
+      text: 'Webpack',
       collapsed: false,
-      icon: "catppuccin:webpack"
+      icon: 'catppuccin:webpack',
     },
     {
-      text: "Vite",
+      text: 'Vite',
       collapsed: false,
-      icon: "catppuccin:vite",
+      icon: 'catppuccin:vite',
       items: [
         {
-          text: "1.基本使用",
-          link: "/engineering/nqqf1ea4/"
-        }
-      ]
-    }
-  ]
+          text: '1.基本使用',
+          link: '/engineering/nqqf1ea4/',
+        },
+      ],
+    },
+  ],
 });
-
 
 export default defineNotesConfig({
   dir: 'notes',
   link: '/',
   notes: [browserNote, engineeringNotes, rustNote],
 });
-
