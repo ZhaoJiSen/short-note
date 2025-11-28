@@ -36,7 +36,7 @@ const rustNote = defineNoteConfig({
       collapsed: false,
       items: [
         {
-          text: '1. 基本概念',
+          text: '基本概念',
           collapsed: true,
           items: [
             { text: '1. 变量与可变性', link: '/rust/o8agolw4/' },
@@ -47,7 +47,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '2. 所有权',
+          text: '所有权',
           collapsed: true,
           items: [
             { text: '1. 所有权', link: '/rust/kf7myiln/' },
@@ -56,7 +56,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '3. 结构体',
+          text: '结构体',
           collapsed: true,
           items: [
             { text: '1. 基本使用', link: '/rust/e68jmm5c/' },
@@ -64,7 +64,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '4. 枚举与匹配模式',
+          text: '枚举与匹配模式',
           collapsed: true,
           items: [
             { text: '1. 枚举', link: '/rust/7342g17i/' },
@@ -73,7 +73,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '5. 包管理',
+          text: '包管理',
           collapsed: true,
           items: [
             {
@@ -83,7 +83,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '6. 集合',
+          text: '集合',
           collapsed: true,
           items: [
             { text: '1. 动态数组', link: '/rust/bkb5lpbm/' },
@@ -92,7 +92,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '7. 错误处理',
+          text: '错误处理',
           collapsed: true,
           items: [
             { text: '1. 处理不可恢复错误', link: '/rust/mrknlbd8/' },
@@ -100,18 +100,13 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '8. 泛型、Trait 与生命周期',
+          text: '泛型、Trait 与生命周期',
           collapsed: true,
           items: [
             { text: '1. 泛型', link: '/rust/7n8042c8/' },
             { text: '2. 特征', link: '/rust/bgra68f2/' },
             { text: '3. 生命周期', link: '/rust/zyr3z8hb/' },
           ],
-        },
-        {
-          text: '9. 迭代器与闭包',
-          collapsed: true,
-          items: [{ text: '1. 迭代器', link: '/rust/5qk3z7b2/' }],
         },
       ],
     },
@@ -120,7 +115,10 @@ const rustNote = defineNoteConfig({
       collapsed: false,
       items: [
         {
-          text: '10. 智能指针',
+          text: '迭代器与闭包',
+        },
+        {
+          text: '智能指针',
           collapsed: true,
           items: [
             { text: '堆分配智能指针', link: '/rust/kh4d8n14/' },
@@ -129,7 +127,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '11. 多线程',
+          text: '多线程',
           collapsed: true,
           items: [
             { text: '基本使用', link: '/rust/v5a8bx4o/' },
@@ -137,7 +135,7 @@ const rustNote = defineNoteConfig({
           ],
         },
         {
-          text: '12. 异步编程',
+          text: 'Async 与 await',
           collapsed: true,
           items: [
             { text: 'async', link: '/rust/yxgj4re7/' },
