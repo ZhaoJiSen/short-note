@@ -52,7 +52,6 @@ const rustNote = defineNoteConfig({
           items: [
             { text: '1. 所有权', link: '/rust/kf7myiln/' },
             { text: '2. 引用与借用', link: '/rust/pajnqj8w/' },
-            { text: '3. Slice 类型', link: '/rust/050sp5fi/' },
           ],
         },
         {
