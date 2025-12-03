@@ -77,7 +77,7 @@ const rustNotes = defineCollection({
           collapsed: true,
           items: [
             { text: '1. 泛型', link: '/rust/7n8042c8/' },
-            { text: '2. 特征', link: '/rust/bgra68f2/' },
+            { text: '2. Trait', link: '/rust/bgra68f2/' },
             { text: '3. 生命周期', link: '/rust/zyr3z8hb/' },
           ],
         },
