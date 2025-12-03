@@ -89,6 +89,16 @@ const rustNotes = defineCollection({
       items: [
         {
           text: '迭代器与闭包',
+          items: [
+            {
+              text: "闭包",
+              link: '/rust/y6wm3pka/'
+            },
+            {
+              text: "迭代器",
+              link: "/rust/ndd09h9b/"
+            }
+          ]
         },
         {
           text: '智能指针',
