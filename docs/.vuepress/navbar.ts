@@ -10,7 +10,10 @@ export default defineNavbarConfig([
   { text: '首页', link: '/' },
   {
     text: '笔记',
-    items: [{ text: 'Rust', link: 'rust/index.md' }],
+    items: [
+      { text: 'Rust', link: 'rust/index.md' }, 
+      { text: 'JavaScript', link: '/javascript/index.md' }
+    ],
   },
   // { text: '博客', link: '/blog/' },
   // { text: '标签', link: '/blog/tags/' },
