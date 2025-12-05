@@ -91,22 +91,22 @@ const rustCollection = defineCollection({
           text: '迭代器与闭包',
           items: [
             {
-              text: "闭包",
-              link: '/rust/y6wm3pka/'
+              text: '闭包',
+              link: '/rust/y6wm3pka/',
             },
             {
-              text: "迭代器",
-              link: "/rust/ndd09h9b/"
-            }
-          ]
+              text: '迭代器',
+              link: '/rust/ndd09h9b/',
+            },
+          ],
         },
         {
           text: '智能指针',
           collapsed: true,
           items: [
-            { text: '堆分配智能指针', link: '/rust/kh4d8n14/' },
-            { text: '引用计数智能指针', link: '/rust/16s6qq6n/' },
-            { text: '运行时可变借用检查的智能指针', link: '/rust/s1aq3ip7/' },
+            { text: 'Box&lt;T&gt', link: '/rust/kh4d8n14/' },
+            { text: 'Rc&lt;T&gt', link: '/rust/16s6qq6n/' },
+            { text: 'RefCell&lt;T&gt', link: '/rust/s1aq3ip7/' },
           ],
         },
         {
@@ -137,57 +137,57 @@ const javascriptCollection = defineCollection({
   title: 'JavaScript',
   sidebar: [
     {
-      text: "ES6",
+      text: 'ES6',
       collapsed: false,
       items: [
         {
-          text: "1. 块级绑定"
+          text: '1. 块级绑定',
         },
         {
-          text: "2. 字符串与正则表达式"
+          text: '2. 字符串与正则表达式',
         },
         {
-          text: '3. 函数'
+          text: '3. 函数',
         },
         {
-          text: "4. 对象"
+          text: '4. 对象',
         },
         {
-          text: "5. 解构赋值"
+          text: '5. 解构赋值',
         },
         {
-          text: "6. Promise",
+          text: '6. Promise',
           collapsed: false,
           items: [
             {
-              text: "基本使用"
+              text: '基本使用',
             },
             {
-              text: 'async 与 await'
+              text: 'async 与 await',
             },
             {
-              text: "手写 Promise"
+              text: '手写 Promise',
             },
             {
-              text: "Promise 面试题"
-            }
-          ]
+              text: 'Promise 面试题',
+            },
+          ],
         },
         {
-          text: "7. Fetch"
+          text: '7. Fetch',
         },
         {
-          text: "8. 迭代器与生成器"
+          text: '8. 迭代器与生成器',
         },
         {
-          text: "9. 新增的集合类型"
+          text: '9. 新增的集合类型',
         },
         {
-          text: "10. 代理与反射"
-        }
-      ]
-    }
-  ]
-})
+          text: '10. 代理与反射',
+        },
+      ],
+    },
+  ],
+});
 
 export default defineCollections([rustCollection, javascriptCollection]);
