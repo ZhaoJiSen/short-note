@@ -89,6 +89,7 @@ const rustCollection = defineCollection({
       items: [
         {
           text: '迭代器与闭包',
+          collapsed: true,
           items: [
             {
               text: '闭包',
