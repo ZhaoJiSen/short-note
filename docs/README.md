@@ -1,11 +1,12 @@
 ---
 pageLayout: home
 externalLinkIcon: false
+footer: false
 config:
   -
     type: hero
     full: true
-    background: tint-plate
+    effect: prism
     hero:
       name: Theme Plume
       tagline: VuePress Next Theme
