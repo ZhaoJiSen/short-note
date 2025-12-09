@@ -119,13 +119,12 @@ const rustCollection = defineCollection({
           ],
         },
         {
-          text: 'Async 与 await',
+          text: '异步编程',
           collapsed: true,
           items: [
-            { text: 'async', link: '/rust/yxgj4re7/' },
+            { text: '基本使用', link: '/rust/yxgj4re7/' },
+            { text: 'Streams', link: '/rust/qqm7oxdz/' },
             { text: 'tokio', link: '/rust/5x9cw82i/' },
-            { text: '流（Streams）', link: '/rust/qqm7oxdz/' },
-            { text: 'Features', link: '/rust/5yjgqe0d/' },
           ],
         },
       ],
