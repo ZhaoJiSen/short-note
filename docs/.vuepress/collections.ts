@@ -123,6 +123,7 @@ const rustCollection = defineCollection({
           collapsed: true,
           items: [
             { text: 'async', link: '/rust/yxgj4re7/' },
+            { text: 'tokio', link: '/rust/5x9cw82i/' },
             { text: '流（Streams）', link: '/rust/qqm7oxdz/' },
             { text: 'Features', link: '/rust/5yjgqe0d/' },
           ],
