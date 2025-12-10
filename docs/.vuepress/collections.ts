@@ -122,7 +122,7 @@ const rustCollection = defineCollection({
           text: '异步编程',
           collapsed: true,
           items: [
-            { text: '基本使用', link: '/rust/yxgj4re7/' },
+            { text: '基本概念', link: '/rust/yxgj4re7/' },
             { text: 'Streams', link: '/rust/qqm7oxdz/' },
             { text: 'tokio', link: '/rust/5x9cw82i/' },
           ],

@@ -1,5 +1,5 @@
 ---
-title: 基本使用
+title: 基本概念
 createTime: 2025/09/26 16:20:58
 permalink: /rust/yxgj4re7/
 ---
@@ -8,14 +8,15 @@ permalink: /rust/yxgj4re7/
 
 Future 表示一个 "现在可能还没准备好、未来某时会就绪的值"。Rust 以 `Future` trait 为核心，各类异步操作通过实现它来暴露可被轮询的状态
 
-> [!NOTE]
-> 异步操作会实现 `Future` trait，其内部的 `poll` 方法会返回 `Poll::Pending` 或 `Poll::Ready<T>` 两种状态。执行器会不断轮询调用 `poll`
-> - 如果 Future 完成了，那么将返回 `Poll::Ready(result)` 其中 `result` 为最终的结果
-> - 如果 Future 未完成，那么将返回 `Poll::Pending`，此时会保存本次 `Context` 中的 `waker`，**然后在可继续推进时调用 `waker.wake()` 并通知执行器再次 `poll`**
+> [!IMPORTANT]
+> 异步操作会实现 `Future` trait，该 trait 内部的 `poll` 方会返回两种状态: `Poll::Pending` 或 `Poll::Ready<T>`
+> - 若 Future 完成了，那么将返回 `Poll::Ready(result)`，result 会作为为最终的结果
+> - 若 Future 未完成，那么则必须尽快返回 `Poll::Pending`，==不能阻塞=={.important}，与此同时会把 Context 提供的 `Waker` 保存下来。等后续可继续推进时调用 `waker.wake()` 把任务重新入队；执行器线程从队列取出任务后会再次调用 `poll`
 
 :::code-tabs
 @tab socket.rs
 ```rust
+// Tips: 用函数指针代替真实的 Waker
 pub struct Socket {
     pub has_data: bool,
     pub buffer: Vec<u8>,
@@ -119,13 +120,13 @@ fn main() {
 
 ### Waker 
 
-Waker 由 ==执行器== 通过 `Context` 传递给 Future，当 Future 返回 `Pending` 时会保存本次 `poll` 提供的最新的 `waker`，等到后续事件就绪时调用 `wake()` 让任务重新入队
+Waker 由 ==执行器== 构造并通过 `Context` 传递给 Future。==Waker 唤醒的本质是让任务重新入队=={.important}
 
-> [!IMPORTANT]
-> - 一次或多次调用 `wake` 都是安全的，漏掉唤醒则会让 Future 永远停留在 `Pending`
-> - `wake` 可以跨线程调用，只保证“尽快”重新调度
-> - Waker 实现了 `clone` 可以复制和存储，除此之外还可以使用 `wake_by_ref` 在只有引用时唤醒，避免 clone
-
+::: details 
+- `wake` 可以跨线程调用，只保证 "尽快" 重新调度
+- 一次或多次调用 `wake` 都是安全的，漏掉唤醒则会让 Future 永远停留在 `Pending`
+- Waker 实现了 `clone` 可以复制和存储，除此之外还可以使用 `wake_by_ref` 在只有引用时唤醒，避免 clone
+:::
 
 实现一个计时器 Future
 
@@ -207,6 +208,16 @@ async fn main() {
 
 ### Executor
 
+执行器 `Executor` 用于在 Rust 异步运行时里调度与驱动 Future。执行器会把 Future 包装成可调度的任务，通常是 `Task` 或 `JoinHandle`，然后再按策略分配给线程运行
+
+执行器在任务就绪或被唤醒后调用 Future 的 `poll`，直到返回 `Poll::Ready<T>`；遇到 `Pending` 会让出，等待下一次唤醒
+
+> [!IMPORTANT]
+> - 跨线程执行通常要求任务满足 `Send + 'static`
+
 ## async
 
 ## await
+
+
+==Future 是惰性的，除非驱动它们来完成，否则就什么都不做=={.important}。在 `async` 函数中使用 `await` 只是把“驱动”的责任交给上层调用者；顶层的 `async` 则必须交给执行器去驱动，否则 Future 永远不会运行
