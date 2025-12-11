@@ -11,13 +11,21 @@ export default defineNavbarConfig([
   {
     text: '笔记',
     items: [
-      { text: 'Rust', link: 'rust/index.md', icon: 'vscode-icons:file-type-rust' },
+      {
+        text: 'Rust',
+        link: 'rust/index.md',
+        icon: 'vscode-icons:file-type-rust',
+      },
       {
         text: 'JavaScript',
         link: '/javascript/index.md',
         icon: 'vscode-icons:file-type-js',
       },
     ],
+  },
+  {
+    text: '友情链接',
+    link: '/friends/',
   },
   // { text: '博客', link: '/blog/' },
   // { text: '标签', link: '/blog/tags/' },
