@@ -129,6 +129,22 @@ const rustCollection = defineCollection({
         },
       ],
     },
+    {
+      text: '生态系统',
+      collapsed: false,
+      items: [
+        {
+          text: '错误处理',
+          link: '/rust/ojzysh95/',
+        },
+        {
+          text: '日志处理',
+        },
+        {
+          text: '数据转换',
+        },
+      ],
+    },
   ],
 });
 
