@@ -205,24 +205,64 @@ const javascriptCollection = defineCollection({
       ],
     },
   ],
+  autoFrontmatter: {
+    title: true,
+    createTime: true,
+    permalink: true,
+  },
 });
 
 const engineeringCollection = defineCollection({
-  type: "doc",
-  dir: 'engineering',
-  title: "工程化"
-})
-
-const frameworkCollection = defineCollection({
   type: 'doc',
-  dir: 'framework',
-  title: '前端框架',
+  dir: 'engineering',
+  title: '工程化',
+  autoFrontmatter: {
+    title: true,
+    createTime: true,
+    permalink: true,
+  },
+});
+
+const vueCollection = defineCollection({
+  type: 'doc',
+  dir: 'vue',
+  title: 'Vue',
   sidebar: [],
+  autoFrontmatter: {
+    title: true,
+    createTime: true,
+    permalink: true,
+  },
+});
+
+const reactCollection = defineCollection({
+  type: 'doc',
+  dir: 'react',
+  title: 'React',
+  sidebar: [],
+  autoFrontmatter: {
+    title: true,
+    createTime: true,
+    permalink: true,
+  },
+});
+
+const nodeCollection = defineCollection({
+  type: 'doc',
+  dir: 'node',
+  title: 'Node',
+  sidebar: [],
+  autoFrontmatter: {
+    title: true,
+    createTime: true,
+    permalink: true,
+  },
 });
 
 export default defineCollections([
+  vueCollection,
   rustCollection,
-  frameworkCollection,
+  reactCollection,
   javascriptCollection,
   engineeringCollection,
 ]);
