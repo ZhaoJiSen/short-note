@@ -207,4 +207,22 @@ const javascriptCollection = defineCollection({
   ],
 });
 
-export default defineCollections([rustCollection, javascriptCollection]);
+const engineeringCollection = defineCollection({
+  type: "doc",
+  dir: 'engineering',
+  title: "工程化"
+})
+
+const frameworkCollection = defineCollection({
+  type: 'doc',
+  dir: 'framework',
+  title: '前端框架',
+  sidebar: [],
+});
+
+export default defineCollections([
+  rustCollection,
+  frameworkCollection,
+  javascriptCollection,
+  engineeringCollection,
+]);

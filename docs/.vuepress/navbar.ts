@@ -21,6 +21,11 @@ export default defineNavbarConfig([
         link: '/javascript/index.md',
         icon: 'vscode-icons:file-type-js',
       },
+      {
+        text: "前端框架",
+        link: "",
+        icon: ""
+      }
     ],
   },
   {
