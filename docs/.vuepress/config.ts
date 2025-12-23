@@ -126,6 +126,7 @@ export default defineUserConfig({
       repl: {
         rust: true,
       },
+      timeline: true,
       // table: {
       //   align: 'center',
       //   maxContent: false,

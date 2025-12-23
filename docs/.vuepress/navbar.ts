@@ -47,7 +47,38 @@ export default defineNavbarConfig([
   },
   {
     text: '前端工程化',
-    link: '/engineering/Babel/1.使用与编译过程.md',
+    items: [
+      {
+        text: "模块化",
+        link: "/engineering/Modularization",
+        icon: "material-icon-theme:folder-gh-workflows"
+      },
+      {
+        text: "包管理器",
+        link: "/engineering/PackageManager/npm.md",
+        icon: "material-icon-theme:npm"
+      },
+      {
+        text: "Babel",
+        link: "/engineering/Babel",
+        icon: "material-icon-theme:babel"
+      },
+      {
+        text: "Gulp",
+        link: "/engineering/Gulp",
+        icon: "material-icon-theme:gulp"
+      },
+      {
+        text: "Webpack",
+        link:  "/engineering/Webpack",
+        icon: "material-icon-theme:webpack"
+      },
+      {
+        text: "Vite",
+        link: "/engineering/Vite",
+        icon: "material-icon-theme:vite"
+      }
+    ]
   },
   {
     text: '友情链接',

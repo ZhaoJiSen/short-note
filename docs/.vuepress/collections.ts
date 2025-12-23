@@ -216,6 +216,24 @@ const engineeringCollection = defineCollection({
   type: 'doc',
   dir: 'engineering',
   title: '工程化',
+  sidebar: [
+    {
+      text: "npm",
+      collapsed: false
+    },
+    {
+      text: "yarn",
+      collapsed: false
+    },
+    {
+      text: "pnpm",
+      collapsed: false
+    },
+    {
+      text: "Monorepo",
+      link: '/engineering/ubsba9hj/'
+    }
+  ],
   autoFrontmatter: {
     title: true,
     createTime: true,
