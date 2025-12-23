@@ -21,6 +21,14 @@ Monorepo（单一代码库）指==把多个相关项目或包放在同一个仓�
 - packages 通常放可被复用的库/组件/工具包
   - cli
     - release.sh
+  - api
+    - user.ts
+  - hooks
+    - useUserFetcher.ts
+  - i18n
+    - locales
+      - zh.json
+      - en.json
   - utils
     - request.ts
   - components
@@ -309,9 +317,114 @@ engine-strict=true
 
 #### commitizen
 
+commitizen 用于交互式生成提交信息
+
+:::: steps
+1. 安装 commitizen 与适配器
+
+   ```bash
+   pnpm i -D -w commitizen cz-conventional-changelog
+   ```
+
+2. 在 `package.json` 配置 commitizen
+
+   ```json
+   "config": {
+     "commitizen": {
+       "path": "cz-conventional-changelog"
+     }
+   },
+   "scripts": {
+     "commit": "cz"
+   }
+   ```
+
+3. 使用交互式提交
+
+   ```bash
+   pnpm commit
+   ```
+::::
+
+#### commitlint
+
+commitlint 用于校验校验提交信息是否符合规范
+
+:::: steps
+1. 安装 commitlint
+
+   ```bash
+   pnpm i -D -w @commitlint/cli @commitlint/config-conventional
+   ```
+
+2. 创建 `commitlint.config.js`
+
+   ```js
+   export default {
+     extends: ["@commitlint/config-conventional"]
+   };
+   ```
+
+3. 添加 `.husky/commit-msg`
+
+   ```sh
+   pnpm exec commitlint --edit "$1"
+   ```
+::::
+
 #### husky
 
+:::: steps
+1. 安装 husky
+
+   ```bash
+   pnpm i -D -w husky
+   ```
+
+2. 初始化 Git Hooks
+
+   ```bash
+   pnpm exec husky init
+   ```
+
+3. 修改 `.husky/pre-commit`
+
+   ```sh
+   pnpm lint-staged
+   ```
+::::
+
 #### lint-staged
+
+:::: steps
+1. 安装 lint-staged
+
+   ```bash
+   pnpm i -D -w lint-staged
+   ```
+
+2. 创建 `lint-staged.config.js`
+
+   ```js
+   export default {
+     "{apps/frontend,packages}/**/*.{js,ts,tsx,vue}": [
+       "eslint --fix",
+       "prettier --write"
+     ],
+     "{apps/frontend,packages}/**/*.{json,css,less,scss,md,html}": [
+       "prettier --write"
+     ]
+   };
+   ```
+
+3. `lint-staged` 脚本
+
+   ```json
+   "scripts": {
+     "lint-staged": "lint-staged"
+   }
+   ```
+::::
 
 ## 公共库打包
 
