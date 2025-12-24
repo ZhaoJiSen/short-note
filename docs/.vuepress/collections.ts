@@ -277,10 +277,22 @@ const nodeCollection = defineCollection({
   },
 });
 
+const notesCollection = defineCollection({
+  type: 'post',
+  dir: 'blog',
+  title: '博客',
+  autoFrontmatter: {
+    title: true,
+    createTime: true,
+    permalink: true,
+  },
+})
+
 export default defineCollections([
   vueCollection,
   rustCollection,
   reactCollection,
+  notesCollection,
   javascriptCollection,
   engineeringCollection,
 ]);
