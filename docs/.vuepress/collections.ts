@@ -354,12 +354,15 @@ const notesCollection = defineCollection({
       items: [
         {
           text: 'fs ',
+          link: '/node/1jbhp0rf/',
         },
         {
           text: 'path',
+          link: '/node/m4tkcgr5/',
         },
         {
           text: 'http',
+          link: '/node/zyzfztfm/',
         },
       ],
     },
