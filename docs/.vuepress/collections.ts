@@ -218,21 +218,21 @@ const engineeringCollection = defineCollection({
   title: '工程化',
   sidebar: [
     {
-      text: "npm",
-      collapsed: false
+      text: 'npm',
+      collapsed: false,
     },
     {
-      text: "yarn",
-      collapsed: false
+      text: 'yarn',
+      collapsed: false,
     },
     {
-      text: "pnpm",
-      collapsed: false
+      text: 'pnpm',
+      collapsed: false,
     },
     {
-      text: "Monorepo",
-      link: '/engineering/ubsba9hj/'
-    }
+      text: 'Monorepo',
+      link: '/engineering/ubsba9hj/',
+    },
   ],
   autoFrontmatter: {
     title: true,
@@ -247,70 +247,70 @@ const vueCollection = defineCollection({
   title: 'Vue',
   sidebar: [
     {
-      text: "基本使用",
+      text: '基本使用',
       collapsed: false,
       items: [
         {
-          text: "基本语法",
+          text: '基本语法',
           collapsed: true,
           items: [
             {
-              text: "模板语法与属性绑定",
-              link: "/vue/iorgmo8s/"
+              text: '模板语法与属性绑定',
+              link: '/vue/iorgmo8s/',
             },
             {
-              text: "响应式",
-              link: "/vue/lnalkeew/"
+              text: '响应式',
+              link: '/vue/lnalkeew/',
             },
             {
-              text: "计算属性与侦听器",
-              link: "/vue/44zt1ybc/"
+              text: '计算属性与侦听器',
+              link: '/vue/44zt1ybc/',
             },
             {
-              text: "条件渲染与列表渲染",
-              link: "/vue/slbeqpqt/"
+              text: '条件渲染与列表渲染',
+              link: '/vue/slbeqpqt/',
             },
             {
-              text: "组件",
-              link: "/vue/27n0q1k1/"
+              text: '组件',
+              link: '/vue/27n0q1k1/',
             },
             {
-              text: "事件处理",
-              link: "/vue/tc38f00o/"
-            }
-          ]
+              text: '事件处理',
+              link: '/vue/tc38f00o/',
+            },
+          ],
         },
         {
-          text: "路由",
-          link: '/vue/pc7wxaew/'
+          text: '路由',
+          link: '/vue/pc7wxaew/',
         },
         {
-          text: "状态管理",
-          link: '状态管理'
-        }
-      ]
+          text: '状态管理',
+          link: '状态管理',
+        },
+      ],
     },
     {
-      text: "深入",
+      text: '深入',
       collapsed: false,
       items: [
         {
-          text: "虚拟 DOM 的本质"
+          text: '虚拟 DOM 的本质',
         },
         {
-          text: "模板"
+          text: '模板',
         },
         {
-          text: "响应式"
+          text: '响应式',
         },
         {
-          text: "计算属性"
-        }
-      ]
+          text: '计算属性',
+        },
+      ],
     },
     {
-      text: "Nuxt"
-    }
+      text: 'Nuxt',
+    },
   ],
   autoFrontmatter: {
     title: true,
@@ -344,19 +344,41 @@ const nodeCollection = defineCollection({
 });
 
 const notesCollection = defineCollection({
-  type: 'post',
-  dir: 'blog',
-  title: '博客',
+  type: 'doc',
+  dir: 'node',
+  title: 'Node',
+  sidebar: [
+    {
+      text: 'Node 模块',
+      collapsed: false,
+      items: [
+        {
+          text: 'fs ',
+        },
+        {
+          text: 'path',
+        },
+        {
+          text: 'http',
+        },
+      ],
+    },
+    {
+      text: '二进制与 Buffer',
+      collapsed: false,
+    },
+  ],
   autoFrontmatter: {
     title: true,
     createTime: true,
     permalink: true,
   },
-})
+});
 
 export default defineCollections([
   vueCollection,
   rustCollection,
+  nodeCollection,
   reactCollection,
   notesCollection,
   javascriptCollection,
