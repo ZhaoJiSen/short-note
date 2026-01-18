@@ -6,6 +6,23 @@ permalink: /go/
 
 Go 是一门强调简单、并发与工程效率的编译型语言，常用于后端、云原生与基础设施领域。
 
+## 安装与环境
+
+:::code-tabs
+
+@tab brew 安装 
+```bash
+brew install go
+```
+
+:::
+
+也可从官网进行下载，地址: <https://go.dev/dl/>
+
+
+> [!TIP]
+> 推荐使用 Go Modules（Go 1.16+ 默认开启），无需手动管理 `GOPATH/src`，在项目根目录用 `go mod init <module>` 即可。
+
 ## 快速命令
 
 - 查看版本：`go version`
