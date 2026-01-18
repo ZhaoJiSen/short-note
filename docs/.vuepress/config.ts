@@ -125,8 +125,10 @@ export default defineUserConfig({
       abbr: true,
       repl: {
         rust: true,
+        go: true
       },
       timeline: true,
+      collapse: true
       // table: {
       //   align: 'center',
       //   maxContent: false,

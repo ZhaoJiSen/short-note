@@ -1,5 +1,22 @@
 import { defineCollections, defineCollection } from 'vuepress-theme-plume';
 
+const goCollection = defineCollection({
+  type: 'doc',
+  dir: 'go',
+  title: 'Go',
+  sidebar: [
+    {
+      text: '基础知识',
+      collapsed: false,
+      items: [
+        { text: '1. 变量与输出', link: '/go/ynf4e2np/' },
+        { text: '2. 结构体', link: '/go/6p7o4z0m/' },
+        { text: '3. 控制流', link: '/go/9uq5tj4v/' },
+      ],
+    },
+  ],
+});
+
 const rustCollection = defineCollection({
   type: 'doc',
   dir: 'rust',
@@ -379,6 +396,7 @@ const notesCollection = defineCollection({
 });
 
 export default defineCollections([
+  goCollection,
   vueCollection,
   rustCollection,
   nodeCollection,

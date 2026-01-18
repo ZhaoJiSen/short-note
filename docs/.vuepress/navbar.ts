@@ -14,6 +14,12 @@ export default defineNavbarConfig([
     icon: '',
     items: [
       {
+        text: "Go",
+        icon: "material-icon-theme:go-gopher",
+        link: "/go/index.md"
+      },
+
+      {
         text: 'Rust',
         link: 'rust/index.md',
         icon: 'material-icon-theme:rust',
@@ -22,6 +28,11 @@ export default defineNavbarConfig([
         text: 'Node',
         link: '/node/index.md',
         icon: 'material-icon-theme:nodejs',
+      },
+      {
+        text: "Python",
+        icon: "material-icon-theme:python",
+        link: ""
       },
       {
         text: 'JavaScript',
