@@ -1,5 +1,8 @@
 import { defineCollections, defineCollection } from 'vuepress-theme-plume';
 
+import { vueCollection } from './collections/vue'
+import { reactCollection } from "./collections/react" 
+
 const goCollection = defineCollection({
   type: 'doc',
   dir: 'go',
@@ -286,95 +289,6 @@ const engineeringCollection = defineCollection({
   },
 });
 
-const vueCollection = defineCollection({
-  type: 'doc',
-  dir: 'vue',
-  title: 'Vue',
-  sidebar: [
-    {
-      text: '基本使用',
-      collapsed: false,
-      items: [
-        {
-          text: '基本语法',
-          collapsed: true,
-          items: [
-            {
-              text: '模板语法与属性绑定',
-              link: '/vue/iorgmo8s/',
-            },
-            {
-              text: '响应式',
-              link: '/vue/lnalkeew/',
-            },
-            {
-              text: '计算属性与侦听器',
-              link: '/vue/44zt1ybc/',
-            },
-            {
-              text: '条件渲染与列表渲染',
-              link: '/vue/slbeqpqt/',
-            },
-            {
-              text: '组件',
-              link: '/vue/27n0q1k1/',
-            },
-            {
-              text: '事件处理',
-              link: '/vue/tc38f00o/',
-            },
-          ],
-        },
-        {
-          text: '路由',
-          link: '/vue/pc7wxaew/',
-        },
-        {
-          text: '状态管理',
-          link: '状态管理',
-        },
-      ],
-    },
-    {
-      text: '深入',
-      collapsed: false,
-      items: [
-        {
-          text: '虚拟 DOM 的本质',
-        },
-        {
-          text: '模板',
-        },
-        {
-          text: '响应式',
-        },
-        {
-          text: '计算属性',
-        },
-      ],
-    },
-    {
-      text: 'Nuxt',
-    },
-  ],
-  autoFrontmatter: {
-    title: true,
-    createTime: true,
-    permalink: true,
-  },
-});
-
-const reactCollection = defineCollection({
-  type: 'doc',
-  dir: 'react',
-  title: 'React',
-  sidebar: [],
-  autoFrontmatter: {
-    title: true,
-    createTime: true,
-    permalink: true,
-  },
-});
 
 const nodeCollection = defineCollection({
   type: 'doc',
