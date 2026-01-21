@@ -101,8 +101,21 @@ export const vueCollection = defineCollection({
       collapsed: false,
       items: [
         {
-          text: '从 SPA 到 SSR',
-          link: '/vue/ixcnwpgu/',
+          text: '语法基础',
+          items: [],
+        },
+        {
+          text: '进阶',
+          items: [
+            {
+              text: '从 SPA 到 SSR',
+              link: '/vue/ixcnwpgu/',
+            },
+            {
+              text: '实现 SSR',
+              link: '/vue/ts199xd9/',
+            },
+          ],
         },
       ],
     },
