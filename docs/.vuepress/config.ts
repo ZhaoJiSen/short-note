@@ -102,7 +102,7 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/config/plugins/code-highlight/
      */
     codeHighlighter: {
-      themes: { light: 'min-light', dark: 'min-dark' },
+      themes: { light: 'everforest-light', dark: 'everforest-dark' },
       lineNumbers: false,
       notationDiff: true,
       notationErrorLevel: true,
@@ -125,10 +125,10 @@ export default defineUserConfig({
       abbr: true,
       repl: {
         rust: true,
-        go: true
+        go: true,
       },
       timeline: true,
-      collapse: true
+      collapse: true,
       // table: {
       //   align: 'center',
       //   maxContent: false,
