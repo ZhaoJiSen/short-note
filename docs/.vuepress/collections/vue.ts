@@ -55,11 +55,11 @@ export const vueCollection = defineCollection({
       items: [
         {
           text: '虚拟 DOM',
-          link: '/vue/g1p46p1k/'
+          link: '/vue/g1p46p1k/',
         },
         {
           text: '模板',
-          link: '/vue/sdx81vif/'
+          link: '/vue/sdx81vif/',
         },
         {
           text: '响应式',
@@ -70,34 +70,41 @@ export const vueCollection = defineCollection({
       ],
     },
     {
-      text: "补充内容",
+      text: '补充内容',
       collapsed: false,
       items: [
         {
-          text: "属性穿透"
+          text: '属性穿透',
         },
         {
-          text: "依赖注入"
+          text: '依赖注入',
         },
         {
-          text: "自定义指令"
+          text: '自定义指令',
         },
         {
-          text: "插件"
+          text: '插件',
         },
         {
-          text: "Transition"
+          text: 'Transition',
         },
         {
-          text: "Teleport"
+          text: 'Teleport',
         },
         {
-          text: "异步组件"
-        }
-      ]
+          text: '异步组件',
+        },
+      ],
     },
     {
       text: 'Nuxt',
+      collapsed: false,
+      items: [
+        {
+          text: '从 SPA 到 SSR',
+          link: '/vue/ixcnwpgu/',
+        },
+      ],
     },
   ],
   autoFrontmatter: {
