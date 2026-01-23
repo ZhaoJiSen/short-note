@@ -101,11 +101,11 @@ export const vueCollection = defineCollection({
       collapsed: false,
       items: [
         {
-          text: '语法基础',
+          text: '基础篇',
           items: [],
         },
         {
-          text: '进阶',
+          text: '原理篇',
           items: [
             {
               text: '从 SPA 到 SSR',
