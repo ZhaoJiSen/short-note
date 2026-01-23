@@ -73,3 +73,7 @@ mark {
 [data-theme='dark'] mark {
   --vp-mark-linear-color: rgba(167, 192, 128, 0.45);
 }
+
+html[class*="effect-"].force-dark .vp-navbar {
+  background-color: unset !important;
+}

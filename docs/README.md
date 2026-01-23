@@ -5,8 +5,9 @@ footer: false
 config:
   -
     type: hero
-    full: true
-    effect: prism
+    full: true,
+    forceDark: true
+    # effect: lightning
     hero:
       name: Theme Plume
       tagline: VuePress Next Theme
