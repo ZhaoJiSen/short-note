@@ -139,7 +139,13 @@ export default defineUserConfig({
      * 水印
      * @see https://theme-plume.vuejs.press/guide/features/watermark/
      */
-    // watermark: true,
+    watermark: {
+      enabled: (page) => true,
+      watermarkOptions: {
+        content: '桀桀桀',
+      },
+      fullPage: true,
+    },
 
     /**
      * 评论 comments
