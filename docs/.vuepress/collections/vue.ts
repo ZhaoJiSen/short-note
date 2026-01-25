@@ -102,17 +102,22 @@ export const vueCollection = defineCollection({
       items: [
         {
           text: '基础篇',
-          items: [],
+          items: [
+            {
+              text: 'Nuxt3 项目结构与应用入口',
+              link: '/vue/u9k2p8rq/',
+            },
+          ],
         },
         {
           text: '原理篇',
           items: [
             {
-              text: '从 SPA 到 SSR',
+              text: '现代前端渲染模式',
               link: '/vue/ixcnwpgu/',
             },
             {
-              text: '实现 SSR',
+              text: '手写 Nuxt 核心原理',
               link: '/vue/ts199xd9/',
             },
           ],
