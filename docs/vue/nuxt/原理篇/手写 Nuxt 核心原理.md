@@ -517,6 +517,9 @@ permalink: /vue/ts199xd9/
    ```
    :::
 
+   > [!NOTE]
+   > `window.__INITIAL_STATE__ ` 并不是全局或持久状态，它只存在于当前请求返回的 HTML 中，每一次页面级请求都会重新执行 SSR 流程，并生成一份新的初始状态快照，因此不存在因用户 "非首次访问" 而导致状态未注入或被复用的问题
+
 7. 优化 Webpack 配置
 
    通过 `webpack-merge` 将公用的配置抽取出来减少重复代码
@@ -602,3 +605,31 @@ permalink: /vue/ts199xd9/
 
    :::
    ::::
+
+## 生命周期流程图
+
+```mermaid
+graph TD
+  subgraph 服务端渲染阶段
+    A[HTTP Request] --> B[createApp() 新 App 实例]
+    B --> C[createRouter() 新 Router 实例]
+    C --> D[createPinia() 新 Store 实例]
+    D --> E[router.push(req.url) 定位路由状态]
+    E --> F[await router.isReady()]
+    F --> G[renderToString(app) 得到 HTML]
+    G --> H[serialize state pinia.state -> window.__INITIAL_STATE__]
+    H --> I[Response HTML]
+  end
+
+  subgraph 客户端激活阶段
+    J[Load HTML] --> K[Load client bundle]
+    K --> L[createApp()]
+    L --> M[createRouter(webHistory)]
+    M --> N[createPinia()]
+    N --> O[restore pinia.state from window]
+    O --> P[router.isReady()]
+    P --> Q[app.mount('#app') hydration]
+  end
+
+  I --> J
+```

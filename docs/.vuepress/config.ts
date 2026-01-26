@@ -129,6 +129,7 @@ export default defineUserConfig({
       },
       timeline: true,
       collapse: true,
+      mermaid: true,
       // table: {
       //   align: 'center',
       //   maxContent: false,

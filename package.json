@@ -32,6 +32,7 @@
     "vuepress-theme-plume": "1.0.0-rc.187"
   },
   "dependencies": {
+    "mermaid": "^11.12.2",
     "ogl": "^1.0.11"
   }
 }

@@ -77,3 +77,75 @@ mark {
 html[class*="effect-"].force-dark .vp-navbar {
   background-color: unset !important;
 }
+
+/* Mermaid diagrams */
+:root {
+  --vp-mermaid-bg: var(--vp-c-bg-soft);
+  --vp-mermaid-border: var(--vp-c-divider);
+  --vp-mermaid-text: var(--vp-c-text-1);
+  --vp-mermaid-text-muted: var(--vp-c-text-2);
+  --vp-mermaid-line: var(--vp-c-text-3);
+  --vp-mermaid-accent: var(--vp-c-brand-2);
+  --vp-mermaid-accent-soft: var(--vp-c-brand-soft);
+  --vp-mermaid-note-bg: var(--vp-c-bg-alt);
+}
+
+.vp-doc .mermaid,
+.vp-doc .mermaid-container {
+  background: var(--vp-mermaid-bg);
+  border: 1px solid var(--vp-mermaid-border);
+  border-radius: 12px;
+  padding: 12px 10px;
+  overflow-x: auto;
+}
+
+.vp-doc .mermaid svg,
+.vp-doc .mermaid-container svg {
+  background: transparent !important;
+}
+
+.vp-doc .mermaid text,
+.vp-doc .mermaid-container text {
+  fill: var(--vp-mermaid-text) !important;
+  font-family: var(--vp-font-family-base, inherit);
+}
+
+.vp-doc .mermaid .actor rect,
+.vp-doc .mermaid .note rect,
+.vp-doc .mermaid .labelBox,
+.vp-doc .mermaid .loop rect {
+  fill: var(--vp-mermaid-note-bg) !important;
+  stroke: var(--vp-mermaid-border) !important;
+}
+
+.vp-doc .mermaid .rect {
+  fill: var(--vp-mermaid-note-bg) !important;
+  stroke: var(--vp-mermaid-border) !important;
+}
+
+.vp-doc .mermaid .actor-line,
+.vp-doc .mermaid .divider,
+.vp-doc .mermaid .dividerLine {
+  stroke: var(--vp-mermaid-line) !important;
+  stroke-width: 1px !important;
+}
+
+.vp-doc .mermaid .messageLine0,
+.vp-doc .mermaid .messageLine1,
+.vp-doc .mermaid .arrowheadPath,
+.vp-doc .mermaid .noteLine,
+.vp-doc .mermaid .loopLine {
+  stroke: var(--vp-mermaid-accent) !important;
+}
+
+.vp-doc .mermaid .activation0,
+.vp-doc .mermaid .activation1,
+.vp-doc .mermaid .activation2 {
+  fill: var(--vp-mermaid-accent-soft) !important;
+  stroke: var(--vp-mermaid-accent) !important;
+}
+
+.vp-doc .mermaid .sequenceNumber {
+  fill: var(--vp-mermaid-note-bg) !important;
+  stroke: var(--vp-mermaid-border) !important;
+}
