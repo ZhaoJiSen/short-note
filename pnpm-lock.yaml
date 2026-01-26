@@ -1638,8 +1638,8 @@ packages:
   jsonfile@6.2.0:
     resolution: {integrity: sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==}
 
-  katex@0.16.27:
-    resolution: {integrity: sha512-aeQoDkuRWSqQN6nSvVCEFvfXdqo1OQiCmmW1kc9xSdjutPv7BGO7pqY9sQRJpMOGrEdfDgF2TfRXe5eUAD2Waw==}
+  katex@0.16.28:
+    resolution: {integrity: sha512-YHzO7721WbmAL6Ov1uzN/l5mY5WWWhJBSW+jq4tkfZfsxmo1hu6frS0EOswvjBUnWE6NtjEs48SFn5CQESRLZg==}
     hasBin: true
 
   kind-of@6.0.3:
@@ -1677,8 +1677,8 @@ packages:
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
 
-  lru-cache@11.2.4:
-    resolution: {integrity: sha512-B5Y16Jr9LB9dHVkh6ZevG+vAbOsNOYCX+sXvFWFu7B3Iz5mijW3zdbMyhsh8ANd2mSWBYdJgnqi+mL7/LrOPYg==}
+  lru-cache@11.2.5:
+    resolution: {integrity: sha512-vFrFJkWtJvJnD5hg+hJvVE8Lh/TcMzKnTgCWmtBipwI5yLX/iX+5UB2tfuyODF5E7k9xEzMdYgGqaSb1c0c5Yw==}
     engines: {node: 20 || >=22}
 
   magic-string@0.30.21:
@@ -2782,13 +2782,13 @@ snapshots:
     optionalDependencies:
       markdown-it: 14.1.0
 
-  '@mdit/plugin-katex-slim@0.25.1(katex@0.16.27)(markdown-it@14.1.0)':
+  '@mdit/plugin-katex-slim@0.25.1(katex@0.16.28)(markdown-it@14.1.0)':
     dependencies:
       '@mdit/helper': 0.22.1(markdown-it@14.1.0)
       '@mdit/plugin-tex': 0.23.0(markdown-it@14.1.0)
       '@types/markdown-it': 14.1.2
     optionalDependencies:
-      katex: 0.16.27
+      katex: 0.16.28
       markdown-it: 14.1.0
 
   '@mdit/plugin-mark@0.22.1(markdown-it@14.1.0)':
@@ -3261,7 +3261,7 @@ snapshots:
   '@vuepress/plugin-cache@2.0.0-rc.121(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))':
     dependencies:
       ci-info: 4.3.1
-      lru-cache: 11.2.4
+      lru-cache: 11.2.5
       vuepress: 2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
 
   '@vuepress/plugin-comment@2.0.0-rc.121(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))':
@@ -3376,16 +3376,16 @@ snapshots:
       - markdown-it
       - typescript
 
-  '@vuepress/plugin-markdown-math@2.0.0-rc.121(katex@0.16.27)(markdown-it@14.1.0)(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))':
+  '@vuepress/plugin-markdown-math@2.0.0-rc.121(katex@0.16.28)(markdown-it@14.1.0)(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))':
     dependencies:
-      '@mdit/plugin-katex-slim': 0.25.1(katex@0.16.27)(markdown-it@14.1.0)
+      '@mdit/plugin-katex-slim': 0.25.1(katex@0.16.28)(markdown-it@14.1.0)
       '@mdit/plugin-mathjax-slim': 0.24.1(markdown-it@14.1.0)
       '@types/markdown-it': 14.1.2
       '@vuepress/helper': 2.0.0-rc.121(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
       vue: 3.5.27(typescript@5.9.3)
       vuepress: 2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
     optionalDependencies:
-      katex: 0.16.27
+      katex: 0.16.28
     transitivePeerDependencies:
       - markdown-it
       - typescript
@@ -4029,7 +4029,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  katex@0.16.27:
+  katex@0.16.28:
     dependencies:
       commander: 8.3.0
 
@@ -4074,7 +4074,7 @@ snapshots:
 
   longest-streak@3.1.0: {}
 
-  lru-cache@11.2.4: {}
+  lru-cache@11.2.5: {}
 
   magic-string@0.30.21:
     dependencies:
@@ -4813,7 +4813,7 @@ snapshots:
       esbuild: 0.27.2
       image-size: 2.0.2
       local-pkg: 1.1.2
-      lru-cache: 11.2.4
+      lru-cache: 11.2.5
       markdown-it-cjk-friendly: 2.0.1(@types/markdown-it@14.1.2)(markdown-it@14.1.0)
       markdown-it-container: 4.0.0
       nanoid: 5.1.6
@@ -4847,7 +4847,7 @@ snapshots:
       '@vuepress/plugin-markdown-hint': 2.0.0-rc.121(markdown-it@14.1.0)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
       '@vuepress/plugin-markdown-image': 2.0.0-rc.121(markdown-it@14.1.0)(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
       '@vuepress/plugin-markdown-include': 2.0.0-rc.121(markdown-it@14.1.0)(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
-      '@vuepress/plugin-markdown-math': 2.0.0-rc.121(katex@0.16.27)(markdown-it@14.1.0)(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
+      '@vuepress/plugin-markdown-math': 2.0.0-rc.121(katex@0.16.28)(markdown-it@14.1.0)(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
       '@vuepress/plugin-nprogress': 2.0.0-rc.121(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
       '@vuepress/plugin-photo-swipe': 2.0.0-rc.121(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
       '@vuepress/plugin-reading-time': 2.0.0-rc.121(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.0.10)(typescript@5.9.3))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))
@@ -4863,7 +4863,7 @@ snapshots:
       gray-matter: 4.0.3
       hash-wasm: 4.12.0
       js-yaml: 4.1.1
-      katex: 0.16.27
+      katex: 0.16.28
       local-pkg: 1.1.2
       nanoid: 5.1.6
       p-map: 7.0.4

@@ -104,7 +104,7 @@ export const vueCollection = defineCollection({
           text: '基础篇',
           items: [
             {
-              text: 'Nuxt3 项目结构与应用入口',
+              text: '安装与基本配置',
               link: '/vue/u9k2p8rq/',
             },
           ],
