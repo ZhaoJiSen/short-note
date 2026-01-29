@@ -149,3 +149,7 @@ html[class*="effect-"].force-dark .vp-navbar {
   fill: var(--vp-mermaid-note-bg) !important;
   stroke: var(--vp-mermaid-border) !important;
 }
+
+.vp-image.dark.logo {
+  border-radius: 50%;
+}

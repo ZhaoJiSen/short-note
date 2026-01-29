@@ -16,7 +16,7 @@
     "node": "^20.6.0 || >=22.0.0"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs  --port 3000",
+    "docs:dev": "vuepress dev docs  --port 9527",
     "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
     "docs:build": "vuepress build docs --clean-cache --clean-temp",
     "docs:preview": "http-server docs/.vuepress/dist",

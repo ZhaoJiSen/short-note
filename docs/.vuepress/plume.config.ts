@@ -18,7 +18,7 @@ import collections from './collections';
  * @see https://theme-plume.vuejs.press/config/basic/
  */
 export default defineThemeConfig({
-  logo: 'avatar.jpg',
+  logo: 'logo.jpg',
 
   appearance: true, // 配置 深色模式
 
@@ -47,11 +47,11 @@ export default defineThemeConfig({
    * @see https://theme-plume.vuejs.press/config/basic/#profile
    */
   profile: {
-    avatar: 'avatar.jpg',
+    avatar: 'logo.jpg',
     name: '弟弟森的编程小笔记',
     description: '个人笔记存放处',
-    // circle: true,
-    // location: '',
+    circle: true,
+    location: '北京，中国',
     // organization: '',
   },
 
