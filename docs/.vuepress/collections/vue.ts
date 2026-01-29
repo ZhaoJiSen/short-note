@@ -107,6 +107,22 @@ export const vueCollection = defineCollection({
               text: '安装与基本配置',
               link: '/vue/u9k2p8rq/',
             },
+            {
+              text: "中间件",
+              link: "/vue/ztgntih1/"
+            },
+            {
+              text: "插件",
+              link: "/vue/us14yoln/"
+            },
+            {
+              text: "生命周期",
+              link: "/vue/tn3accgh/"
+            },
+            {
+              text: "数据获取",
+              link: '/vue/9fd9p11m/'
+            }
           ],
         },
         {
