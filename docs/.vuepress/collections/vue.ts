@@ -108,6 +108,14 @@ export const vueCollection = defineCollection({
               link: '/vue/u9k2p8rq/',
             },
             {
+              text: "路由",
+              link: '/vue/tbrb96uh/'
+            },
+            {
+              text: '布局',
+              link: '/vue/4usdsq2c/'
+            },
+            {
               text: "中间件",
               link: "/vue/ztgntih1/"
             },
@@ -122,6 +130,10 @@ export const vueCollection = defineCollection({
             {
               text: "数据获取",
               link: '/vue/9fd9p11m/'
+            },
+            {
+              text: '状态共享',
+              link: '/vue/hhyle1g7/'
             }
           ],
         },
