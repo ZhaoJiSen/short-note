@@ -246,6 +246,16 @@ const javascriptCollection = defineCollection({
         },
         {
           text: '9. 新增的集合类型',
+          items: [
+            {
+              text: 'Map',
+              link: '/javascript/1sffq7mh/'
+            },
+            {
+              text: 'Set',
+              link: '/javascript/kgro7enj/'
+            }
+          ]
         },
         {
           text: '10. 代理与反射',

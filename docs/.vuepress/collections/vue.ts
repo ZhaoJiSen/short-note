@@ -98,6 +98,7 @@ export const vueCollection = defineCollection({
     },
     {
       text: 'Nuxt',
+      icon: 'vscode-icons:file-type-nuxt',
       collapsed: false,
       items: [
         {
