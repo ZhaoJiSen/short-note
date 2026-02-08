@@ -114,7 +114,7 @@ export const vueCollection = defineCollection({
             },
             {
               text: '布局',
-              link: '/vue/4usdsq2c/'
+              link: '/vue/7x1ps9mt/'
             },
             {
               text: "中间件",
