@@ -76,7 +76,7 @@ export default defineNavbarConfig([
       },
       {
         text: "Gulp",
-        link: "/engineering/Gulp",
+        link: "/engineering/gulp-guide/",
         icon: "material-icon-theme:gulp"
       },
       {

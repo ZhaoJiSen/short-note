@@ -291,6 +291,10 @@ const engineeringCollection = defineCollection({
       text: 'Monorepo',
       link: '/engineering/ubsba9hj/',
     },
+    {
+      text: 'Gulp',
+      link: '/engineering/gulp-guide/',
+    },
   ],
   autoFrontmatter: {
     title: true,
