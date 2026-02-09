@@ -127,6 +127,7 @@ export default defineUserConfig({
         rust: true,
         go: true,
       },
+      demo: true,
       timeline: true,
       collapse: true,
       mermaid: true,
