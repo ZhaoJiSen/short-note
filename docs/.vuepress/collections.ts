@@ -356,6 +356,13 @@ const blogCollection = defineCollection({
     createTime: true,
     permalink: true,
   },
+  profile: {
+    avatar: 'logo.jpg',
+    circle: false,
+    name: '弟弟森的编程小博客',
+    description: '零散信息存放处',
+    location: '北京，中国',
+  }
 })
 
 export default defineCollections([

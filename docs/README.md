@@ -6,7 +6,6 @@ config:
   -
     type: hero
     full: true,
-    forceDark: true
     # effect: lightning
     hero:
       name: Theme Plume
