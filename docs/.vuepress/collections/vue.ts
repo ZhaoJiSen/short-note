@@ -149,6 +149,10 @@ export const vueCollection = defineCollection({
               text: '手写 Nuxt 核心原理',
               link: '/vue/ts199xd9/',
             },
+            {
+              text: 'shared 与 layers 进阶',
+              link: '/vue/rxe54a2m/',
+            },
           ],
         },
       ],
