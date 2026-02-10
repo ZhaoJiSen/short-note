@@ -84,7 +84,7 @@ html[class*="effect-"].force-dark .vp-navbar {
 }
 
 .vp-collapse {
-  border: 1px dashed var(--vp-code-block-border);
+  border: 1px solid var(--vp-code-block-border);
   padding: 16px 12px;
   border-radius: 12px;
 }

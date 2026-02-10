@@ -75,6 +75,7 @@ export const vueCollection = defineCollection({
       items: [
         {
           text: '属性穿透',
+          link: '/vue/lt7yqney/'
         },
         {
           text: '依赖注入',
