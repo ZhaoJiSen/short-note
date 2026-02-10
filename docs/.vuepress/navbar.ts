@@ -39,6 +39,11 @@ export default defineNavbarConfig([
         link: '/javascript/index.md',
         icon: 'material-icon-theme:javascript',
       },
+      {
+        text: "TypeScript",
+        link: '/typescript/setup/',
+        icon: 'material-icon-theme:typescript'
+      }
     ],
   },
   {

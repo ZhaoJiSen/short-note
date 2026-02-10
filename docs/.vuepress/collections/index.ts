@@ -6,6 +6,7 @@ export { nodeCollection } from './node'
 export { notesCollection } from './notes'
 export { blogCollection } from './blog'
 export { javascriptCollection } from './javascript'
+export { typescriptCollection } from './typescript'
 
 export { modularizationCollection } from './engineering-modularization'
 export { packageManagerCollection } from './engineering-package-manager'
