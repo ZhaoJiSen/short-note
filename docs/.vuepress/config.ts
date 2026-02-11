@@ -131,11 +131,12 @@ export default defineUserConfig({
       timeline: true,
       collapse: true,
       mermaid: true,
+      flowchart: true,
       table: {
         align: 'center',
         maxContent: false,
         fullWidth: false,
-        copy: true
+        copy: false
       }
     },
 

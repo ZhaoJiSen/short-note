@@ -90,7 +90,7 @@ export default defineNavbarConfig([
           },
           {
             text: 'Webpack',
-            link: '/engineering/build-webpack/',
+            link: '/engineering/Webpack/54ln0klw/',
             icon: 'material-icon-theme:webpack',
           },
           {
