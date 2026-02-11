@@ -47,7 +47,7 @@ export default defineNavbarConfig([
     ],
   },
   {
-    text: '前端框架',
+    text: '前端技术栈',
     items: [
       {
         text: 'Vue',
@@ -59,63 +59,54 @@ export default defineNavbarConfig([
         icon: 'material-icon-theme:react',
         link: '/react/index.md',
       },
-    ],
+    ]
   },
   {
-    text: '前端工程化',
+    text: "构建工具",
     items: [
-      {
-        text: '模块化',
-        icon: 'material-icon-theme:folder-gh-workflows',
-        link: ''
-      },
-      {
-        text: '包管理',
-        icon: 'material-icon-theme:npm',
-        link: ''
 
+      {
+        text: 'Vite',
+        link: '/engineering/nqqf1ea4/',
+        icon: 'material-icon-theme:vite',
       },
       {
-        text: 'Babel',
-        icon: 'material-icon-theme:babel',
-        link: ''
+        text: 'Gulp',
+        link: '/engineering/gulp-guide/',
+        icon: 'material-icon-theme:gulp',
       },
       {
-        text: '构建工具',
-        items: [
-          {
-            text: 'Vite',
-            link: '/engineering/nqqf1ea4/',
-            icon: 'material-icon-theme:vite',
-          },
-          {
-            text: 'Webpack',
-            link: '/engineering/Webpack/54ln0klw/',
-            icon: 'material-icon-theme:webpack',
-          },
-          {
-            text: 'Rollup',
-            link: '/engineering/build-rollup/',
-            icon: 'material-icon-theme:rollup',
-          },
-          {
-            text: 'esbuild',
-            link: '/engineering/build-esbuild/',
-            icon: 'material-icon-theme:esbuild',
-          },
-        ],
+        text: 'Rollup',
+        link: '/engineering/build-rollup/',
+        icon: 'material-icon-theme:rollup',
       },
       {
-        text: '任务自动化',
-        items: [
-          {
-            text: 'Gulp',
-            link: '/engineering/gulp-guide/',
-            icon: 'material-icon-theme:gulp',
-          },
-        ],
+        text: 'esbuild',
+        link: '/engineering/build-esbuild/',
+        icon: 'material-icon-theme:esbuild',
       },
-    ],
+      {
+        text: 'Webpack',
+        link: '/engineering/Webpack/54ln0klw/',
+        icon: 'material-icon-theme:webpack',
+      },
+
+
+      // {
+      //   text: '包管理',
+      //   icon: 'material-icon-theme:npm',
+      //   link: ''
+      // },
+      // {
+      //   text: '模块化',
+      //   icon: 'material-icon-theme:folder-gh-workflows',
+      //   items: []
+      // },
+      // {
+      //   text: 'Babel',
+      //   items: []
+      // }
+    ]
   },
   {
     text: '友情链接',
