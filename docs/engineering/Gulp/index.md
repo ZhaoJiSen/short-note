@@ -239,9 +239,21 @@ exports.observableTask = observableTask
 
 ## 文件流水线操作
 
-Gulp 把文件处理想象成一条工厂流水线：文件像水一样从一头流进来，经过多个加工站（插件），在内存中被转换、处理，最后从另一头流出去写入磁盘。整个过程基于 Node.js 的 Stream，核心方法就是 `.pipe()`
+Gulp 基于 Node.js 的 Stream 的方式处理文件，形成 "文件流水线"。它允许开发者将文件从源头读取，经过一系列转换操作（例如压缩、合并、转义）最终输出
 
-`src` 读取文件流，`dest` 输出文件流，`pipe` 负责串联处理过程
+:::details `Vinyl`
+`Vinyl` 是 Gulp 生态中的 "虚拟文件对象"；通过 `src()` 读取到的每个文件都会被包装成一个 `Vinyl` 对象，再在 `pipe()` 中被插件逐步处理；`dest()` 最终把处理后的 `Vinyl` 对象写回到目标目录
+
+常见字段：`path`（文件路径）、`base/cwd`（基准目录）、`contents`（可能是 `Buffer` 或 `Stream`）、`stat`（文件元信息）
+:::
+
+:::table full-width
+| 核心方法 | 作用 | 输入 | 输出 |
+| --- | --- | --- | --- |
+| `src(glob)` | 从匹配路径读取文件并创建可读流 | 文件匹配规则（如 `./src/**/*.js`） | Vinyl 文件流 |
+| `pipe(transform)` | 将上一步流传入转换插件，串联处理链路 | 上游 Stream + 转换函数/插件 | 新的可继续传递的 Stream |
+| `dest(path)` | 将处理后的文件写入目标目录 | 上游处理完成的文件流 | 落盘到目标目录 |
+:::
 
 ```js
 const { src, dest } = require('gulp')
@@ -254,31 +266,114 @@ function copyFile() {
 exports.copyFile = copyFile
 ```
 
-## 监听文件变化
+### 监听文件变化
 
-当你希望“改完代码就自动重跑任务”时，就需要 `watch`。它会监听文件变动并触发对应任务：
+如果希望 "改完代码就自动重跑任务" 时，就需要 `watch`。它的核心价值是缩短反馈周期，让开发流程从 "手动执行构建" 变成 "文件变化自动触发任务"
 
+`watch` 的常见签名是 `watch(glob, [options], task)`：
+
+:::table full-width
+| 参数 | 说明 | 常用写法 |
+| --- | --- | --- |
+| `glob` | 监听的文件匹配规则 | `./src/**/*.js`、`./src/**/*.{ts,tsx}` |
+| `options` | 监听行为配置（可选） | `{ ignoreInitial: false, delay: 200 }` |
+| `task` | 文件变化后执行的任务函数 | `jsTask`、`series(clean, build)` |
+:::
+
+> [!IMPORTANT]
+> 任务必须正确结束（`cb` / `return stream` / `return Promise`），否则会出现任务卡住或重复触发异常
+
+:::code-tabs
+@tab 基础监听
 ```js
 const { watch } = require('gulp')
 
+function jsTask(cb) {
+  console.log('build js...')
+  cb()
+}
+
+function cssTask(cb) {
+  console.log('build css...')
+  cb()
+}
+
+// 监听 JS 与 CSS 变化
 watch('./src/**/*.js', jsTask)
 watch('./src/**/*.css', cssTask)
 ```
 
-## 开发与构建流水线
+@tab 带 options 的监听
+```js
+const { watch, series } = require('gulp')
 
-安装依赖
+function clean(cb) {
+  console.log('clean dist')
+  cb()
+}
 
-```bash
-pnpm add -D gulp-babel @babel/preset-env 
-pnpm add -D gulp-terser gulp-less gulp-htmlmin 
-pnpm add -D gulp-inject browser-sync
+function build(cb) {
+  console.log('rebuild project')
+  cb()
+}
+
+const rebuild = series(clean, build)
+
+// ignoreInitial: false 表示启动监听时先执行一次任务
+// delay: 防抖延迟，减少连续保存导致的频繁触发
+watch('./src/**/*', { ignoreInitial: false, delay: 200 }, rebuild)
 ```
 
-:::::steps
-1. JavaScript 的转换与压缩
+@tab 监听事件回调
+```js
+const { watch } = require('gulp')
 
-   这一步把源代码里的 JS 先做语法转换，再做压缩混淆，最后输出到 `dist/js`。
+function jsTask(cb) {
+  console.log('build js...')
+  cb()
+}
+
+const watcher = watch('./src/**/*.js', jsTask)
+
+watcher.on('add', (filePath) => {
+  console.log('[add]', filePath)
+})
+
+watcher.on('change', (filePath) => {
+  console.log('[change]', filePath)
+})
+
+watcher.on('unlink', (filePath) => {
+  console.log('[unlink]', filePath)
+})
+```
+:::
+
+## 开发与构建流水线
+
+:::::steps
+1. 安装依赖
+
+   ```bash
+   pnpm add -D gulp-babel gulp-terser @babel/preset-env 
+   pnpm add -D gulp-less gulp-htmlmin 
+   pnpm add -D gulp-inject browser-sync
+   ```
+
+   :::details 插件作用说明：
+   - `gulp-babel`：在 Gulp 流水线中接入 Babel 转译
+   - `gulp-terser`：压缩与混淆 JavaScript
+   - `gulp-less`：将 Less 编译为 CSS
+   - `gulp-htmlmin`：压缩 HTML（去注释、折叠空白）
+   - `gulp-inject`：将构建后的 JS/CSS 自动注入 HTML
+   - `browser-sync`：启动本地开发服务器并支持自动刷新
+   :::
+   
+
+
+2. JavaScript 的转换与压缩
+
+   这一步把源代码里的 JS 先做语法转换，再做压缩混淆，最后输出到 `dist/js`
 
    ```js
    const { src, dest } = require('gulp')
@@ -293,9 +388,9 @@ pnpm add -D gulp-inject browser-sync
    }
    ```
 
-2. HTML 的打包与压缩
+3. HTML 的打包与压缩
 
-   这一步对 HTML 做压缩处理，减少注释和空白，输出到 `dist`。
+   这一步对 HTML 做压缩处理，减少注释和空白，输出到 `dist`
 
    ```js
    const { src, dest } = require('gulp')
@@ -303,14 +398,15 @@ pnpm add -D gulp-inject browser-sync
 
    function htmlTask() {
      return src('./index.html')
+        // 去注释、折叠空白
        .pipe(htmlmin({ removeComments: true, collapseWhitespace: true }))
        .pipe(dest('./dist'))
    }
    ```
 
-3. CSS 的打包
+4. CSS 的打包
 
-   这里以 Less 为例，把样式编译成 CSS 并输出到 `dist/css`。
+   这里以 Less 为例，把样式编译成 CSS 并输出到 `dist/css`
 
    ```js
    const { src, dest } = require('gulp')
@@ -323,9 +419,9 @@ pnpm add -D gulp-inject browser-sync
    }
    ```
 
-4. 注入打包后的文件
+5. 注入打包后的文件
 
-   这一步把构建后的 `js/css` 自动注入到 HTML，避免手动维护脚本和样式引用。
+   这一步把构建后的 `js/css` 自动注入到 HTML，避免手动维护脚本和样式引用
 
    ```js
    const { src, dest } = require('gulp')
@@ -342,9 +438,9 @@ pnpm add -D gulp-inject browser-sync
    }
    ```
 
-5. 开启本地服务监听
+6. 开启本地服务监听
 
-   这一步用于本地开发：监听源码变更后自动重建，并通过 BrowserSync 刷新页面。
+   这一步用于本地开发：监听源码变更后自动重建，并通过 BrowserSync 刷新页面
 
    ```js
    const { watch } = require('gulp')
@@ -363,9 +459,9 @@ pnpm add -D gulp-inject browser-sync
    }
    ```
 
-6. 构建任务
+7. 构建任务
 
-   最后用 `series + parallel` 把前面任务编排成可执行的构建流水线和开发流水线。
+   最后用 `series + parallel` 把前面任务编排成可执行的构建流水线和开发流水线
 
    ```js
    const { series, parallel } = require('gulp')
@@ -378,5 +474,12 @@ pnpm add -D gulp-inject browser-sync
 
    exports.buildTask = buildTask
    exports.serveTask = serveTask
+   ```
+
+   对应执行命令：
+
+   ```bash
+   npx gulp buildTask
+   npx gulp serveTask
    ```
 :::::
