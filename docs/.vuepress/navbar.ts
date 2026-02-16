@@ -25,6 +25,11 @@ export default defineNavbarConfig([
         icon: 'material-icon-theme:rust',
       },
       {
+        text: 'Bun',
+        link: '/node/bun/intro/',
+        icon: 'material-icon-theme:bun'
+      },
+      {
         text: 'Node',
         link: '/node/index.md',
         icon: 'material-icon-theme:nodejs',
@@ -64,7 +69,6 @@ export default defineNavbarConfig([
   {
     text: "构建工具",
     items: [
-
       {
         text: 'Vite',
         link: '/engineering/nqqf1ea4/',
