@@ -1,7 +1,7 @@
 ---
 title: Elysia
 createTime: 2026/02/14 10:29:00
-permalink: /node/bun/elysia/
+permalink: /bun/bun/crud/00lxjpog/
 ---
 
 ## 基础篇

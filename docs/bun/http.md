@@ -1,7 +1,7 @@
 ---
 title: HTTP 服务器
 createTime: 2026/02/14 10:26:00
-permalink: /node/bun/http/
+permalink: /bun/bun/crud/sksujf84/
 ---
 
 ## 基础篇

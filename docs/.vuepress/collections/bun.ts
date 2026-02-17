@@ -1,32 +1,16 @@
 import { defineCollection } from 'vuepress-theme-plume';
 
-export const nodeCollection = defineCollection({
+export const bunCollection = defineCollection({
   type: 'doc',
-  dir: 'node',
-  title: 'Node',
+  dir: 'bun',
+  title: 'Bun',
   sidebar: [
-    {
-      text: 'Node 总览',
-      collapsed: false,
-      items: [
-        { text: '概览', link: '/node/' },
-      ],
-    },
-    {
-      text: 'Bun 专题',
-      collapsed: false,
-      items: [
-        { text: '专题总览', link: '/bun/' },
-      ],
-    },
     {
       text: '基础篇',
       collapsed: false,
       items: [
-        { text: '简介', link: '/bun/intro/' },
-        { text: '模块', link: '/bun/modules/' },
-        { text: 'TS 支持', link: '/bun/typescript/' },
-        { text: 'Buffer', link: '/bun/buffer/' },
+        { text: '简介', link: '/bun/flp74gm9/' },
+        { text: '二进制数据处理', link: '/bun/j3o1v6by/' },
         { text: '文件处理', link: '/bun/files/' },
       ],
     },
@@ -50,9 +34,7 @@ export const nodeCollection = defineCollection({
     {
       text: '实战篇',
       collapsed: false,
-      items: [
-        { text: 'CRUD 应用', link: '/bun/crud/' },
-      ],
+      items: [{ text: 'CRUD 应用', link: '/bun/crud/' }],
     },
   ],
   autoFrontmatter: {

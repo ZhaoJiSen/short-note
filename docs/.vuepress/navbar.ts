@@ -18,26 +18,30 @@ export default defineNavbarConfig([
         icon: "material-icon-theme:go-gopher",
         link: "/go/index.md"
       },
-
       {
         text: 'Rust',
         link: 'rust/index.md',
         icon: 'material-icon-theme:rust',
       },
       {
+        text: "Python",
+        icon: "material-icon-theme:python",
+        link: ""
+      },
+    ],
+  },
+  {
+    text: '前端技术栈',
+    items: [
+      {
         text: 'Bun',
-        link: '/node/bun/intro/',
+        link: '/bun/flp74gm9/',
         icon: 'material-icon-theme:bun'
       },
       {
         text: 'Node',
         link: '/node/index.md',
         icon: 'material-icon-theme:nodejs',
-      },
-      {
-        text: "Python",
-        icon: "material-icon-theme:python",
-        link: ""
       },
       {
         text: 'JavaScript',
@@ -48,12 +52,7 @@ export default defineNavbarConfig([
         text: "TypeScript",
         link: '/typescript/setup/',
         icon: 'material-icon-theme:typescript'
-      }
-    ],
-  },
-  {
-    text: '前端技术栈',
-    items: [
+      },
       {
         text: 'Vue',
         icon: 'material-icon-theme:vue',

@@ -13,5 +13,5 @@ Node.js 是一个基于 V8 引擎的 JavaScript 运行时环境，JavaScript 代
 ::: card title="Bun 学习笔记" icon="logos:bun"
 包含简介、模块、TS 支持、Buffer、文件处理、HTTP、Express、SQLite、Elysia、CRUD、WebSocket 等完整章节。
 
-[开始阅读 Bun 专题](/node/bun/)
+[开始阅读 Bun 专题](/bun/)
 :::

@@ -1,3 +1,4 @@
+export { bunCollection } from './bun'
 export { goCollection } from './go'
 export { vueCollection } from './vue'
 export { rustCollection } from './rust'

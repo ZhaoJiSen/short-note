@@ -1,7 +1,7 @@
 ---
 title: Bun 与 SQLite
 createTime: 2026/02/14 10:28:00
-permalink: /node/bun/sqlite/
+permalink: /bun/bun/crud/pag35l2e/
 ---
 
 ## 基础篇

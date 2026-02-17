@@ -1,7 +1,7 @@
 ---
 title: Bun 与 WebSocket
 createTime: 2026/02/14 10:31:00
-permalink: /node/bun/websocket/
+permalink: /bun/bun/crud/gn2p8vzm/
 ---
 
 ## 基础篇

@@ -1,7 +1,7 @@
 ---
 title: CRUD 应用
 createTime: 2026/02/14 10:30:00
-permalink: /node/bun/crud/
+permalink: /bun/bun/crud/tzgfi11i/
 ---
 
 ## 基础篇

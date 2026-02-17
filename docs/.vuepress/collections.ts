@@ -1,6 +1,7 @@
 import { defineCollections } from 'vuepress-theme-plume';
 
 import {
+  bunCollection,
   goCollection,
   vueCollection,
   rustCollection,
@@ -21,6 +22,7 @@ import {
 } from './collections/index'
 
 export default defineCollections([
+  bunCollection,
   goCollection,
   vueCollection,
   rustCollection,

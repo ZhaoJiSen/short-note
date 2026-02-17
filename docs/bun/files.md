@@ -1,7 +1,7 @@
 ---
 title: 文件处理
 createTime: 2026/02/14 10:25:00
-permalink: /node/bun/files/
+permalink: /bun/bun/crud/kwuel2pb/
 ---
 
 ## 基础篇

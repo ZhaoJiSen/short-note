@@ -83,7 +83,7 @@ html[class*="effect-"].force-dark .vp-navbar {
   border-radius: 50%;
 }
 
-.vp-collapse {
+/* .vp-collapse {
   border: 1px solid var(--vp-code-block-border);
   padding: 16px 12px;
   border-radius: 12px;
@@ -91,4 +91,4 @@ html[class*="effect-"].force-dark .vp-navbar {
 
 .vp-collapse .vp-collapse-item:nth-child(1) {
   padding-top: unset;
-}
+} */

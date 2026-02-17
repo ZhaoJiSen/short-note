@@ -1,7 +1,7 @@
 ---
 title: Bun 与 Express
 createTime: 2026/02/14 10:27:00
-permalink: /node/bun/express/
+permalink: /bun/bun/crud/fh1j1r45/
 ---
 
 ## 基础篇
