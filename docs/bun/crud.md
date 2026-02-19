@@ -4,162 +4,265 @@ createTime: 2026/02/14 10:30:00
 permalink: /bun/bun/crud/tzgfi11i/
 ---
 
-## 基础篇
+> [!IMPORTANT]
+> 这一章把前面的能力串起来：Bun 运行时 + Elysia 路由校验 + SQLite 持久化，构建一个可直接落地的 Todo CRUD。
 
-### 目标与范围
+## 1. 项目目标与接口设计
 
-本章用 Bun + SQLite 实现一个最小 Todo CRUD，覆盖：创建、读取、更新、删除、参数校验、统一响应。
-
-:::table title="CRUD 路由设计" full-width
-| 操作 | 方法 | 路径 |
-| --- | --- | --- |
-| 列表 | `GET` | `/api/todos` |
-| 详情 | `GET` | `/api/todos/:id` |
-| 创建 | `POST` | `/api/todos` |
-| 更新 | `PUT` | `/api/todos/:id` |
-| 删除 | `DELETE` | `/api/todos/:id` |
+:::table title="Todo API 设计" full-width
+| 操作 | 方法 | 路径 | 说明 |
+| --- | --- | --- | --- |
+| 列表 | `GET` | `/api/todos` | 按时间倒序 |
+| 详情 | `GET` | `/api/todos/:id` | 查询单条 |
+| 创建 | `POST` | `/api/todos` | 新增待办 |
+| 更新 | `PATCH` | `/api/todos/:id` | 局部更新 |
+| 删除 | `DELETE` | `/api/todos/:id` | 删除记录 |
 :::
 
-### 项目结构建议
+建议目录：
 
 ```text
 src/
   db.ts
-  server.ts
+  modules/
+    todo.ts
+  index.ts
 ```
 
-## 进阶篇
+## 2. 数据模型
 
-:::details 接口稳定性的三个关键点
-1. 统一返回格式（成功/失败都一致）
-2. 明确错误码与 HTTP 状态码映射
-3. 写入前校验参数，读取时校验资源是否存在
-:::
+```sql
+CREATE TABLE IF NOT EXISTS todos (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  done INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+```
 
-## 完整代码示例
+## 3. 完整代码
 
+:::code-tabs
+@tab src/db.ts
 ```ts
-import { Database } from 'bun:sqlite';
+import { Database } from 'bun:sqlite'
 
-interface Todo {
-  id: number;
-  title: string;
-  done: number;
-  created_at: string;
+export interface TodoRow {
+  id: number
+  title: string
+  done: number
+  created_at: string
+  updated_at: string
 }
 
-interface ApiResult<T> {
-  code: number;
-  message: string;
-  data: T;
-}
+const db = new Database('crud.db')
+db.exec(`PRAGMA journal_mode = WAL;`)
 
-function ok<T>(data: T, message = 'ok') {
-  return Response.json({ code: 0, message, data } satisfies ApiResult<T>);
-}
-
-function fail(code: number, message: string, status: number) {
-  return Response.json({ code, message, data: null } satisfies ApiResult<null>, { status });
-}
-
-const db = new Database('crud.db');
 db.exec(`
 CREATE TABLE IF NOT EXISTS todos (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
   done INTEGER NOT NULL DEFAULT 0,
-  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
-`);
+`)
 
-const listStmt = db.query('SELECT id, title, done, created_at FROM todos ORDER BY id DESC;');
-const getStmt = db.query('SELECT id, title, done, created_at FROM todos WHERE id = ?;');
-const createStmt = db.query('INSERT INTO todos (title) VALUES (?);');
-const updateStmt = db.query('UPDATE todos SET title = ?, done = ? WHERE id = ?;');
-const deleteStmt = db.query('DELETE FROM todos WHERE id = ?;');
+const listStmt = db.query(`
+  SELECT id, title, done, created_at, updated_at
+  FROM todos
+  ORDER BY id DESC;
+`)
 
-const server = Bun.serve({
-  port: 3000,
-  fetch: async (req) => {
-    const url = new URL(req.url);
-    const { pathname } = url;
+const getStmt = db.query(`
+  SELECT id, title, done, created_at, updated_at
+  FROM todos
+  WHERE id = ?;
+`)
 
-    // GET /api/todos
-    if (req.method === 'GET' && pathname === '/api/todos') {
-      return ok(listStmt.all() as Todo[]);
-    }
+const createStmt = db.query(`
+  INSERT INTO todos (title, done)
+  VALUES (?, 0);
+`)
 
-    // /api/todos/:id 路由解析
-    const todoIdMatch = pathname.match(/^\/api\/todos\/(\d+)$/);
-    const id = todoIdMatch ? Number(todoIdMatch[1]) : null;
+const updateStmt = db.query(`
+  UPDATE todos
+  SET title = ?, done = ?, updated_at = datetime('now')
+  WHERE id = ?;
+`)
 
-    // GET /api/todos/:id
-    if (req.method === 'GET' && id !== null) {
-      const row = (getStmt.get(id) as Todo | null) ?? null;
-      if (!row) return fail(4040, 'Todo 不存在', 404);
-      return ok(row);
-    }
+const deleteStmt = db.query(`DELETE FROM todos WHERE id = ?;`)
 
-    // POST /api/todos
-    if (req.method === 'POST' && pathname === '/api/todos') {
-      try {
-        const body = (await req.json()) as { title?: string };
-        const title = body.title?.trim();
-        if (!title) return fail(4001, 'title 不能为空', 400);
+export function listTodos(): TodoRow[] {
+  return listStmt.all() as TodoRow[]
+}
 
-        const result = createStmt.run(title);
-        const createdId = Number(result.lastInsertRowid);
-        const created = getStmt.get(createdId) as Todo;
-        return ok(created, 'created');
-      } catch {
-        return fail(4002, '请求体不是合法 JSON', 400);
-      }
-    }
+export function getTodo(id: number): TodoRow | null {
+  return (getStmt.get(id) as TodoRow | null) ?? null
+}
 
-    // PUT /api/todos/:id
-    if (req.method === 'PUT' && id !== null) {
-      try {
-        const body = (await req.json()) as { title?: string; done?: boolean };
-        const old = (getStmt.get(id) as Todo | null) ?? null;
-        if (!old) return fail(4040, 'Todo 不存在', 404);
+export function createTodo(title: string): TodoRow {
+  const result = createStmt.run(title)
+  const id = Number(result.lastInsertRowid)
+  return getStmt.get(id) as TodoRow
+}
 
-        const nextTitle = body.title?.trim() || old.title;
-        const nextDone = typeof body.done === 'boolean' ? (body.done ? 1 : 0) : old.done;
+export function updateTodo(id: number, next: { title: string; done: boolean }): TodoRow | null {
+  const exists = getTodo(id)
+  if (!exists) return null
 
-        updateStmt.run(nextTitle, nextDone, id);
-        const updated = getStmt.get(id) as Todo;
-        return ok(updated, 'updated');
-      } catch {
-        return fail(4002, '请求体不是合法 JSON', 400);
-      }
-    }
+  updateStmt.run(next.title, next.done ? 1 : 0, id)
+  return getStmt.get(id) as TodoRow
+}
 
-    // DELETE /api/todos/:id
-    if (req.method === 'DELETE' && id !== null) {
-      const old = (getStmt.get(id) as Todo | null) ?? null;
-      if (!old) return fail(4040, 'Todo 不存在', 404);
+export function removeTodo(id: number): boolean {
+  const exists = getTodo(id)
+  if (!exists) return false
 
-      deleteStmt.run(id);
-      return ok({ id }, 'deleted');
-    }
-
-    return fail(4040, '路由不存在', 404);
-  },
-});
-
-console.log(`CRUD server is running at http://localhost:${server.port}`);
+  deleteStmt.run(id)
+  return true
+}
 ```
 
-## 最佳实践
+@tab src/modules/todo.ts
+```ts
+import { Elysia, t } from 'elysia'
+import { createTodo, getTodo, listTodos, removeTodo, updateTodo } from '../db'
 
-- 路由、数据访问、响应封装尽量分层，避免单文件失控。
-- 用预编译 SQL + 参数绑定，确保性能与安全。
-- 保持返回格式一致，方便前端和监控系统消费。
-- 给每个写操作补充集成测试用例。
+function rowToDTO(row: {
+  id: number
+  title: string
+  done: number
+  created_at: string
+  updated_at: string
+}) {
+  return {
+    id: row.id,
+    title: row.title,
+    done: row.done === 1,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
+  }
+}
 
-## 常见错误
+export const todoModule = new Elysia({ prefix: '/api/todos' })
+  .get('/', () => listTodos().map(rowToDTO))
+  .get(
+    '/:id',
+    ({ params, status }) => {
+      const row = getTodo(params.id)
+      if (!row) return status(404, { code: 4040, message: 'Todo 不存在', data: null })
+      return { code: 0, message: 'ok', data: rowToDTO(row) }
+    },
+    {
+      params: t.Object({ id: t.Number() })
+    }
+  )
+  .post(
+    '/',
+    ({ body, status }) => {
+      const row = createTodo(body.title.trim())
+      return status(201, { code: 0, message: 'created', data: rowToDTO(row) })
+    },
+    {
+      body: t.Object({ title: t.String({ minLength: 1 }) })
+    }
+  )
+  .patch(
+    '/:id',
+    ({ params, body, status }) => {
+      const old = getTodo(params.id)
+      if (!old) return status(404, { code: 4040, message: 'Todo 不存在', data: null })
 
-- 忘记校验 `id` 与 `title`，造成脏数据。
-- 更新操作直接覆盖全部字段，导致非预期丢数据。
-- 只测试 happy path，缺少异常分支。
+      const nextTitle = body.title?.trim() || old.title
+      const nextDone = typeof body.done === 'boolean' ? body.done : old.done === 1
 
+      const updated = updateTodo(params.id, { title: nextTitle, done: nextDone })
+      return { code: 0, message: 'updated', data: rowToDTO(updated!) }
+    },
+    {
+      params: t.Object({ id: t.Number() }),
+      body: t.Object({
+        title: t.Optional(t.String({ minLength: 1 })),
+        done: t.Optional(t.Boolean())
+      })
+    }
+  )
+  .delete(
+    '/:id',
+    ({ params, status }) => {
+      const deleted = removeTodo(params.id)
+      if (!deleted) return status(404, { code: 4040, message: 'Todo 不存在', data: null })
+      return { code: 0, message: 'deleted', data: { id: params.id } }
+    },
+    {
+      params: t.Object({ id: t.Number() })
+    }
+  )
+```
+
+@tab src/index.ts
+```ts
+import { Elysia } from 'elysia'
+import { todoModule } from './modules/todo'
+
+new Elysia()
+  .use(todoModule)
+  .get('/health', () => ({ code: 0, message: 'ok', data: { uptime: process.uptime() } }))
+  .onError(({ code, error, status }) => {
+    if (code === 'VALIDATION') {
+      return status(422, { code: 4220, message: error.message, data: null })
+    }
+
+    return status(500, { code: 5000, message: 'internal error', data: null })
+  })
+  .listen(3000)
+
+console.log('CRUD server running at http://localhost:3000')
+```
+:::
+
+## 4. 运行与验证
+
+:::code-tabs
+@tab 启动
+```bash
+bun add elysia
+bun run src/index.ts
+```
+
+@tab API 验证
+```bash
+# 1) 创建
+curl -X POST http://localhost:3000/api/todos \
+  -H 'content-type: application/json' \
+  -d '{"title":"学习 Bun"}'
+
+# 2) 列表
+curl http://localhost:3000/api/todos
+
+# 3) 更新
+curl -X PATCH http://localhost:3000/api/todos/1 \
+  -H 'content-type: application/json' \
+  -d '{"done":true}'
+
+# 4) 删除
+curl -X DELETE http://localhost:3000/api/todos/1
+```
+:::
+
+## 5. 最佳实践
+
+- 路由层只做协议处理，SQL 操作集中在 `db/repository` 层。
+- 所有写操作先校验参数，再执行数据库变更。
+- 返回结构保持统一，便于前端与监控消费。
+- `PRAGMA journal_mode = WAL` 作为服务端默认值更稳妥。
+
+::::collapse
+- :+ 可继续扩展的方向
+
+  1. 增加分页与筛选（`done`、关键词）。
+  2. 接入鉴权，把 Todo 与用户绑定。
+  3. 补集成测试（创建-查询-更新-删除全链路）。
+::::

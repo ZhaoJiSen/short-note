@@ -11,24 +11,18 @@ export const bunCollection = defineCollection({
       items: [
         { text: '简介', link: '/bun/flp74gm9/' },
         { text: '二进制数据处理', link: '/bun/j3o1v6by/' },
-        { text: '文件处理', link: '/bun/files/' },
+        { text: '文件处理', link: '/bun/kwuel2pb/' },
+        { text: 'HTTP 服务器', link: '/bun/sksujf84/' },
+        { text: 'Bun 与 WebSocket', link: '/bun/gn2p8vzm/' }
       ],
     },
     {
-      text: '服务端篇',
+      text: '框架篇',
       collapsed: false,
       items: [
-        { text: 'HTTP 服务器', link: '/bun/http/' },
-        { text: 'Bun 与 WebSocket', link: '/bun/websocket/' },
-      ],
-    },
-    {
-      text: '生态篇',
-      collapsed: false,
-      items: [
-        { text: 'Bun 与 Express', link: '/bun/express/' },
-        { text: 'Bun 与 SQLite', link: '/bun/sqlite/' },
-        { text: 'Elysia', link: '/bun/elysia/' },
+        { text: 'Elysia', link: '/bun/00lxjpog/' },
+        { text: 'Bun 与 Express', link: '/bun/fh1j1r45/' },
+        { text: 'Bun 与 SQLite', link: '/bun/pag35l2e/' },
       ],
     },
     {

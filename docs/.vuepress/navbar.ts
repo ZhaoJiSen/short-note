@@ -44,16 +44,6 @@ export default defineNavbarConfig([
         icon: 'material-icon-theme:nodejs',
       },
       {
-        text: 'JavaScript',
-        link: '/javascript/index.md',
-        icon: 'material-icon-theme:javascript',
-      },
-      {
-        text: "TypeScript",
-        link: '/typescript/setup/',
-        icon: 'material-icon-theme:typescript'
-      },
-      {
         text: 'Vue',
         icon: 'material-icon-theme:vue',
         link: '/vue/index.md',
@@ -62,6 +52,16 @@ export default defineNavbarConfig([
         text: 'React',
         icon: 'material-icon-theme:react',
         link: '/react/index.md',
+      },
+      {
+        text: 'JavaScript',
+        link: '/javascript/index.md',
+        icon: 'material-icon-theme:javascript',
+      },
+      {
+        text: "TypeScript",
+        link: '/typescript/setup/',
+        icon: 'material-icon-theme:typescript'
       },
     ]
   },
@@ -92,9 +92,7 @@ export default defineNavbarConfig([
         text: 'Webpack',
         link: '/engineering/Webpack/54ln0klw/',
         icon: 'material-icon-theme:webpack',
-      },
-
-
+      }
       // {
       //   text: '包管理',
       //   icon: 'material-icon-theme:npm',
