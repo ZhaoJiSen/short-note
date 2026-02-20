@@ -8,106 +8,91 @@ import { defineNavbarConfig } from 'vuepress-theme-plume';
 
 export default defineNavbarConfig([
   { text: '首页', link: '/' },
-  { text: '博客', link: '/blog/tags/' },
+  { text: '博客', link: '/blog/' },
   {
     text: '编程语言',
-    icon: '',
     items: [
       {
-        text: "Go",
-        icon: "material-icon-theme:go-gopher",
-        link: "/go/index.md"
+        text: 'JavaScript',
+        link: '/javascript/',
+        icon: 'material-icon-theme:javascript',
+      },
+      {
+        text: 'TypeScript',
+        link: '/typescript/',
+        icon: 'material-icon-theme:typescript',
+      },
+      {
+        text: 'Go',
+        icon: 'material-icon-theme:go-gopher',
+        link: '/go/',
       },
       {
         text: 'Rust',
-        link: 'rust/index.md',
+        link: '/rust/',
         icon: 'material-icon-theme:rust',
-      },
-      {
-        text: "Python",
-        icon: "material-icon-theme:python",
-        link: ""
       },
     ],
   },
   {
-    text: '前端技术栈',
+    text: '运行时与平台',
     items: [
       {
-        text: 'Bun',
-        link: '/bun/flp74gm9/',
-        icon: 'material-icon-theme:bun'
+        text: 'Browser',
+        link: '/browser/0pkbd4hl/',
+        icon: 'material-icon-theme:http'
       },
       {
         text: 'Node',
-        link: '/node/index.md',
+        link: '/node/',
         icon: 'material-icon-theme:nodejs',
       },
       {
+        text: 'Bun',
+        link: '/bun/flp74gm9/',
+        icon: 'material-icon-theme:bun',
+      },
+    ],
+  },
+  {
+    text: '前端框架',
+    items: [
+      {
         text: 'Vue',
         icon: 'material-icon-theme:vue',
-        link: '/vue/index.md',
+        link: '/vue/',
       },
       {
         text: 'React',
         icon: 'material-icon-theme:react',
-        link: '/react/index.md',
+        link: '/react/',
       },
-      {
-        text: 'JavaScript',
-        link: '/javascript/index.md',
-        icon: 'material-icon-theme:javascript',
-      },
-      {
-        text: "TypeScript",
-        link: '/typescript/setup/',
-        icon: 'material-icon-theme:typescript'
-      },
-    ]
+    ],
   },
   {
-    text: "构建工具",
+    text: '工程化',
     items: [
       {
-        text: 'Vite',
-        link: '/engineering/nqqf1ea4/',
-        icon: 'material-icon-theme:vite',
+        text: '模块化',
+        icon: 'material-icon-theme:folder-gh-workflows',
+        link: '/engineering/3kxdqfi5/',
       },
       {
-        text: 'Gulp',
-        link: '/engineering/gulp-guide/',
-        icon: 'material-icon-theme:gulp',
+        text: '包管理',
+        icon: 'material-icon-theme:npm',
+        link: '/engineering/ghjscjaz/',
       },
       {
-        text: 'Rollup',
-        link: '/engineering/build-rollup/',
-        icon: 'material-icon-theme:rollup',
+        text: 'Babel',
+        link: '/engineering/sd6e128i/',
+        icon: 'material-icon-theme:babel',
       },
       {
-        text: 'esbuild',
-        link: '/engineering/build-esbuild/',
-        icon: 'material-icon-theme:esbuild',
-      },
-      {
-        text: 'Webpack',
+        text: '构建工具',
+        icon: 'material-icon-theme:folder-tools-open',
         link: '/engineering/Webpack/54ln0klw/',
-        icon: 'material-icon-theme:webpack',
-      }
-      // {
-      //   text: '包管理',
-      //   icon: 'material-icon-theme:npm',
-      //   link: ''
-      // },
-      // {
-      //   text: '模块化',
-      //   icon: 'material-icon-theme:folder-gh-workflows',
-      //   items: []
-      // },
-      // {
-      //   text: 'Babel',
-      //   items: []
-      // }
-    ]
+      },
+    ],
   },
   {
     text: '友情链接',

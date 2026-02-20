@@ -14,11 +14,7 @@ import {
   modularizationCollection,
   packageManagerCollection,
   babelCollection,
-  viteCollection,
-  gulpCollection,
-  webpackCollection,
-  rollupCollection,
-  esbuildCollection,
+  buildToolsCollection,
 } from './collections/index'
 
 export default defineCollections([
@@ -35,9 +31,5 @@ export default defineCollections([
   modularizationCollection,
   packageManagerCollection,
   babelCollection,
-  viteCollection,
-  gulpCollection,
-  webpackCollection,
-  rollupCollection,
-  esbuildCollection,
+  buildToolsCollection,
 ]);
