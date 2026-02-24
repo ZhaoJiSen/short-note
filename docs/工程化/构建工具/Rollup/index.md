@@ -4,9 +4,9 @@ createTime: 2026/02/24 10:52:48
 permalink: /engineering/z2qhzlxh/
 ---
 
-Rollup 是一个以 `ESM` 为核心的构建工具，适用于 npm 包、组件库等能够输出多种产物的情况。Rollup 有三种使用方式
+Rollup 是一个以 `ESM` 为核心的构建工具，适用于 npm 包、组件库等能够输出多种产物的情况
 
-:::table full-width
+:::table full-width title="使用方式"
 | 方式            | 适合场景       | 优点                 |
 | --------------- | -------------- | -------------------- |
 | CLI             | 快速试验       | 直接执行、零样板     |

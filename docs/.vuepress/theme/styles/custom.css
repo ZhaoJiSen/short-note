@@ -83,6 +83,10 @@ html[class*="effect-"].force-dark .vp-navbar {
   border-radius: 50%;
 }
 
+.table-title {
+  font-size: 14px;
+}
+
 /* .vp-collapse {
   border: 1px solid var(--vp-code-block-border);
   padding: 16px 12px;
