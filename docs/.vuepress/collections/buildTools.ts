@@ -3,7 +3,7 @@ import { defineCollection } from 'vuepress-theme-plume';
 export const buildToolsCollection = defineCollection({
   type: 'doc',
   dir: '工程化/构建工具',
-  linkPrefix: '/engineering/Webpack/',
+  linkPrefix: '/engineering/',
   title: '构建工具',
   autoFrontmatter: {
     title: true,
@@ -54,7 +54,7 @@ export const buildToolsCollection = defineCollection({
     {
       text: 'Rollup',
       icon: 'material-icon-theme:rollup',
-      link: '/engineering/build-rollup/'
+      link: '/engineering/z2qhzlxh/'
     },
     {
       text: 'esbuild',

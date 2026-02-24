@@ -1,17 +1,17 @@
 ---
 title: Rollup
-createTime: 2026/02/10 10:30:10
-permalink: /engineering/build-rollup/
+createTime: 2026/02/24 10:52:48
+permalink: /engineering/z2qhzlxh/
 ---
 
 Rollup 是一个以 `ESM` 为核心的构建工具，适用于 npm 包、组件库等能够输出多种产物的情况。Rollup 有三种使用方式
 
 :::table full-width
-| 方式 | 适合场景 | 优点 |
-| --- | --- | --- |
-| CLI | 快速试验 | 直接执行、零样板 |
-| rollup.config.* | 日常工程构建 | 配置可版本化、可复用 |
-| JS API | 工具链二次封装 | 灵活可编程 |
+| 方式            | 适合场景       | 优点                 |
+| --------------- | -------------- | -------------------- |
+| CLI             | 快速试验       | 直接执行、零样板     |
+| rollup.config.* | 日常工程构建   | 配置可版本化、可复用 |
+| JS API          | 工具链二次封装 | 灵活可编程           |
 :::
 
 :::code-tabs
@@ -144,15 +144,15 @@ export default {
 > 对于库项目而言，这一步非常关键：如果将 react、vue、lodash 这类运行时依赖也打进 bundle，会导致产物体积显著膨胀，同时极易引发版本冲突
 
 :::table full-width
-| 写法 | 示例 | 适用场景 |
-| --- | --- | --- |
-| 字符串数组 | `external: ['react', 'lodash']` | 依赖列表稳定、数量不多 |
-| 正则表达式 | `external: [/^lodash/]` | 需要匹配子路径（如 `lodash/chunk`） |
-| 函数 | `external: (id) => id.startsWith('lodash')` | 复杂规则、按条件动态判断 |
+| 写法       | 示例                                        | 适用场景                            |
+| ---------- | ------------------------------------------- | ----------------------------------- |
+| 字符串数组 | `external: ['react', 'lodash']`             | 依赖列表稳定、数量不多              |
+| 正则表达式 | `external: [/^lodash/]`                     | 需要匹配子路径（如 `lodash/chunk`） |
+| 函数       | `external: (id) => id.startsWith('lodash')` | 复杂规则、按条件动态判断            |
 :::
 
 :::code-tabs
-@tab 基础写法（lodash）.js
+@tab 基础写法.js
 ```js
 import { defineConfig } from 'rollup'
 
@@ -166,7 +166,7 @@ export default defineConfig({
 })
 ```
 
-@tab 子路径匹配（lodash/*）.js
+@tab 子路径匹配.js
 ```js
 import { defineConfig } from 'rollup'
 
@@ -179,28 +179,50 @@ export default defineConfig({
   },
 })
 ```
+:::
 
-@tab 配合 globals（UMD）.js
+在 `umd/iife` 场景下，`external` 依赖不会被打进产物，因此需要在 HTML 里提前注入对应全局变量脚本
+
+:::code-tabs
+@tab Rollup 配置（UMD + lodash）.js
 ```js
 import { defineConfig } from 'rollup'
 
 export default defineConfig({
   input: 'src/index.ts',
-  external: ['lodash'], // [!code focus]
+  external: ['lodash'],  // [!code focus]
   output: {
     file: 'dist/index.umd.js',
     format: 'umd',
-    name: 'MyLib',
-    globals: {
-      lodash: '_', // 浏览器侧从 window._ 读取 lodash // [!code focus]
-    },
+    name: 'MyLib',   // [!code focus]
+    globals: {   // [!code focus]
+      lodash: '_',   // [!code focus]
+    },   // [!code focus]
   },
 })
 ```
-:::
 
-> [!NOTE]
-> 库构建时，`peerDependencies` 通常应与 `external` 保持一致
+@tab 引入顺序.html
+```html
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rollup External Demo</title>
+  </head>
+  <body>
+    <!-- 先引入 external 对应的全局依赖 -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <!-- 再引入 Rollup 产物 -->
+    <script src="/dist/index.umd.js"></script>
+    <script>
+      // UMD 导出名由 output.name 决定
+      console.log(window.MyLib)
+    </script>
+  </body>
+</html>
+```
+:::
 
 ### output
 
@@ -238,19 +260,19 @@ export default defineConfig({
 ```
 :::
 
-#### 1.产物格式
+#### 1.format
 
 通过指定 `format` 字段来构建不同的产物
 
 :::table full-width
-| 格式 | 适用场景 | 注意事项 |
-| --- | --- | --- |
-| `es` | 现代构建工具、浏览器 ESM | 库分发首选格式 |
-| `cjs` | Node.js CommonJS 生态 | 常用于兼容老工具链 |
-| `iife` | 浏览器 `<script>` 直接引入 | **需搭配 `output.name`** |
-| `umd` | 通用脚本分发 | **需配置 `name/globals`** |
-| `amd` | 旧模块加载体系 | 新项目较少使用 |
-| `system` | SystemJS 生态 | 按需使用 |
+| 格式     | 适用场景                   | 注意事项                  |
+| -------- | -------------------------- | ------------------------- |
+| `es`     | 现代构建工具、浏览器 ESM   | 库分发首选格式            |
+| `cjs`    | Node.js CommonJS 生态      | 常用于兼容老工具链        |
+| `iife`   | 浏览器 `<script>` 直接引入 | **需搭配 `output.name`**  |
+| `umd`    | 通用脚本分发               | **需配置 `name/globals`** |
+| `amd`    | 旧模块加载体系             | 新项目较少使用            |
+| `system` | SystemJS 生态              | 按需使用                  |
 :::
 
 > [!NOTE]
@@ -261,11 +283,11 @@ export default defineConfig({
 在多入口或代码分割场景下，==输出文件的命名规则会直接影响浏览器的长效缓存策略与排错定位效率==。通常通过以下 三个核心配置项 来精准控制不同类型资源的输出名称
 
 :::table full-width
-| 配置项 | 作用 | 常见值 | 使用建议 |
-| --- | --- | --- | --- |
-| `output.entryFileNames` | 入口文件命名规则 | `'[name].js'` | 多入口场景建议显式配置 |
-| `output.chunkFileNames` | chunk 文件命名规则 | `'chunks/[name]-[hash].js'` | 建议带 `hash` 防缓存污染 |
-| `output.assetFileNames` | 静态资源命名规则 | `'assets/[name]-[hash][extname]'` | 配合 CDN 缓存策略使用 |
+| 配置项                  | 作用               | 常见值                            | 使用建议                 |
+| ----------------------- | ------------------ | --------------------------------- | ------------------------ |
+| `output.entryFileNames` | 入口文件命名规则   | `'[name].js'`                     | 多入口场景建议显式配置   |
+| `output.chunkFileNames` | chunk 文件命名规则 | `'chunks/[name]-[hash].js'`       | 建议带 `hash` 防缓存污染 |
+| `output.assetFileNames` | 静态资源命名规则   | `'assets/[name]-[hash][extname]'` | 配合 CDN 缓存策略使用    |
 :::
 
 ```js
@@ -299,34 +321,94 @@ export default {
 }
 ```
 
-TODO: 补充 file dir 配置项
+#### 4.file 与 dir
 
-#### globals 与 exports（结合 lodash）
+`output.file` 和 `output.dir` 都是 "输出位置" 配置，但使用场景不同
 
-`output.globals` 和 `output.exports` 经常一起出现，但它们解决的是两个不同问题：
-- `globals`：给 `umd/iife` 产物里的外部依赖指定浏览器全局变量名
-- `exports`：控制 `cjs` 产物的导出方式（`default/named/auto/none`）
+:::table full-width
+| 配置项        | 适用场景                   | 特点               | 常见搭配                                       |
+| ------------- | -------------------------- | ------------------ | ---------------------------------------------- |
+| `output.file` | 单入口、单产物             | 直接输出一个文件   | `format: 'es'` 或 `format: 'cjs'`              |
+| `output.dir`  | 多入口、代码分割、多 chunk | 输出目录下多个文件 | `entryFileNames/chunkFileNames/assetFileNames` |
+:::
 
 :::code-tabs
-@tab globals（UMD + lodash）
+@tab single-file.js
+```js
+export default {
+  input: 'src/index.ts',
+  output: {
+    file: 'dist/index.es.js',
+    format: 'es',
+    sourcemap: true,
+  },
+}
+```
+
+@tab multiple-dir.js
+```js
+export default {
+  input: {
+    index: 'src/index.ts',
+    utils: 'src/utils.ts',
+  },
+  output: {
+    dir: 'dist',
+    format: 'es',
+    entryFileNames: '[name].js',
+    chunkFileNames: 'chunks/[name]-[hash].js',
+  },
+}
+```
+:::
+
+#### 5.globals
+
+`output.globals` 用于给 `umd/iife` 产物中的 external 依赖指定浏览器全局变量名
+
+:::code-tabs
+@tab rollup.config.js
 ```js
 import { defineConfig } from 'rollup'
 
 export default defineConfig({
   input: 'src/index.ts',
-  external: ['lodash'],
+  external: ['lodash'], // [!code focus]
   output: {
     file: 'dist/index.umd.js',
-    format: 'umd',
+    format: 'umd', // [!code focus]
     name: 'MyLib',
-    globals: {
-      lodash: '_', // 告诉 UMD 包：lodash 来自 window._
+    globals: { // [!code focus]
+      lodash: '_', // 告诉 UMD 包：lodash 来自 window._ // [!code focus]
     },
   },
 })
 ```
 
-@tab exports（CJS + lodash）
+@tab index.html
+```html
+<!-- 先引入 lodash，再引入你的 UMD 包 -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script src="/dist/index.umd.js"></script>
+```
+:::
+
+> [!NOTE]
+> `globals` 只对 `umd/iife` 生效，`es/cjs` 不需要配置。
+
+#### 6.exports
+
+`output.exports` 用于控制 `cjs` 产物的导出形式。常见取值有：`default`、`named`、`auto`、`none`
+
+:::table full-width
+| 取值      | 行为说明                      | 适用场景           | 注意事项                         |
+| --------- | ----------------------------- | ------------------ | -------------------------------- |
+| `default` | 把导出当作默认导出处理        | 只有单个默认导出时 | 混合导出时容易和实际结构不一致   |
+| `named`   | 按命名导出方式生成 CJS 导出   | 库项目最常见       | 推荐优先使用，行为可预期         |
+| `auto`    | Rollup 自动推断默认或命名导出 | 过渡兼容场景       | 推断结果可能随源码变化，不够稳定 |
+| `none`    | 不生成导出包装                | 纯副作用脚本       | 通常用于不对外导出的构建产物     |
+:::
+
 ```js
 import { defineConfig } from 'rollup'
 
@@ -335,39 +417,29 @@ export default defineConfig({
   external: ['lodash'],
   output: {
     file: 'dist/index.cjs',
-    format: 'cjs',
-    exports: 'named', // 同时导出命名成员时更稳定
+    format: 'cjs', // [!code focus]
+    exports: 'named', // 同时导出命名成员时更稳定 // [!code focus]
   },
 })
 ```
-
-@tab 示例源码（src/index.ts）
-```ts
-import chunk from 'lodash/chunk'
-
-export function splitArray(list: unknown[], size = 2) {
-  return chunk(list, size)
-}
-
-export default splitArray
-```
-:::
-
-> [!NOTE]
-> `globals` 只对 `umd/iife` 生效；`es/cjs` 不需要配置 `globals`。
 
 ### Plugin
 
 #### 1.基本使用
 
-> [!NOTE]
-> 常见插件顺序是：`nodeResolve -> commonjs -> babel -> 其他处理 -> terser`
+常见插件顺序是：`nodeResolve -> commonjs -> babel -> 其他处理 -> terser`
+
+[+复杂规则]:
+  - 三方包入口字段可能同时存在 `main/module/browser/exports`
+  - 运行环境不同（Node/浏览器）时，解析入口可能不同
+  - 许多包还会混用 ESM 与 CommonJS，需要先 resolve 再交给后续插件处理
 
 ::::steps
 
 1. 处理三方依赖
 
-    Rollup 默认对第三方包解析能力有限，尤其是包入口字段较复杂时。需要先使用 `node-resolve` 把依赖路径解析出来，后续插件才能继续处理
+    > [!IMPORTANT]
+    > Rollup 本身更聚焦于 ESM 打包，不会默认完整实现 Node.js 的三方包解析规则，且处理 `node_modules` 的解析规则很复杂[+复杂规则]，所以需要使用 `@rollup/plugin-node-resolve` 插件来处理
 
     :::code-tabs
       @tab 依赖安装
@@ -395,8 +467,6 @@ export default splitArray
       })
       ```
       :::
-
-    // TODO 为什么 rollup 不处理三方依赖
 
 2. 处理 CJS 依赖
 
@@ -573,26 +643,23 @@ const myPlugin = {
 ```
 
 :::table full-width
-| Hook | 触发阶段 | 常见用途 |
-| --- | --- | --- |
-| `buildStart` | 构建启动时 | 初始化缓存、打印信息 |
-| `resolveId` | 解析模块路径时 | 别名映射、虚拟模块 |
-| `load` | 读取模块内容时 | 自定义文件加载 |
-| `transform` | 代码转换时 | 代码注入、语法转换 |
-| `generateBundle` | 产物生成时 | 产物检查、额外文件输出 |
+| Hook             | 触发阶段       | 常见用途               |
+| ---------------- | -------------- | ---------------------- |
+| `buildStart`     | 构建启动时     | 初始化缓存、打印信息   |
+| `resolveId`      | 解析模块路径时 | 别名映射、虚拟模块     |
+| `load`           | 读取模块内容时 | 自定义文件加载         |
+| `transform`      | 代码转换时     | 代码注入、语法转换     |
+| `generateBundle` | 产物生成时     | 产物检查、额外文件输出 |
 :::
 
 ### 其他重要配置
 
-你现在已经覆盖了 `input/output/sourcemap/external/plugins`，下面这些配置在实战里同样关键。
-
-
 :::table full-width
-| 配置项 | 作用 | 常见写法 | 使用建议 |
-| --- | --- | --- | --- |
-| `treeshake` | 控制 Tree Shaking 细节 | `true` / 对象 | 默认开启，必要时精细调优 |
-| `watch` | 监听模式配置 | `{ include: 'src/**' }` | 提升本地迭代效率 |
-| `onwarn` | 自定义警告处理 | `(warning, warn) => {}` | 过滤噪音，保留关键告警 |
+| 配置项      | 作用                   | 常见写法                | 使用建议                 |
+| ----------- | ---------------------- | ----------------------- | ------------------------ |
+| `treeshake` | 控制 Tree Shaking 细节 | `true` / 对象           | 默认开启，必要时精细调优 |
+| `watch`     | 监听模式配置           | `{ include: 'src/**' }` | 提升本地迭代效率         |
+| `onwarn`    | 自定义警告处理         | `(warning, warn) => {}` | 过滤噪音，保留关键告警   |
 :::
 
 :::details 常见组合示例
@@ -625,15 +692,17 @@ export default defineConfig({
 ```
 :::
 
-## 库模式构建实践
+## 库模式构建配置
 
-下面给一套可直接落地的库构建流程，目标是输出 `es + cjs + d.ts`。
+下面这套流程可以直接用于库项目构建，最终会产出 `es`、`cjs` 和 `d.ts` 三类产物
 
 :::::steps
 1. 安装依赖
 
    ```bash
-   pnpm add -D rollup typescript tslib @rollup/plugin-node-resolve @rollup/plugin-commonjs @rollup/plugin-typescript @rollup/plugin-terser rollup-plugin-dts
+   pnpm add -D rollup typescript tslib 
+   pnpm add -D @rollup/plugin-node-resolve @rollup/plugin-commonjs 
+   pnpm add -D @rollup/plugin-typescript @rollup/plugin-terser rollup-plugin-dts
    ```
 
 2. 准备 `tsconfig.json`
@@ -740,4 +809,3 @@ export default defineConfig({
    pnpm run build
    ```
 :::::
-

@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "flowchart.ts": "^3.0.1",
-    "mermaid": "^11.12.2",
+    "mermaid": "^11.12.3",
     "ogl": "^1.0.11"
   }
 }
