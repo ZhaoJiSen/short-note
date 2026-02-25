@@ -8,6 +8,7 @@ permalink: /engineering/gulp-guide/
 > Gulp 是基于流（stream）的任务运行器（task runner），适合把一组文件处理步骤串成自动化流水线
 
 :::table title="Gulp 与 Webpack" full-width
+
 | 维度 | Gulp | Webpack |
 | --- | --- | --- |
 | 核心角色 | Task Runner | Module Bundler |
@@ -17,10 +18,12 @@ permalink: /engineering/gulp-guide/
 :::
 
 :::collapse
+
 - 适用场景
 
   1. 对静态资源做快速自动化处理（编译、压缩、拷贝、注入）
   2. 项目需要轻量任务编排，而不是完整打包生态
+
 :::
 
 安装：
@@ -38,15 +41,18 @@ Gulp 的核心理念: "一切皆任务，任务即函数"
 任务模型是 Gulp 组织任务的基础，其本质都是函数，但在 "是否对外暴露" 和 "如何触发" 上有三种常见模型：
 
 :::table  full-width
+
 | 模型 | 定义方式 | 触发方式 | 典型场景 |
 | --- | --- | --- | --- |
 | 公开任务 | `exports.xxx = task` | `npx gulp xxx` | 供 CLI 直接执行 |
 | 私有任务 | 仅定义函数，不导出 | `series/parallel` 组合触发 | 仅作为内部步骤 |
 | 默认任务 | `exports.default = task` | `npx gulp` | 约定入口任务 |
+
 :::
 
 :::code-tabs
 @tab 公开任务
+
 ```js
 function build(cb) {
   console.log('build task')
@@ -58,6 +64,7 @@ exports.build = build
 ```
 
 @tab 私有任务
+
 ```js
 const { series } = require('gulp')
 
@@ -76,6 +83,7 @@ exports.buildTask = series(clean, build)
 ```
 
 @tab 默认任务
+
 ```js
 function serve(cb) {
   console.log('dev server start')
@@ -85,6 +93,7 @@ function serve(cb) {
 // 执行 npx gulp 时触发
 exports.default = serve
 ```
+
 :::
 
 ### 任务组合
@@ -92,6 +101,7 @@ exports.default = serve
 当一个任务无法覆盖完整流程时，就需要把多个子任务组合起来执行。在 Gulp 最常见的两种组合方式是 `series` 与 `parallel`
 
 :::table full-width
+
 | 组合方式 | 执行方式 | 适用场景 | 典型风险 |
 | --- | --- | --- | --- |
 | `series` | 严格串行| 有依赖顺序的流程（先清理再构建） | 总时长可能更长 |
@@ -100,6 +110,7 @@ exports.default = serve
 
 :::code-tabs
 @tab series
+
 ```js
 const { series } = require('gulp')
 
@@ -122,6 +133,7 @@ exports.buildTask = series(clean, build)
 ```
 
 @tab parallel
+
 ```js
 const { parallel } = require('gulp')
 
@@ -142,6 +154,7 @@ function cssTask(cb) {
 // 并行：jsTask 与 cssTask 同时执行
 exports.assetsTask = parallel(jsTask, cssTask)
 ```
+
 :::
 
 ### 任务完成机制
@@ -152,6 +165,7 @@ Gulp 中任务几乎都是异步的，所以 "任务什么时候算结束" 必�
 > 一个任务只应使用一种结束方式，不要在同一个任务里混用 `cb` + `return Promise` 等多种信号
 
 :::table full-width
+
 | 方式 | 结束判定 | 适用场景 |
 | --- | --- | --- |
 | `callback` | 显式调用 `cb()` / `cb(error)` | 简单异步流程 |
@@ -163,6 +177,7 @@ Gulp 中任务几乎都是异步的，所以 "任务什么时候算结束" 必�
 
 :::code-tabs
 @tab callback
+
 ```js
 function clean(cb) {
   setTimeout(() => {
@@ -176,6 +191,7 @@ exports.clean = clean
 ```
 
 @tab return Stream
+
 ```js
 const { src, dest } = require('gulp')
 
@@ -189,6 +205,7 @@ exports.copyTask = copyTask
 ```
 
 @tab return Promise
+
 ```js
 function asyncTask() {
   return new Promise((resolve, reject) => {
@@ -204,6 +221,7 @@ exports.asyncTask = asyncTask
 ```
 
 @tab return Child Process
+
 ```js
 const { exec } = require('node:child_process')
 
@@ -216,6 +234,7 @@ exports.lintTask = lintTask
 ```
 
 @tab return Observable
+
 ```js
 const { of } = require('rxjs')
 const { delay } = require('rxjs/operators')
@@ -227,9 +246,11 @@ function observableTask() {
 
 exports.observableTask = observableTask
 ```
+
 :::
 
 :::details 注意事项（按结束信号分类）
+
 - `callback（回调结束信号）`：必须确保一定会调用，且只调用一次
 - `Stream（流结束信号）`：推荐用于 `src().pipe().pipe(dest())`，不要遗漏 `return`
 - `Promise（承诺结束信号）`：`reject` 会让任务失败退出，避免吞掉异常
@@ -248,6 +269,7 @@ Gulp 基于 Node.js 的 Stream 的方式处理文件，形成 "文件流水线"�
 :::
 
 :::table full-width
+
 | 核心方法 | 作用 | 输入 | 输出 |
 | --- | --- | --- | --- |
 | `src(glob)` | 从匹配路径读取文件并创建可读流 | 文件匹配规则（如 `./src/**/*.js`） | Vinyl 文件流 |
@@ -273,6 +295,7 @@ exports.copyFile = copyFile
 `watch` 的常见签名是 `watch(glob, [options], task)`：
 
 :::table full-width
+
 | 参数 | 说明 | 常用写法 |
 | --- | --- | --- |
 | `glob` | 监听的文件匹配规则 | `./src/**/*.js`、`./src/**/*.{ts,tsx}` |
@@ -285,6 +308,7 @@ exports.copyFile = copyFile
 
 :::code-tabs
 @tab 基础监听
+
 ```js
 const { watch } = require('gulp')
 
@@ -304,6 +328,7 @@ watch('./src/**/*.css', cssTask)
 ```
 
 @tab 带 options 的监听
+
 ```js
 const { watch, series } = require('gulp')
 
@@ -325,6 +350,7 @@ watch('./src/**/*', { ignoreInitial: false, delay: 200 }, rebuild)
 ```
 
 @tab 监听事件回调
+
 ```js
 const { watch } = require('gulp')
 
@@ -347,11 +373,13 @@ watcher.on('unlink', (filePath) => {
   console.log('[unlink]', filePath)
 })
 ```
+
 :::
 
 ## 开发与构建流水线
 
 :::::steps
+
 1. 安装依赖
 
    ```bash
@@ -368,8 +396,6 @@ watcher.on('unlink', (filePath) => {
    - `gulp-inject`：将构建后的 JS/CSS 自动注入 HTML
    - `browser-sync`：启动本地开发服务器并支持自动刷新
    :::
-   
-
 
 2. JavaScript 的转换与压缩
 
@@ -482,4 +508,5 @@ watcher.on('unlink', (filePath) => {
    npx gulp buildTask
    npx gulp serveTask
    ```
+
 :::::
