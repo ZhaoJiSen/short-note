@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>赵吉森-3年-前端开发</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    :root {
+      --ink: #1a1a1a;
+      --muted: #4b5563;
+      --line: #0f766e;
+      --bg: #f4f6f8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      font-size: 12.4px;
+      line-height: 1.45;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .page {
+      width: 100%;
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+
+    .name {
+      font-size: 34px;
+      line-height: 1.1;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .contact {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.2px;
+      line-height: 1.45;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+    }
+
+    .contact a {
+      color: #0b5f59;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(11, 95, 89, 0.25);
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 10px 0 12px;
+    }
+
+    .section {
+      margin-bottom: 10px;
+    }
+
+    .title {
+      color: var(--line);
+      font-size: 15.2px;
+      line-height: 1.2;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 2px;
+    }
+
+    .subtitle {
+      font-size: 18.6px;
+      line-height: 1.2;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .org {
+      margin: 0 0 3px;
+      font-size: 12.8px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .stack {
+      margin: 1px 0 4px;
+      color: #111827;
+      font-size: 12.2px;
+    }
+
+    ul {
+      margin: 4px 0 0 0;
+      padding-left: 16px;
+    }
+
+    li {
+      margin: 2px 0;
+    }
+
+    .kv {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .school {
+      font-size: 13px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .major {
+      margin: 1px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1 class="name">赵吉森</h1>
+    <p class="contact">
+      <span>zhaojisen93@gmail.com</span>
+      <span>13942305532</span>
+      <span>北京，中国</span>
+      <a href="https://zhaojisen.github.io/short-note/">https://zhaojisen.github.io/short-note/</a>
+      <a href="https://github.com/ZhaoJiSen">https://github.com/ZhaoJiSen</a>
+    </p>
+
+    <hr class="divider" />
+
+    <section class="section">
+      <h2 class="title">Summary</h2>
+      <ul>
+        <li>3年前端开发经验，聚焦企业级 B 端与安全运维场景，具备从需求评审、技术方案到上线交付的完整闭环能力。</li>
+        <li>深度参与 JumpServer 开源项目核心模块建设，负责 Lina、Luna、Koko、Client、VideoPlayer 等模块研发与优化。</li>
+        <li>具备跨端工程实践经验，主导 Electron 向 Tauri 迁移，并结合 Rust 优化高密度 I/O 场景性能。</li>
+        <li>具备多项目实战，2023.08-2024.04 在百旺金赋参与前端标准版产品迭代与工程规范建设。</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="title">Experience</h2>
+
+      <div class="subtitle-row">
+        <p class="org">杭州飞致云信息科技有限公司｜前端开发工程师</p>
+        <p class="meta">北京,中国<br/>2024.4 ~ 至今</p>
+      </div>
+      <ul>
+        <li>负责 JumpServer 前端核心模块（Lina、Luna、Koko、Client、VideoPlayer）开发、重构与日常维护。</li>
+        <li>主导 Koko 通信层重构，统一 WebSocket 数据通道与指令序列机制，连接异常恢复成功率提升约 40%+。</li>
+        <li>推进桌面客户端 Electron -> Tauri 迁移，安装包体积降低约 60%+，启动速度提升约 45%，内存占用降低约 30%。</li>
+        <li>在文件传输链路中落地切片上传、断点续传、错误重试、并发控制，平均上传效率提升约 35%。</li>
+        <li>通过请求去重与缓存策略，服务端重复请求次数平均下降约 60%；首屏渲染时间由约 5s 降至 2s 内。</li>
+      </ul>
+
+      <div class="subtitle-row" style="margin-top: 8px;">
+        <p class="org">天津百旺金赋科技有限公司｜前端开发工程师</p>
+        <p class="meta">天津,中国<br/>2023.8 ~ 2024.4</p>
+      </div>
+      <ul>
+        <li>负责前端标准版产品路由迁移与模块重构，提升业务模块可维护性与扩展性。</li>
+        <li>推动 ESLint / Prettier / Commitlint 规范落地，统一团队代码风格与提交规范。</li>
+        <li>参与可视化业务模块开发，支持复杂表单、表格与图表场景的稳定交付。</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="title">Projects</h2>
+
+      <div class="subtitle-row">
+        <p class="org">JumpServer（30k star）</p>
+        <p class="meta">2024.4 ~ 至今</p>
+      </div>
+      <p class="stack">技术栈：Vue 3 + Vite + Pinia + TypeScript + WebSocket + Electron + Tauri + Rust</p>
+      <ul>
+        <li>负责 JumpServer 核心前端模块研发与迭代，覆盖 Web 管控端、Web Terminal、桌面端与审计回放能力。</li>
+        <li>建立终端通信与异常恢复机制，提升会话稳定性与线上问题定位效率。</li>
+        <li>推动前端工程规范与 Code Review 流程持续落地，提升团队交付效率与代码一致性。</li>
+      </ul>
+
+      <div class="subtitle-row" style="margin-top: 8px;">
+        <p class="org">JDMC（内部项目，未开源）</p>
+        <p class="meta">2024.10 ~ 至今</p>
+      </div>
+      <p class="stack">技术栈：Nuxt 3/4 + Tailwind CSS + TypeScript + SSE</p>
+      <ul>
+        <li>负责实时业务模块开发，使用 SSE 实现服务端实时消息推送与前端状态同步。</li>
+        <li>基于 Nuxt 与 Tailwind CSS 建设高复用页面结构与样式体系，提升迭代效率与一致性。</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="title">Skills</h2>
+      <ul>
+        <li><b>前端技术：</b>HTML5、CSS3、Tailwind CSS、Vue 生态、JavaScript（ES6+）、TypeScript</li>
+        <li><b>工程化与架构：</b>Vite、Webpack、前端工程化、组件化设计、代码规范建设、性能优化</li>
+        <li><b>后端与跨端：</b>Node.js、Koa、SSE、WebSocket、Electron、Tauri、Rust、跨端桌面应用开发</li>
+      </ul>
+    </section>
+
+    <section class="section" style="margin-bottom: 0;">
+      <h2 class="title">Education</h2>
+      <div class="kv">
+        <div>
+          <p class="school">大连交通大学</p>
+          <p class="major">软件工程｜学士学位</p>
+        </div>
+        <p class="meta">2019.09 - 2023.06</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

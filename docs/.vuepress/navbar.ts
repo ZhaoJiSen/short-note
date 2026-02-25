@@ -8,7 +8,7 @@ import { defineNavbarConfig } from 'vuepress-theme-plume';
 
 export default defineNavbarConfig([
   { text: '首页', link: '/' },
-  { text: '博客', link: '/blog/' },
+  { text: '博客', link: '/blog/tags/' },
   {
     text: '编程语言',
     items: [
@@ -40,7 +40,7 @@ export default defineNavbarConfig([
       {
         text: 'Browser',
         link: '/browser/0pkbd4hl/',
-        icon: 'material-icon-theme:http'
+        icon: 'material-icon-theme:http',
       },
       {
         text: 'Node',
