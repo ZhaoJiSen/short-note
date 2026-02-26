@@ -10,15 +10,16 @@ export const javascriptCollection = defineCollection({
       collapsed: false,
       items: [
         {
-          text: '1. 块级绑定',
+          text: '块级绑定',
           link: '/javascript/r4qjmosy/',
         },
         {
-          text: '2. 字符串与正则表达式',
+          text: '字符串与正则表达式',
+          link: '/javascript/25tpt05n/',
         },
         {
-          text: '3. 函数',
-          collapsed: false,
+          text: '函数',
+          collapsed: true,
           items: [
             {
               text: '参数默认值与展开运算符',
@@ -31,8 +32,8 @@ export const javascriptCollection = defineCollection({
           ],
         },
         {
-          text: '4. 对象',
-          collapsed: false,
+          text: '对象',
+          collapsed: true,
           items: [
             {
               text: '对象字面量与新增 API',
@@ -45,8 +46,8 @@ export const javascriptCollection = defineCollection({
           ],
         },
         {
-          text: '5. 类',
-          collapsed: false,
+          text: '类',
+          collapsed: true,
           items: [
             {
               text: '类',
@@ -59,11 +60,11 @@ export const javascriptCollection = defineCollection({
           ],
         },
         {
-          text: '6. 解构赋值',
+          text: '解构赋值',
         },
         {
-          text: '7. Promise',
-          collapsed: false,
+          text: 'Promise',
+          collapsed: true,
           items: [
             {
               text: '基本使用',
@@ -80,13 +81,14 @@ export const javascriptCollection = defineCollection({
           ],
         },
         {
-          text: '8. Fetch',
+          text: 'Fetch',
         },
         {
-          text: '9. 迭代器与生成器',
+          text: '迭代器与生成器',
         },
         {
-          text: '10. 新增的集合类型',
+          text: '新增的集合类型',
+          collapsed: true,
           items: [
             {
               text: 'Map',
@@ -103,8 +105,26 @@ export const javascriptCollection = defineCollection({
           ],
         },
         {
-          text: '11. 代理与反射',
+          text: '代理与反射',
           link: '/javascript/pm6r5fvv/',
+        },
+      ],
+    },
+    {
+      text: '数组',
+      collapsed: false,
+      items: [
+        {
+          text: '数组基础',
+          link: '/javascript/cbgsiypg/',
+        },
+        {
+          text: '类数组',
+          link: '/javascript/yyt0ar1b/',
+        },
+        {
+          text: '数组方法',
+          link: '/javascript/iws6jard/',
         },
       ],
     },
