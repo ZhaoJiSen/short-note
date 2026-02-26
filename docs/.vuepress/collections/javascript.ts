@@ -128,6 +128,40 @@ export const javascriptCollection = defineCollection({
         },
       ],
     },
+    {
+      text: '对象',
+      collapsed: false,
+      items: [
+        {
+          text: '对象与构造函数',
+          link: '/javascript/fkjzwaty/',
+        },
+        {
+          text: '包装类与内置构造器',
+          link: '/javascript/0s0qdstf/',
+        },
+        {
+          text: '原型、原型链与继承',
+          link: '/javascript/au5hqeji/',
+        },
+        {
+          text: 'this 与 call/apply/bind',
+          link: '/javascript/odk0c0d1/',
+        },
+        {
+          text: '对象遍历与常用方法',
+          link: '/javascript/7amfckoe/',
+        },
+        {
+          text: '对象拷贝与克隆',
+          link: '/javascript/ocicw8u6/',
+        },
+        {
+          text: '属性描述符与 defineProperty',
+          link: '/javascript/j0rc922y/',
+        },
+      ],
+    },
   ],
   autoFrontmatter: {
     title: true,
