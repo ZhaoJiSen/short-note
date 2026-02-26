@@ -71,6 +71,7 @@ export const javascriptCollection = defineCollection({
             },
             {
               text: 'async 与 await',
+              link: '/javascript/jzo2jqhe/',
             },
             {
               text: '手写 Promise',
@@ -85,6 +86,7 @@ export const javascriptCollection = defineCollection({
         },
         {
           text: '迭代器与生成器',
+          link: '/javascript/ykbm3k4m/',
         },
         {
           text: '新增的集合类型',
