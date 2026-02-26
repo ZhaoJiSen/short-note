@@ -72,6 +72,10 @@ export const browserCollection = defineCollection({
           link: '/browser/7u2fqt26/',
         },
         {
+          text: '跨域',
+          link: '/browser/o4w1ldgv/',
+        },
+        {
           text: '跨站脚本攻击 XSS',
           link: '/browser/he21jt3t/',
         },
@@ -80,6 +84,10 @@ export const browserCollection = defineCollection({
           link: '/browser/25fncqpc/',
         },
       ],
+    },
+    {
+      text: 'WebSocket',
+      link: '/browser/150p4d3o/',
     },
   ],
   autoFrontmatter: {
