@@ -6,6 +6,58 @@ export const javascriptCollection = defineCollection({
   title: 'JavaScript',
   sidebar: [
     {
+      text: '数组',
+      collapsed: false,
+      items: [
+        {
+          text: '数组基础',
+          link: '/javascript/cbgsiypg/',
+        },
+        {
+          text: '类数组',
+          link: '/javascript/yyt0ar1b/',
+        },
+        {
+          text: '数组方法',
+          link: '/javascript/iws6jard/',
+        },
+      ],
+    },
+    {
+      text: '对象',
+      collapsed: false,
+      items: [
+        {
+          text: '对象与构造函数',
+          link: '/javascript/fkjzwaty/',
+        },
+        {
+          text: '包装类与内置构造器',
+          link: '/javascript/0s0qdstf/',
+        },
+        {
+          text: '原型、原型链与继承',
+          link: '/javascript/au5hqeji/',
+        },
+        {
+          text: 'this 与 call/apply/bind',
+          link: '/javascript/odk0c0d1/',
+        },
+        {
+          text: '对象遍历与常用方法',
+          link: '/javascript/7amfckoe/',
+        },
+        {
+          text: '对象拷贝与克隆',
+          link: '/javascript/ocicw8u6/',
+        },
+        {
+          text: '属性描述符与 defineProperty',
+          link: '/javascript/j0rc922y/',
+        },
+      ],
+    },
+    {
       text: 'ES6',
       collapsed: false,
       items: [
@@ -63,11 +115,12 @@ export const javascriptCollection = defineCollection({
           text: '解构赋值',
         },
         {
-          text: 'Promise',
+          text: '异步处理',
           collapsed: true,
           items: [
             {
-              text: '基本使用',
+              text: 'Promise',
+              link: '/javascript/lopl1mkw/',
             },
             {
               text: 'async 与 await',
@@ -75,9 +128,7 @@ export const javascriptCollection = defineCollection({
             },
             {
               text: '手写 Promise',
-            },
-            {
-              text: 'Promise 面试题',
+              link: '/javascript/v6d16zmc/',
             },
           ],
         },
@@ -86,7 +137,17 @@ export const javascriptCollection = defineCollection({
         },
         {
           text: '迭代器与生成器',
-          link: '/javascript/ykbm3k4m/',
+          collapsed: true,
+          items: [
+            {
+              text: '基本使用',
+              link: '/javascript/ykbm3k4m/',
+            },
+            {
+              text: '手写 async 与 await',
+              link: '/javascript/dnp262kk/',
+            },
+          ],
         },
         {
           text: '新增的集合类型',
@@ -109,58 +170,6 @@ export const javascriptCollection = defineCollection({
         {
           text: '代理与反射',
           link: '/javascript/pm6r5fvv/',
-        },
-      ],
-    },
-    {
-      text: '数组',
-      collapsed: false,
-      items: [
-        {
-          text: '数组基础',
-          link: '/javascript/cbgsiypg/',
-        },
-        {
-          text: '类数组',
-          link: '/javascript/yyt0ar1b/',
-        },
-        {
-          text: '数组方法',
-          link: '/javascript/iws6jard/',
-        },
-      ],
-    },
-    {
-      text: '对象',
-      collapsed: false,
-      items: [
-        {
-          text: '对象与构造函数',
-          link: '/javascript/fkjzwaty/',
-        },
-        {
-          text: '包装类与内置构造器',
-          link: '/javascript/0s0qdstf/',
-        },
-        {
-          text: '原型、原型链与继承',
-          link: '/javascript/au5hqeji/',
-        },
-        {
-          text: 'this 与 call/apply/bind',
-          link: '/javascript/odk0c0d1/',
-        },
-        {
-          text: '对象遍历与常用方法',
-          link: '/javascript/7amfckoe/',
-        },
-        {
-          text: '对象拷贝与克隆',
-          link: '/javascript/ocicw8u6/',
-        },
-        {
-          text: '属性描述符与 defineProperty',
-          link: '/javascript/j0rc922y/',
         },
       ],
     },

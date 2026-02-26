@@ -1,20 +1,22 @@
 ---
-title: async 与 await
-createTime: 2026/02/26 18:59:27
-permalink: /javascript/jzo2jqhe/
+title: 手写 async 与 await
+createTime: 2026/02/26 22:41:57
+permalink: /javascript/dnp262kk/
 ---
 
-`async/await` 的目标是把“异步回调链”改写成“看起来像同步”的流程代码。
+async/await` 的目标是把“异步回调链”改写成“看起来像同步”的流程代码。
 
 ## 基础规则
 
-:::table
+:::table full-width
+
 | 规则 | 说明 |
 | --- | --- |
 | `async` 函数返回值 | 一定是 `Promise` |
 | `await` 后面 | 可以是 Promise，也可以是普通值 |
 | `await` 行为 | 暂停当前函数，等待结果后继续 |
 | 异常处理 | 用 `try...catch` 捕获异步错误 |
+
 :::
 
 ```js
@@ -69,6 +71,7 @@ async function run() {
   }
 }
 ```
+
 :::
 
 ## 用迭代器/生成器实现一个 async/await
@@ -159,11 +162,3 @@ async function run() {
    ```
 
 :::::
-
-## 这版实现和原生 `async/await` 的差异
-
-:::details 点击展开
-- 原生 `async/await` 由引擎实现，调度和异常语义更完整。
-- 手写版能覆盖核心机制，但不完全等价（如调试栈、边界行为、性能细节）。
-- 学习目的主要是理解“暂停-恢复-调度”模型，而不是替代原生语法。
-:::
