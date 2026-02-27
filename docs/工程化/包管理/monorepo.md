@@ -1,7 +1,7 @@
 ---
 title: Monorepo
 createTime: 2025/12/23 21:03:43
-permalink: /engineering/ubsba9hj/
+permalink: /package-manager/ubsba9hj/
 ---
 
 ## 基本概念
@@ -58,6 +58,7 @@ packages:
 ```
 
 ::: details 常见的 monorepo 命令
+
 1. `pnpm -w install` 在根目录安装并链接所有工作区依赖
 2. `pnpm -w init` 在工作区根目录初始化 `package.json`
 3. `pnpm -r run build` 在所有包中执行 build 脚本
@@ -78,6 +79,7 @@ packages:
 :::code-tabs
 
 @tab package.json
+
 ```json
 {
   "engines": {
@@ -88,11 +90,13 @@ packages:
 ```
 
 @tab .npmrc
+
 ```text
 engine-strict=true
 ```
 
 @tab .nvmrc
+
 ```text
 18.19.0
 ```
@@ -136,6 +140,7 @@ engine-strict=true
 #### Prettier
 
 :::: steps
+
 1. 安装 prettier
 
    ```bash
@@ -207,11 +212,13 @@ engine-strict=true
      "lint:prettier": "prettier --write \"**/*.{js,ts,json,tsx,css,vue,html,md}\""
    }
    ```
+
 ::::
 
 #### ESlint
 
 :::: steps
+
 1. 安装 ESLint 及其相关依赖
 
    ```bash
@@ -311,6 +318,7 @@ engine-strict=true
      "lint:eslint:fix": "eslint . --fix"
    }
    ```
+
 ::::
 
 ### git 提交规范
@@ -320,6 +328,7 @@ engine-strict=true
 commitizen 用于交互式生成提交信息
 
 :::: steps
+
 1. 安装 commitizen 与适配器
 
    ```bash
@@ -344,6 +353,7 @@ commitizen 用于交互式生成提交信息
    ```bash
    pnpm commit
    ```
+
 ::::
 
 #### commitlint
@@ -351,6 +361,7 @@ commitizen 用于交互式生成提交信息
 commitlint 用于校验校验提交信息是否符合规范
 
 :::: steps
+
 1. 安装 commitlint
 
    ```bash
@@ -370,11 +381,13 @@ commitlint 用于校验校验提交信息是否符合规范
    ```sh
    pnpm exec commitlint --edit "$1"
    ```
+
 ::::
 
 #### husky
 
 :::: steps
+
 1. 安装 husky
 
    ```bash
@@ -392,11 +405,13 @@ commitlint 用于校验校验提交信息是否符合规范
    ```sh
    pnpm lint-staged
    ```
+
 ::::
 
 #### lint-staged
 
 :::: steps
+
 1. 安装 lint-staged
 
    ```bash
@@ -424,6 +439,7 @@ commitlint 用于校验校验提交信息是否符合规范
      "lint-staged": "lint-staged"
    }
    ```
+
 ::::
 
 ## 公共库打包

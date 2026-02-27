@@ -75,16 +75,16 @@ export default defineNavbarConfig([
       {
         text: '模块化',
         icon: 'material-icon-theme:folder-gh-workflows',
-        link: '/engineering/3kxdqfi5/',
+        link: '/modularization/',
       },
       {
         text: '包管理',
         icon: 'material-icon-theme:npm',
-        link: '/engineering/ghjscjaz/',
+        link: '/package-manager/ghjscjaz/',
       },
       {
         text: 'Babel',
-        link: '/engineering/sd6e128i/',
+        link: '/babel/guide/',
         icon: 'material-icon-theme:babel',
       },
       {
