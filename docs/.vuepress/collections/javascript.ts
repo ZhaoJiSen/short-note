@@ -52,7 +52,7 @@ export const javascriptCollection = defineCollection({
           link: '/javascript/ocicw8u6/',
         },
         {
-          text: '属性描述符与 defineProperty',
+          text: 'defineProperty',
           link: '/javascript/j0rc922y/',
         },
       ],
@@ -120,7 +120,7 @@ export const javascriptCollection = defineCollection({
           items: [
             {
               text: 'Promise',
-              link: '/javascript/lopl1mkw/',
+              link: '/javascript/32x2g3bg/',
             },
             {
               text: 'async 与 await',
