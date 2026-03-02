@@ -57,10 +57,6 @@ export const browserCollection = defineCollection({
           text: '消息队列与事件循环',
           link: '/browser/iy6vaqnv/',
         },
-        {
-          text: 'WebAPI、宏任务与微任务',
-          link: '/browser/rir49oh2/',
-        },
       ],
     },
     {

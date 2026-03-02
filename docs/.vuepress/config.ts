@@ -127,6 +127,12 @@ export default defineUserConfig({
         rust: true,
         go: true,
       },
+      image: {
+        size: true,
+        figure: true,
+        lazyload: true,
+        mark: true,
+      },
       demo: true,
       timeline: true,
       collapse: true,
@@ -136,8 +142,8 @@ export default defineUserConfig({
         align: 'center',
         maxContent: false,
         fullWidth: false,
-        copy: false
-      }
+        copy: false,
+      },
     },
 
     /**

@@ -17,6 +17,7 @@ tags:
 ## 核心 API
 
 :::table title="MutationObserver API 速览" full-width
+
 | API | 作用 | 常见用法 |
 | --- | --- | --- |
 | `new MutationObserver(callback)` | 创建监听器 | 在 `callback` 里处理 `MutationRecord[]` |

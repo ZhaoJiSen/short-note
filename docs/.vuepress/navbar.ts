@@ -47,11 +47,11 @@ export default defineNavbarConfig([
         link: '/node/',
         icon: 'material-icon-theme:nodejs',
       },
-      {
-        text: 'Bun',
-        link: '/bun/flp74gm9/',
-        icon: 'material-icon-theme:bun',
-      },
+      // {
+      //   text: 'Bun',
+      //   link: '/bun/flp74gm9/',
+      //   icon: 'material-icon-theme:bun',
+      // },
     ],
   },
   {
@@ -62,11 +62,11 @@ export default defineNavbarConfig([
         icon: 'material-icon-theme:vue',
         link: '/vue/',
       },
-      {
-        text: 'React',
-        icon: 'material-icon-theme:react',
-        link: '/react/',
-      },
+      // {
+      //   text: 'React',
+      //   icon: 'material-icon-theme:react',
+      //   link: '/react/',
+      // },
     ],
   },
   {
