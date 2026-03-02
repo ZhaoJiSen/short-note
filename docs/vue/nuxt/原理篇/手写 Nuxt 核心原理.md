@@ -609,26 +609,26 @@ permalink: /vue/ts199xd9/
 ## 生命周期流程图
 
 ```mermaid
-graph TD
-  subgraph 服务端渲染阶段
-    A[HTTP Request] --> B[createApp() 新 App 实例]
-    B --> C[createRouter() 新 Router 实例]
-    C --> D[createPinia() 新 Store 实例]
-    D --> E[router.push(req.url) 定位路由状态]
-    E --> F[await router.isReady()]
-    F --> G[renderToString(app) 得到 HTML]
-    G --> H[serialize state pinia.state -> window.__INITIAL_STATE__]
-    H --> I[Response HTML]
+flowchart TD
+  subgraph SSR["服务端渲染阶段"]
+    A["HTTP Request"] --> B["createApp() 新 App 实例"]
+    B --> C["createRouter() 新 Router 实例"]
+    C --> D["createPinia() 新 Store 实例"]
+    D --> E["router.push(req.url) 定位路由状态"]
+    E --> F["await router.isReady()"]
+    F --> G["renderToString(app) 得到 HTML"]
+    G --> H["serialize pinia.state => window.__INITIAL_STATE__"]
+    H --> I["Response HTML"]
   end
 
-  subgraph 客户端激活阶段
-    J[Load HTML] --> K[Load client bundle]
-    K --> L[createApp()]
-    L --> M[createRouter(webHistory)]
-    M --> N[createPinia()]
-    N --> O[restore pinia.state from window]
-    O --> P[router.isReady()]
-    P --> Q[app.mount('#app') hydration]
+  subgraph CSR["客户端激活阶段"]
+    J["Load HTML"] --> K["Load client bundle"]
+    K --> L["createApp()"]
+    L --> M["createRouter(webHistory)"]
+    M --> N["createPinia()"]
+    N --> O["restore pinia.state from window"]
+    O --> P["router.isReady()"]
+    P --> Q["app.mount('#app') hydration"]
   end
 
   I --> J

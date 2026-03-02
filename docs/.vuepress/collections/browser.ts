@@ -32,6 +32,24 @@ export const browserCollection = defineCollection({
       ],
     },
     {
+      text: 'JavaScript 执行机制',
+      collapsed: false,
+      items: [
+        {
+          text: '变量提升与执行上下文',
+          link: '/browser/gvghxr77/',
+        },
+        {
+          text: '调用栈',
+          link: '/browser/0sml7a3d/',
+        },
+        {
+          text: '作用域和作用域链',
+          link: '/browser/p2wdajw0/',
+        },
+      ],
+    },
+    {
       text: 'V8 引擎工作原理',
       collapsed: false,
       items: [
