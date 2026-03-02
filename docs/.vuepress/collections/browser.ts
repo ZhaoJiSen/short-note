@@ -79,6 +79,10 @@ export const browserCollection = defineCollection({
           text: '跨站请求伪造 CSRF',
           link: '/browser/25fncqpc/',
         },
+        {
+          text: 'HTTPS',
+          link: '/browser/ttowc08e/',
+        },
       ],
     },
     {
