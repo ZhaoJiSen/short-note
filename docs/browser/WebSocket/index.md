@@ -228,12 +228,15 @@ ws.addEventListener('close', (event) => {
 
 :::::steps
 
-1. 明确机制边界
+1. 宏观时间线
 
-   目标分两层：
-
-   - 链路层：断线自动重连（指数退避 + 抖动 + 上限）
-   - 业务层：重连后恢复会话（鉴权消息、订阅消息、待发送队列）
+   :::details 时间线
+   1. `connect` 建立连接
+   2. 网络断开直接触发 `onerror` 直接手动 `onclose`
+   3. `onclose` 判断不是手动关闭则进入重连流程 `scheduleReconnect`
+   4. 到时间后再次 `connect`
+   5. 一旦 `open` 成功则回复鉴权与订阅，并把断线期间排队消息补发
+   :::
 
 2. 类型与配置
 
@@ -242,50 +245,50 @@ ws.addEventListener('close', (event) => {
 
    ```ts
    type ReliableStatus =
-    | 'idle'
-    | 'connecting'
-    | 'open'
-    | 'reconnecting'
-    | 'closed';
+     | 'idle'
+     | 'connecting'
+     | 'open'
+     | 'reconnecting'
+     | 'closed';
 
    interface ReliableWSOptions<TOutgoing = unknown, TIncoming = unknown> {
-      // 连接 URL
-      url: string;
+     // 连接 URL
+     url: string;
 
-      // 子协议
-      protocols?: string | string[];
+     // 子协议
+     protocols?: string | string[];
 
-      // 最大重连次数
-      maxRetries?: number;
+     // 最大重连次数
+     maxRetries?: number;
 
-      // 第一次重连的基础等待时间
-      baseDelay?: number;
+     // 第一次重连的基础等待时间
+     baseDelay?: number;
 
-      // 最大重连等待时间
-      maxDelay?: number;
+     // 最大重连等待时间
+     maxDelay?: number;
 
-      // 随机抖动，避免大量客户端同一时刻重连
-      jitter?: number;
+     // 随机抖动，避免大量客户端同一时刻重连
+     jitter?: number;
 
-      // 离线队列
-      queueLimit?: number;
+     // 离线队列
+     queueLimit?: number;
 
-      // 发送间隔
-      heartbeatInterval?: number;
+     // 发送间隔
+     heartbeatInterval?: number;
 
-      // 等待 pong 超时
-      heartbeatTimeout?: number;
+     // 等待 pong 超时
+     heartbeatTimeout?: number;
 
-      // 重连后重新鉴权
-      getAuthPayload?: () => TOutgoing | null;
+     // 重连后重新鉴权
+     getAuthPayload?: () => TOutgoing | null;
 
-      // 重连后重新订阅
-      getResubscribePayloads?: () => TOutgoing[];
+     // 重连后重新订阅
+     getResubscribePayloads?: () => TOutgoing[];
 
-      // 事件回调
-      onMessage?: (message: TIncoming, event: MessageEvent) => void;
-      onStatusChange?: (status: ReliableStatus) => void;
-    }
+     // 事件回调
+     onMessage?: (message: TIncoming, event: MessageEvent) => void;
+     onStatusChange?: (status: ReliableStatus) => void;
+   }
    ```
 
    :::
@@ -302,191 +305,222 @@ ws.addEventListener('close', (event) => {
 
    ```ts
    connect() {
-      this.manualClose = false;
-      this.clearReconnectTimer();
-      this.updateStatus(this.retryCount > 0 ? 'reconnecting' : 'connecting');
+     this.manualClose = false;
+     this.clearReconnectTimer();
+     this.updateStatus(this.retryCount > 0 ? 'reconnecting' : 'connecting');
 
-      this.ws = new WebSocket(this.opts.url, this.opts.protocols);
+     this.ws = new WebSocket(this.opts.url, this.opts.protocols);
 
-      this.ws.onopen = () => {
-        this.retryCount = 0;
-        this.updateStatus('open');
-        this.startHeartbeat();
-        this.restoreSession();
-        this.flushQueue();
-      };
+     this.ws.onopen = () => {
+       this.retryCount = 0;
+       this.updateStatus('open');
+       this.startHeartbeat();
+       this.restoreSession();
+       this.flushQueue();
+     };
 
-      this.ws.onmessage = (event) => {
-        if (this.consumePong(event)) return;
-        const parsed = this.parseMessage(event.data);
-        if (parsed.ok) {
-          this.opts.onMessage?.(parsed.value as TIncoming, event);
-        }
-      };
+     this.ws.onmessage = (event) => {
+       if (this.consumePong(event)) return;
+       const parsed = this.parseMessage(event.data);
+       if (parsed.ok) {
+         this.opts.onMessage?.(parsed.value as TIncoming, event);
+       }
+     };
 
-      this.ws.onerror = () => {
-        this.ws?.close();
-      };
+     this.ws.onerror = () => {
+       this.ws?.close();
+     };
 
-      this.ws.onclose = () => {
-        this.stopHeartbeat();
-        if (this.manualClose) {
-          this.updateStatus('closed');
-          return;
-        }
-        this.scheduleReconnect();
-      };
+     this.ws.onclose = () => {
+       this.stopHeartbeat();
+       if (this.manualClose) {
+         this.updateStatus('closed');
+         return;
+       }
+       this.scheduleReconnect();
+     };
    }
    ```
 
-4. 发送与离线队列
+4. 断线重连
+
+   核心思路：任何 `error` 直接导向 `onclose`，在 `onclose` 里触发重连机制
 
    ```ts
-    send(data: TOutgoing) {
-      const text = JSON.stringify(data);
+   private scheduleReconnect() {
+     const maxRetries = this.opts.maxRetries ?? 8;
 
-      // 连接可用时直接发送
-      if (this.ws?.readyState === WebSocket.OPEN) {
-        this.ws.send(text);
-        return true;
-      }
+     // 超过最大重连次数，标记为 closed 并返回
+     if (this.retryCount >= maxRetries) {
+       this.updateStatus('closed');
+       return;
+     }
 
-      // 超出限制自动移除最早的消息
-      if (this.queue.length >= (this.opts.queueLimit ?? 100)) {
-        this.queue.shift();
-      }
+     // 计算重连延迟，并更新重试计数和状态
+     const delay = this.calcDelay(this.retryCount);
+     this.retryCount += 1;
+     this.updateStatus('reconnecting');
+     this.reconnectTimer = setTimeout(() => this.connect(), delay);
+   }
 
-      // 连接不可用时放入离线队列，等待重连后补发
-      this.queue.push(text);
-      return false;
+   private calcDelay(attempt: number) {
+     const baseDelay = this.opts.baseDelay ?? 1000;
+     const maxDelay = this.opts.maxDelay ?? 30000;
+     const jitter = this.opts.jitter ?? 300;
+
+     const exp = Math.min(baseDelay * 2 ** attempt, maxDelay);
+     return exp + Math.floor(Math.random() * jitter);
    }
    ```
 
 5. 指数退避重连[+指数退避重连]
 
-   延迟公式: `min(baseDelay × 2^attempt, maxDelay) + random(0, jitter)`
+   延迟公式: `min(baseDelay × 2^attempt, maxDelay) + random(0, jitter)`。默认值下的重连间隔大约为：1s → 2s → 4s → 8s → 16s → 30s → 30s → 30s（最多 8 次）
 
-   默认值下的重连间隔大约为：1s → 2s → 4s → 8s → 16s → 30s → 30s → 30s（最多 8 次）
+   :::note
+   失败越多等待越久，并且加一点随机抖动，避免大量客户端同一时刻重连
+   :::
 
    ```ts
-   private scheduleReconnect() {
-      const maxRetries = this.opts.maxRetries ?? 8;
-
-      // 超过最大重连次数，标记为 closed 并返回
-      if (this.retryCount >= maxRetries) {
-        this.updateStatus('closed');
-        return;
-      }
-
-      // 计算重连延迟，并更新重试计数和状态
-      const delay = this.calcDelay(this.retryCount);
-      this.retryCount += 1;
-      this.updateStatus('reconnecting');
-      this.reconnectTimer = setTimeout(() => this.connect(), delay);
-    }
-
-    private calcDelay(attempt: number) {
-      const baseDelay = this.opts.baseDelay ?? 1000;
-      const maxDelay = this.opts.maxDelay ?? 30000;
-      const jitter = this.opts.jitter ?? 300;
-
-      const exp = Math.min(baseDelay * 2 ** attempt, maxDelay);
-      return exp + Math.floor(Math.random() * jitter);
-    }
+   private calcDelay(attempt: number) {
+     const baseDelay = this.opts.baseDelay ?? 1000
+     const maxDelay = this.opts.maxDelay ?? 30000
+     const jitter = this.opts.jitter ?? 300
+     const exp = Math.min(baseDelay * 2 ** attempt, maxDelay)
+     return exp + Math.floor(Math.random() * jitter)
+   }
    ```
 
-6. 心跳
+6. 发送与离线队列
+
+   重连成功后，重启心跳 `startHeartbeat`、回复鉴权 `restoreSession`、补发离线队列 `flushQueue`
+
+   :::code-tabs
+   @tab restoreSession.js
+
+   ```ts
+   private restoreSession() {
+     const authMsg = this.opts.getAuthPayload?.()
+     if (authMsg) this.send(authMsg)
+
+     const subscriptions = this.opts.getResubscribePayloads?.() ?? []
+     for (const msg of subscriptions) {
+       this.send(msg)
+     }
+   }
+   ```
+
+   @tab flushQueue.js
+
+   ```ts
+   // while + 条件检查，保证一旦连接断了就停止发送，剩余消息继续留在队列里，等下次重连成功后再发
+   // 使用 queue.shift() 可以保证发一条删一条
+   private flushQueue() {
+     while (this.queue.length > 0 && this.ws?.readyState === WebSocket.OPEN) {
+       this.ws.send(this.queue.shift()!);
+     }
+   }
+   ```
+
+   :::
+
+   除此之外在 `send` 方法中通过 `queue` 来管理离线消息，当连接可用时直接发送，当连接不可用时放入队列，等待重连后补发
+
+   ```ts
+   send(data: TOutgoing) {
+     const text = JSON.stringify(data);
+
+     // 连接可用时直接发送
+     if (this.ws?.readyState === WebSocket.OPEN) {
+       this.ws.send(text);
+       return true;
+     }
+
+     // 超出限制自动移除最早的消息
+     if (this.queue.length >= (this.opts.queueLimit ?? 100)) {
+       this.queue.shift();
+     }
+
+     // 连接不可用时放入离线队列，等待重连后补发
+     this.queue.push(text);
+     return false;
+   }
+   ```
+
+7. 心跳
 
    ```ts
    private startHeartbeat() {
-      this.stopHeartbeat();
-      const interval = this.opts.heartbeatInterval ?? 15000;
+     this.stopHeartbeat();
+     const interval = this.opts.heartbeatInterval ?? 15000;
 
-      this.heartbeatTimer = setInterval(() => {
-        if (this.ws?.readyState !== WebSocket.OPEN) return;
-        this.ws.send(JSON.stringify({ type: 'ping', at: Date.now() }));
-        this.armPongDeadline();
-      }, interval);
-    }
+     this.heartbeatTimer = setInterval(() => {
+       if (this.ws?.readyState !== WebSocket.OPEN) return;
+       this.ws.send(JSON.stringify({ type: 'ping', at: Date.now() }));
+       this.armPongDeadline();
+     }, interval);
+   }
 
    private armPongDeadline() {
-      if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
-      const timeout = this.opts.heartbeatTimeout ?? 8000;
-      this.pongTimeoutTimer = setTimeout(() => {
-        this.ws?.close(4000, 'heartbeat timeout');
-      }, timeout);
+     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
+     const timeout = this.opts.heartbeatTimeout ?? 8000;
+     this.pongTimeoutTimer = setTimeout(() => {
+       this.ws?.close(4000, 'heartbeat timeout');
+     }, timeout);
    }
 
    private consumePong(event: MessageEvent) {
-      const parsed = this.parseMessage(event.data);
-      if (!parsed.ok) return false;
+     const parsed = this.parseMessage(event.data);
+     if (!parsed.ok) return false;
 
-      const payload = parsed.value as { type?: string };
-      if (payload?.type !== 'pong') return false;
+     const payload = parsed.value as { type?: string };
+     if (payload?.type !== 'pong') return false;
 
-      if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
-      this.pongTimeoutTimer = null;
-      return true;
+     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
+     this.pongTimeoutTimer = null;
+     return true;
    }
    ```
 
-7. 其余代码
+8. 其余代码
 
    ```ts
    close(code = 1000, reason = 'manual close') {
-      this.manualClose = true;
-      this.clearReconnectTimer();
-      this.stopHeartbeat();
-      this.ws?.close(code, reason);
-      this.ws = null;
-      this.updateStatus('closed');
-   }
-
-   private restoreSession() {
-      const authMsg = this.opts.getAuthPayload?.();
-      if (authMsg) this.send(authMsg);
-
-      const subscriptions = this.opts.getResubscribePayloads?.() ?? [];
-      for (const msg of subscriptions) {
-        this.send(msg);
-      }
-   }
-
-   // 使用 while + 条件检查，保证一旦连接断了就停止发送，剩余消息继续留在队列里，等下次重连成功后再发
-   // 使用 queue.shift() 可以保证发一条删一条
-   private flushQueue() {
-      while (this.queue.length > 0 && this.ws?.readyState === WebSocket.OPEN) {
-        this.ws.send(this.queue.shift()!);
-      }
+     this.manualClose = true;
+     this.clearReconnectTimer();
+     this.stopHeartbeat();
+     this.ws?.close(code, reason);
+     this.ws = null;
+     this.updateStatus('closed');
    }
 
    private parseMessage(raw: unknown): { ok: true; value: unknown } | { ok: false } {
-      if (typeof raw !== 'string') return { ok: false };
-      try {
-        return { ok: true, value: JSON.parse(raw) };
-      } catch {
-        return { ok: false };
-      }
+     if (typeof raw !== 'string') return { ok: false };
+     try {
+       return { ok: true, value: JSON.parse(raw) };
+     } catch {
+       return { ok: false };
+     }
    }
 
    private stopHeartbeat() {
-      if (this.heartbeatTimer) clearInterval(this.heartbeatTimer);
-      if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
-      this.heartbeatTimer = null;
-      this.pongTimeoutTimer = null;
+     if (this.heartbeatTimer) clearInterval(this.heartbeatTimer);
+     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
+     this.heartbeatTimer = null;
+     this.pongTimeoutTimer = null;
    }
 
    private clearReconnectTimer() {
-      if (this.reconnectTimer) clearTimeout(this.reconnectTimer);
-      this.reconnectTimer = null;
+     if (this.reconnectTimer) clearTimeout(this.reconnectTimer);
+     this.reconnectTimer = null;
    }
 
    private updateStatus(status: ReliableStatus) {
-      this.opts.onStatusChange?.(status);
+     this.opts.onStatusChange?.(status);
    }
    ```
 
-8. 完整代码
+9. 完整代码
 
    :::code-tabs
    @tab reliable-ws.ts
@@ -684,55 +718,55 @@ ws.addEventListener('close', (event) => {
 
    :::
 
-9. 使用
+10. 使用
 
-   :::code-tabs
-   @tab app.ts
+    :::code-tabs
+    @tab app.ts
 
-   ```ts
-   import { ReliableWS } from './reliable-ws'
+    ```ts
+    import { ReliableWS } from './reliable-ws'
 
-   type Outgoing =
-     | { type: 'auth'; payload: { token: string } }
-     | { type: 'subscribe'; payload: { roomId: string } }
-     | { type: 'chat.send'; payload: { text: string } }
+    type Outgoing =
+      | { type: 'auth'; payload: { token: string } }
+      | { type: 'subscribe'; payload: { roomId: string } }
+      | { type: 'chat.send'; payload: { text: string } }
 
-   type Incoming =
-     | { type: 'pong' }
-     | { type: 'chat.message'; payload: { text: string; from: string } }
+    type Incoming =
+      | { type: 'pong' }
+      | { type: 'chat.message'; payload: { text: string; from: string } }
 
-   const client = new ReliableWS<Outgoing, Incoming>({
-     url: 'wss://api.example.com/ws',
-     getAuthPayload: () => ({
-       type: 'auth',
-       payload: { token: localStorage.getItem('token') || '' },
-     }),
-     getResubscribePayloads: () => [
-       { type: 'subscribe', payload: { roomId: 'room-1001' } },
-     ],
-     onStatusChange: (status) => {
-       console.log('ws status =>', status)
-     },
-     onMessage: (msg) => {
-       if (msg.type === 'chat.message') {
-         console.log('收到消息:', msg.payload.text)
-       }
-     },
-   })
+    const client = new ReliableWS<Outgoing, Incoming>({
+      url: 'wss://api.example.com/ws',
+      getAuthPayload: () => ({
+        type: 'auth',
+        payload: { token: localStorage.getItem('token') || '' },
+      }),
+      getResubscribePayloads: () => [
+        { type: 'subscribe', payload: { roomId: 'room-1001' } },
+      ],
+      onStatusChange: (status) => {
+        console.log('ws status =>', status)
+      },
+      onMessage: (msg) => {
+        if (msg.type === 'chat.message') {
+          console.log('收到消息:', msg.payload.text)
+        }
+      },
+    })
 
-   // 建立连接
-   client.connect()
+    // 建立连接
+    client.connect()
 
-   // 正常发送（断线时会自动排队，重连后补发）
-   client.send({ type: 'chat.send', payload: { text: 'hello' } })
+    // 正常发送（断线时会自动排队，重连后补发）
+    client.send({ type: 'chat.send', payload: { text: 'hello' } })
 
-   // 页面离开时释放连接
-   window.addEventListener('beforeunload', () => {
-     client.close()
-   })
+    // 页面离开时释放连接
+    window.addEventListener('beforeunload', () => {
+      client.close()
+    })
 
-   ```
+    ```
 
-   :::
+    :::
 
 :::::
