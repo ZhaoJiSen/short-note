@@ -25,10 +25,6 @@ export const browserCollection = defineCollection({
           text: 'HTTP 请求流程与连接管理',
           link: '/browser/g9wen3tg/',
         },
-        {
-          text: '跨标签页通信',
-          link: '/browser/69atp78u/',
-        },
       ],
     },
     {
