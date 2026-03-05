@@ -94,8 +94,4 @@ export default defineNavbarConfig([
       },
     ],
   },
-  {
-    text: '友情链接',
-    link: '/friends/',
-  },
 ]);

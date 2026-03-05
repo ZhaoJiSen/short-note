@@ -6,11 +6,12 @@ export const vueCollection = defineCollection({
   title: 'Vue',
   sidebar: [
     {
-      text: '基本使用',
+      text: 'Vue',
       collapsed: false,
+      icon: 'vscode-icons:file-type-vue',
       items: [
         {
-          text: '基本语法',
+          text: '基础篇',
           collapsed: true,
           items: [
             {
@@ -40,67 +41,74 @@ export const vueCollection = defineCollection({
           ],
         },
         {
-          text: '路由',
-          link: '/vue/pc7wxaew/',
+          text: '补充篇',
+          collapsed: true,
+          items: [
+            {
+              text: '属性穿透',
+              link: '/vue/lt7yqney/',
+            },
+            {
+              text: '依赖注入',
+            },
+            {
+              text: '自定义指令',
+            },
+            {
+              text: '插件',
+            },
+            {
+              text: 'Transition',
+            },
+            {
+              text: 'Teleport',
+            },
+            {
+              text: '异步组件',
+            },
+          ],
         },
         {
-          text: '状态管理',
-          link: '状态管理',
-        },
-      ],
-    },
-    {
-      text: '深入',
-      collapsed: false,
-      items: [
-        {
-          text: '虚拟 DOM',
-          link: '/vue/g1p46p1k/',
-        },
-        {
-          text: '模板',
-          link: '/vue/sdx81vif/',
-        },
-        {
-          text: '响应式',
-        },
-        {
-          text: '计算属性',
-        },
-      ],
-    },
-    {
-      text: '补充内容',
-      collapsed: false,
-      items: [
-        {
-          text: '属性穿透',
-          link: '/vue/lt7yqney/'
-        },
-        {
-          text: '依赖注入',
-        },
-        {
-          text: '自定义指令',
-        },
-        {
-          text: '插件',
-        },
-        {
-          text: 'Transition',
-        },
-        {
-          text: 'Teleport',
-        },
-        {
-          text: '异步组件',
+          text: '原理篇',
+          collapsed: true,
+          items: [
+            {
+              text: 'Vue 源码解析',
+              items: [
+                {
+                  text: '响应式实现原理',
+                },
+                {
+                  text: 'Ref 实现原理',
+                },
+                {
+                  text: 'computed 实现原理',
+                },
+                {
+                  text: 'scheduler 原理',
+                },
+                {
+                  text: 'watch 原理',
+                },
+                {
+                  text: 'Diff',
+                },
+              ],
+            },
+            {
+              text: 'Pinia 源码解析',
+            },
+            {
+              text: 'Vue Router 源码解析',
+            },
+          ],
         },
       ],
     },
     {
       text: 'Nuxt',
       icon: 'vscode-icons:file-type-nuxt',
-      collapsed: false,
+      collapsed: true,
       items: [
         {
           text: '基础篇',
@@ -110,33 +118,33 @@ export const vueCollection = defineCollection({
               link: '/vue/u9k2p8rq/',
             },
             {
-              text: "路由",
-              link: '/vue/tbrb96uh/'
+              text: '路由',
+              link: '/vue/tbrb96uh/',
             },
             {
               text: '布局',
-              link: '/vue/7x1ps9mt/'
+              link: '/vue/7x1ps9mt/',
             },
             {
-              text: "中间件",
-              link: "/vue/ztgntih1/"
+              text: '中间件',
+              link: '/vue/ztgntih1/',
             },
             {
-              text: "插件",
-              link: "/vue/us14yoln/"
+              text: '插件',
+              link: '/vue/us14yoln/',
             },
             {
-              text: "生命周期",
-              link: "/vue/tn3accgh/"
+              text: '生命周期',
+              link: '/vue/tn3accgh/',
             },
             {
-              text: "数据获取",
-              link: '/vue/9fd9p11m/'
+              text: '数据获取',
+              link: '/vue/9fd9p11m/',
             },
             {
               text: '状态共享',
-              link: '/vue/hhyle1g7/'
-            }
+              link: '/vue/hhyle1g7/',
+            },
           ],
         },
         {
