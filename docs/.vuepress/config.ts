@@ -102,7 +102,7 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/config/plugins/code-highlight/
      */
     codeHighlighter: {
-      themes: { light: 'everforest-light', dark: 'everforest-dark' },
+      themes: { light: 'github-light', dark: 'nord' },
       lineNumbers: false,
       notationDiff: true,
       notationErrorLevel: true,
