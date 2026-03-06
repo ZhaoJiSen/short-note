@@ -19,7 +19,7 @@ export default defineNavbarConfig([
       },
       {
         text: 'TypeScript',
-        link: '/typescript/',
+        link: '/typescript/iB2WgoFC/',
         icon: 'material-icon-theme:typescript',
       },
       {

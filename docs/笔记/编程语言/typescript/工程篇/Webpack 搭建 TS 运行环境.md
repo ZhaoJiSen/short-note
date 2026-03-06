@@ -1,7 +1,7 @@
 ---
 title: Webpack 搭建 TS 运行环境
 createTime: 2026/02/09 21:42:00
-permalink: /typescript/webpack-ts/
+permalink: /typescript/VXQ3HtNx/
 ---
 
 ## 目标
