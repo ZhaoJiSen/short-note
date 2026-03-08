@@ -3,3 +3,5 @@ docs/.vuepress/dist
 docs/.vuepress/.temp
 docs/.vuepress/.cache
 .DS_Store
+.idea
+.vscode

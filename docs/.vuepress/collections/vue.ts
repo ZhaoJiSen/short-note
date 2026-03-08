@@ -73,10 +73,11 @@ export const vueCollection = defineCollection({
           collapsed: true,
           items: [
             {
-              text: 'Vue 源码解析',
+              text: 'Core',
               items: [
                 {
-                  text: '响应式实现原理',
+                  text: '响应式',
+                  link: '/vue/t3u5nbjp/',
                 },
                 {
                   text: 'Ref 实现原理',
@@ -96,10 +97,10 @@ export const vueCollection = defineCollection({
               ],
             },
             {
-              text: 'Pinia 源码解析',
+              text: 'Pinia',
             },
             {
-              text: 'Vue Router 源码解析',
+              text: 'Vue Router',
             },
           ],
         },
