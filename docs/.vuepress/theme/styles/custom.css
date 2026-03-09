@@ -4,10 +4,10 @@
   --vp-c-brand-3: #8fbcbb;
   --vp-c-brand-soft: rgba(136, 192, 208, 0.18);
 
-  --vp-c-tip-1: #a3be8c;
-  --vp-c-tip-2: #b6cf9f;
-  --vp-c-tip-3: #c7dab8;
-  --vp-c-tip-soft: rgba(163, 190, 140, 0.18);
+  --vp-c-tip-1: #88c0d0;
+  --vp-c-tip-2: #8fbcbb;
+  --vp-c-tip-3: #a3d1d6;
+  --vp-c-tip-soft: rgba(136, 192, 208, 0.18);
 
   --vp-c-info-1: #88c0d0;
   --vp-c-info-2: #8fbcbb;
@@ -73,10 +73,10 @@
   --vp-custom-block-note-bg: #343b48;
   --vp-custom-block-note-code-bg: #2b313d;
 
-  --vp-custom-block-tip-border: rgba(163, 190, 140, 0.36);
-  --vp-custom-block-tip-text: #e0edd4;
-  --vp-custom-block-tip-bg: rgba(163, 190, 140, 0.14);
-  --vp-custom-block-tip-code-bg: rgba(163, 190, 140, 0.14);
+  --vp-custom-block-tip-border: rgba(136, 192, 208, 0.42);
+  --vp-custom-block-tip-text: #d7f0f4;
+  --vp-custom-block-tip-bg: rgba(136, 192, 208, 0.12);
+  --vp-custom-block-tip-code-bg: rgba(136, 192, 208, 0.12);
 
   --vp-custom-block-important-border: rgba(180, 142, 173, 0.38);
   --vp-custom-block-important-text: #f0dcf0;
@@ -205,6 +205,17 @@
   margin-top: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.vp-doc .custom-block.tip .custom-block-title {
+  color: var(--vp-c-tip-1);
+}
+
+.vp-doc .custom-block.tip .custom-block-title svg,
+.vp-doc .custom-block.tip .custom-block-title [class*='icon'],
+.vp-doc .custom-block.tip .custom-block-title .vp-icon {
+  color: var(--vp-c-tip-1);
+  fill: currentColor;
 }
 
 .vp-table {

@@ -73,28 +73,36 @@ export const vueCollection = defineCollection({
           collapsed: true,
           items: [
             {
-              text: 'Core',
+              text: '响应式',
               items: [
                 {
-                  text: '响应式',
+                  text: '基本实现',
                   link: '/vue/t3u5nbjp/',
                 },
                 {
-                  text: 'Ref 实现原理',
+                  text: '完善响应式能力',
+                  link: '/vue/5tudkjpx/',
                 },
                 {
-                  text: 'computed 实现原理',
-                },
-                {
-                  text: 'scheduler 原理',
-                },
-                {
-                  text: 'watch 原理',
-                },
-                {
-                  text: 'Diff',
+                  text: '处理数组',
+                  link: '/vue/zsn174ya/',
                 },
               ],
+            },
+            {
+              text: 'Ref 实现原理',
+            },
+            {
+              text: 'computed 实现原理',
+            },
+            {
+              text: 'scheduler 原理',
+            },
+            {
+              text: 'watch 原理',
+            },
+            {
+              text: 'Diff',
             },
             {
               text: 'Pinia',
