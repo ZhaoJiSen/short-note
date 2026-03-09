@@ -7,18 +7,10 @@ export const babelCollection = defineCollection({
   title: 'Babel',
   sidebar: [
     {
-      text: '导读',
-      collapsed: true,
-      items: [
-        { text: '通关秘籍导读与章节地图', link: '/babel/guide/' },
-      ],
-    },
-    {
       text: '基础篇',
       collapsed: true,
       items: [
-        { text: '1.Babel 的介绍', link: '/babel/course/ch01/' },
-        { text: '2.Babel 的编译流程', link: '/babel/course/ch02/' },
+        { text: 'Babel 的编译流程', link: '/babel/course/ch02/' },
         { text: '3.Babel 的 AST', link: '/babel/course/ch03/' },
         { text: '4.Babel 的 API', link: '/babel/course/ch04/' },
       ],

@@ -84,7 +84,7 @@ export default defineNavbarConfig([
       },
       {
         text: 'Babel',
-        link: '/babel/guide/',
+        link: '/babel/course/ch02/',
         icon: 'material-icon-theme:babel',
       },
       {
