@@ -213,7 +213,7 @@
   margin: 0 0.08em;
   color: color-mix(in srgb, var(--vp-c-brand-3) 60%, var(--vp-c-text-1));
   background: color-mix(in srgb, var(--vp-c-brand-soft) 26%, var(--vp-c-bg-elv));
-  border: 1px solid color-mix(in srgb, var(--vp-c-brand-soft) 28%, var(--vp-c-divider));
+  /* border: 1px solid color-mix(in srgb, var(--vp-c-brand-soft) 28%, var(--vp-c-divider)); */
   border-radius: 6px;
   line-height: 1.8;
   vertical-align: 0.02em;
@@ -375,7 +375,7 @@
 }
 
 .vp-doc .hint-container li + li {
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .vp-doc .custom-block {
