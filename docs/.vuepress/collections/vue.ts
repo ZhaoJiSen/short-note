@@ -74,6 +74,7 @@ export const vueCollection = defineCollection({
           items: [
             {
               text: '响应式',
+              collapsed: true,
               items: [
                 {
                   text: '基本实现',
