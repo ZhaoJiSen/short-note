@@ -16,7 +16,8 @@ import {
   packageManagerCollection,
   babelCollection,
   buildToolsCollection,
-} from './collections/index'
+  electronCollection,
+} from './collections/index';
 
 export default defineCollections([
   bunCollection,
@@ -34,4 +35,5 @@ export default defineCollections([
   packageManagerCollection,
   babelCollection,
   buildToolsCollection,
+  electronCollection,
 ]);

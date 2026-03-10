@@ -62,6 +62,11 @@ export default defineNavbarConfig([
         icon: 'material-icon-theme:vue',
         link: '/vue/',
       },
+      {
+        text: "Electron",
+        icon: 'https://www.electronjs.org/assets/img/logo.svg',
+        link: '/electron/',
+      }
       // {
       //   text: 'React',
       //   icon: 'material-icon-theme:react',
