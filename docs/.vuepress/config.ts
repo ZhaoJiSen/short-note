@@ -138,6 +138,7 @@ export default defineUserConfig({
       collapse: true,
       mermaid: true,
       flowchart: true,
+      codeTree: true,
       table: {
         align: 'center',
         maxContent: false,

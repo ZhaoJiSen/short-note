@@ -5,6 +5,7 @@ import { defineClientConfig } from 'vuepress/client';
 // import Swiper from 'vuepress-theme-plume/features/Swiper.vue'
 
 // import CustomComponent from './theme/components/Custom.vue'
+import VPCodeTree from './theme/components/VPCodeTree.vue';
 
 import './theme/styles/custom.css';
 
@@ -17,5 +18,6 @@ export default defineClientConfig({
     // app.component('Swiper', Swiper) // you should install `swiper`
     // your custom components
     // app.component('CustomComponent', CustomComponent)
+    app.component('VPCodeTree', VPCodeTree);
   },
 });
