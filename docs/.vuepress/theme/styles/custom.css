@@ -209,14 +209,13 @@
 }
 
 .vp-doc :where(p, li, td, th, blockquote, h1, h2, h3, h4, h5, h6) > code {
-  padding: 0.16em 0.45em;
+  padding: 0.12em 0.42em !important;
   margin: 0 0.08em;
   color: color-mix(in srgb, var(--vp-c-brand-3) 60%, var(--vp-c-text-1));
   background: color-mix(in srgb, var(--vp-c-brand-soft) 26%, var(--vp-c-bg-elv));
-  /* border: 1px solid color-mix(in srgb, var(--vp-c-brand-soft) 28%, var(--vp-c-divider)); */
   border-radius: 6px;
-  line-height: 1.8;
-  vertical-align: 0.02em;
+  line-height: inherit;
+  vertical-align: baseline;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
