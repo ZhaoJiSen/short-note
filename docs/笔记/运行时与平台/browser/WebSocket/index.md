@@ -8,9 +8,8 @@ permalink: /browser/150p4d3o/
 
 WebSocket 是建立在 TCP 之上的应用层协议。通过 HTTP `Upgrade` 握手后，连接会从 "请求-响应" 转为长期双向通道。因此 WebSocket 特别适用于聊天、协同编辑、行情推送等场景
 
-:::info
-WebSocket 是全双工通信， 客户端与服务端都可以主动发送消息，通信方向是双向的
-:::
+> [!IMPORTANT]
+> WebSocket 是全双工通信， 客户端与服务端都可以主动发送消息，通信方向是双向的
 
 ## 连接状态
 
@@ -228,20 +227,16 @@ ws.addEventListener('close', (event) => {
 
 :::::steps
 
-1. 宏观时间线
+1. 先定义状态和配置
 
-   :::details 时间线
-   1. `connect` 建立连接
-   2. 网络断开直接触发 `onerror` 直接手动 `onclose`
-   3. `onclose` 判断不是手动关闭则进入重连流程 `scheduleReconnect`
-   4. 到时间后再次 `connect`
-   5. 一旦 `open` 成功则回复鉴权与订阅，并把断线期间排队消息补发
+   重连这一层本质上是在管理“连接生命周期”。所以第一步不是急着写 `connect`，而是先把状态、重试参数、心跳参数、离线队列这些运行时边界描述清楚
+
+   :::tip 关键点
+
+   把“连接控制”和“业务恢复”相关的配置都集中放进一个 options 里，后面每一步都围绕这个配置工作
    :::
 
-2. 类型与配置
-
-   :::code-tabs
-   @tab reliable-ws.d.ts
+   :::details 代码
 
    ```ts
    type ReliableStatus =
@@ -249,154 +244,171 @@ ws.addEventListener('close', (event) => {
      | 'connecting'
      | 'open'
      | 'reconnecting'
-     | 'closed';
+     | 'closed'
 
    interface ReliableWSOptions<TOutgoing = unknown, TIncoming = unknown> {
-     // 连接 URL
-     url: string;
-
-     // 子协议
-     protocols?: string | string[];
-
-     // 最大重连次数
-     maxRetries?: number;
-
-     // 第一次重连的基础等待时间
-     baseDelay?: number;
-
-     // 最大重连等待时间
-     maxDelay?: number;
-
-     // 随机抖动，避免大量客户端同一时刻重连
-     jitter?: number;
-
-     // 离线队列
-     queueLimit?: number;
-
-     // 发送间隔
-     heartbeatInterval?: number;
-
-     // 等待 pong 超时
-     heartbeatTimeout?: number;
-
-     // 重连后重新鉴权
-     getAuthPayload?: () => TOutgoing | null;
-
-     // 重连后重新订阅
-     getResubscribePayloads?: () => TOutgoing[];
-
-     // 事件回调
-     onMessage?: (message: TIncoming, event: MessageEvent) => void;
-     onStatusChange?: (status: ReliableStatus) => void;
+     url: string
+     protocols?: string | string[]
+     maxRetries?: number
+     baseDelay?: number
+     maxDelay?: number
+     jitter?: number
+     queueLimit?: number
+     heartbeatInterval?: number
+     heartbeatTimeout?: number
+     getAuthPayload?: () => TOutgoing | null
+     getResubscribePayloads?: () => TOutgoing[]
+     onMessage?: (message: TIncoming, event: MessageEvent) => void
+     onStatusChange?: (status: ReliableStatus) => void
    }
    ```
 
    :::
 
-3. 连接与事件绑定
+2. 把建连和事件绑定收口到 `connect`
 
-   :::details 核心流程
-   1. `connect()` 创建原生 WebSocket 并绑定四个事件
-   2. `onopen` 连接成功后 → 重置重试计数 → 启动心跳 → 恢复会话（鉴权+重订阅） → 刷出离线队列
-   3. `onmessage` 先检查是否是心跳 pong 回应，如果不是则解析 JSON 后交给用户回调
-   4. `onerror` 不单独处理，直接关闭连接，统一由 onclose 触发重连，避免重复处理
-   5. `onclose` 如果是手动关闭则标记 closed；否则进入重连调度
+   `connect()` 不只是创建原生 `WebSocket`，还要把四个核心事件统一绑定进去。这样后面不管是首次连接还是重连，入口都始终只有一个
+
+   :::tip 关键点
+
+   每次重连本质上都是重新执行一次 `connect()`，所以连接建立和事件绑定必须是可重复执行、可完整收口的
    :::
+
+   :::details 代码
 
    ```ts
    connect() {
-     this.manualClose = false;
-     this.clearReconnectTimer();
-     this.updateStatus(this.retryCount > 0 ? 'reconnecting' : 'connecting');
+     this.manualClose = false
+     this.clearReconnectTimer()
+     this.updateStatus(this.retryCount > 0 ? 'reconnecting' : 'connecting')
 
-     this.ws = new WebSocket(this.opts.url, this.opts.protocols);
+     this.ws = new WebSocket(this.opts.url, this.opts.protocols)
 
      this.ws.onopen = () => {
-       this.retryCount = 0;
-       this.updateStatus('open');
-       this.startHeartbeat();
-       this.restoreSession();
-       this.flushQueue();
-     };
+       this.retryCount = 0
+       this.updateStatus('open')
+       this.startHeartbeat()
+       this.restoreSession()
+       this.flushQueue()
+     }
 
      this.ws.onmessage = (event) => {
-       if (this.consumePong(event)) return;
-       const parsed = this.parseMessage(event.data);
+       if (this.consumePong(event)) return
+       const parsed = this.parseMessage(event.data)
        if (parsed.ok) {
-         this.opts.onMessage?.(parsed.value as TIncoming, event);
+         this.opts.onMessage?.(parsed.value as TIncoming, event)
        }
-     };
+     }
 
      this.ws.onerror = () => {
-       this.ws?.close();
-     };
+       this.ws?.close()
+     }
 
      this.ws.onclose = () => {
-       this.stopHeartbeat();
+       this.stopHeartbeat()
        if (this.manualClose) {
-         this.updateStatus('closed');
-         return;
+         this.updateStatus('closed')
+         return
        }
-       this.scheduleReconnect();
-     };
+       this.scheduleReconnect()
+     }
    }
    ```
 
-4. 断线重连
+   :::
 
-   核心思路：任何 `error` 直接导向 `onclose`，在 `onclose` 里触发重连机制
+3. 用 `close` 统一收口异常和断线
+
+   浏览器里的 `error` 事件信息通常很少，而且同一次异常往往还会继续触发 `close`。如果两边都各自处理重连，很容易出现重复调度
+
+   :::tip 关键点
+
+   不在 `error` 里直接做重连，而是统一把异常导向 `close`，再由 `close` 判断是否进入重连流程
+   :::
+
+   :::details 代码
+
+   ```ts
+   this.ws.onerror = () => {
+     this.ws?.close()
+   }
+
+   this.ws.onclose = () => {
+     this.stopHeartbeat()
+     if (this.manualClose) {
+       this.updateStatus('closed')
+       return
+     }
+     this.scheduleReconnect()
+   }
+   ```
+
+   :::
+
+4. 在 `scheduleReconnect` 里控制重试次数和调度
+
+   断线之后不是马上无脑重新连，而是应该先判断还能不能重试，再决定多久后重连
+
+   :::tip 关键点
+
+   `scheduleReconnect()` 只负责三件事：判断是否超过最大次数、计算延迟、安排下一次 `connect()`
+   :::
+
+   :::details 代码
 
    ```ts
    private scheduleReconnect() {
-     const maxRetries = this.opts.maxRetries ?? 8;
+     const maxRetries = this.opts.maxRetries ?? 8
 
-     // 超过最大重连次数，标记为 closed 并返回
      if (this.retryCount >= maxRetries) {
-       this.updateStatus('closed');
-       return;
+       this.updateStatus('closed')
+       return
      }
 
-     // 计算重连延迟，并更新重试计数和状态
-     const delay = this.calcDelay(this.retryCount);
-     this.retryCount += 1;
-     this.updateStatus('reconnecting');
-     this.reconnectTimer = setTimeout(() => this.connect(), delay);
-   }
-
-   private calcDelay(attempt: number) {
-     const baseDelay = this.opts.baseDelay ?? 1000;
-     const maxDelay = this.opts.maxDelay ?? 30000;
-     const jitter = this.opts.jitter ?? 300;
-
-     const exp = Math.min(baseDelay * 2 ** attempt, maxDelay);
-     return exp + Math.floor(Math.random() * jitter);
+     const delay = this.calcDelay(this.retryCount)
+     this.retryCount += 1
+     this.updateStatus('reconnecting')
+     this.reconnectTimer = setTimeout(() => this.connect(), delay)
    }
    ```
 
-5. 指数退避重连[+指数退避重连]
-
-   延迟公式: `min(baseDelay × 2^attempt, maxDelay) + random(0, jitter)`。默认值下的重连间隔大约为：1s → 2s → 4s → 8s → 16s → 30s → 30s → 30s（最多 8 次）
-
-   :::note
-   失败越多等待越久，并且加一点随机抖动，避免大量客户端同一时刻重连
    :::
+
+5. 用指数退避控制重连节奏
+
+   如果断线后每次都立即重连，客户端数量一多就很容易把服务端冲垮。因此重连通常要做成==指数退避重连==[+指数退避重连]
+
+   :::tip 关键点
+
+   延迟公式通常是：`min(baseDelay × 2^attempt, maxDelay) + random(0, jitter)`，也就是“越失败等越久，再加一点随机抖动”
+   :::
+
+   :::details 代码
 
    ```ts
    private calcDelay(attempt: number) {
      const baseDelay = this.opts.baseDelay ?? 1000
      const maxDelay = this.opts.maxDelay ?? 30000
      const jitter = this.opts.jitter ?? 300
+
      const exp = Math.min(baseDelay * 2 ** attempt, maxDelay)
      return exp + Math.floor(Math.random() * jitter)
    }
    ```
 
-6. 发送与离线队列
+   :::
 
-   重连成功后，重启心跳 `startHeartbeat`、回复鉴权 `restoreSession`、补发离线队列 `flushQueue`
+6. 重连成功后恢复会话和补发消息
+
+   连接重新建立以后，业务层通常不能只停在“连上了”，还要继续恢复鉴权、恢复订阅，并把断线期间排队的消息补发出去
+
+   :::tip 关键点
+
+   恢复顺序通常是：`startHeartbeat` -> `restoreSession` -> `flushQueue`。也就是先确认连接活着，再恢复状态，最后补发业务消息
+   :::
 
    :::code-tabs
-   @tab restoreSession.js
+   @tab restoreSession.ts
 
    ```ts
    private restoreSession() {
@@ -410,120 +422,136 @@ ws.addEventListener('close', (event) => {
    }
    ```
 
-   @tab flushQueue.js
+   @tab flushQueue.ts
 
    ```ts
-   // while + 条件检查，保证一旦连接断了就停止发送，剩余消息继续留在队列里，等下次重连成功后再发
-   // 使用 queue.shift() 可以保证发一条删一条
    private flushQueue() {
      while (this.queue.length > 0 && this.ws?.readyState === WebSocket.OPEN) {
-       this.ws.send(this.queue.shift()!);
+       this.ws.send(this.queue.shift()!)
      }
+   }
+   ```
+
+   @tab send.ts
+
+   ```ts
+   send(data: TOutgoing) {
+     const text = JSON.stringify(data)
+
+     if (this.ws?.readyState === WebSocket.OPEN) {
+       this.ws.send(text)
+       return true
+     }
+
+     if (this.queue.length >= (this.opts.queueLimit ?? 100)) {
+       this.queue.shift()
+     }
+
+     this.queue.push(text)
+     return false
    }
    ```
 
    :::
 
-   除此之外在 `send` 方法中通过 `queue` 来管理离线消息，当连接可用时直接发送，当连接不可用时放入队列，等待重连后补发
+7. 用心跳检测僵尸连接
 
-   ```ts
-   send(data: TOutgoing) {
-     const text = JSON.stringify(data);
+   仅仅“浏览器没有立刻报错”并不意味着连接真的可用。有些场景下连接已经失效，但客户端还没收到关闭事件，这时就需要心跳来主动探测
 
-     // 连接可用时直接发送
-     if (this.ws?.readyState === WebSocket.OPEN) {
-       this.ws.send(text);
-       return true;
-     }
+   :::tip 关键点
 
-     // 超出限制自动移除最早的消息
-     if (this.queue.length >= (this.opts.queueLimit ?? 100)) {
-       this.queue.shift();
-     }
+   周期性发 `ping`，同时给 `pong` 设置截止时间；如果截止前没收到 `pong`，就主动关闭连接，把它交给重连流程处理
+   :::
 
-     // 连接不可用时放入离线队列，等待重连后补发
-     this.queue.push(text);
-     return false;
-   }
-   ```
-
-7. 心跳
+   :::details 代码
 
    ```ts
    private startHeartbeat() {
-     this.stopHeartbeat();
-     const interval = this.opts.heartbeatInterval ?? 15000;
+     this.stopHeartbeat()
+     const interval = this.opts.heartbeatInterval ?? 15000
 
      this.heartbeatTimer = setInterval(() => {
-       if (this.ws?.readyState !== WebSocket.OPEN) return;
-       this.ws.send(JSON.stringify({ type: 'ping', at: Date.now() }));
-       this.armPongDeadline();
-     }, interval);
+       if (this.ws?.readyState !== WebSocket.OPEN) return
+       this.ws.send(JSON.stringify({ type: 'ping', at: Date.now() }))
+       this.armPongDeadline()
+     }, interval)
    }
 
    private armPongDeadline() {
-     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
-     const timeout = this.opts.heartbeatTimeout ?? 8000;
+     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer)
+     const timeout = this.opts.heartbeatTimeout ?? 8000
      this.pongTimeoutTimer = setTimeout(() => {
-       this.ws?.close(4000, 'heartbeat timeout');
-     }, timeout);
+       this.ws?.close(4000, 'heartbeat timeout')
+     }, timeout)
    }
 
    private consumePong(event: MessageEvent) {
-     const parsed = this.parseMessage(event.data);
-     if (!parsed.ok) return false;
+     const parsed = this.parseMessage(event.data)
+     if (!parsed.ok) return false
 
-     const payload = parsed.value as { type?: string };
-     if (payload?.type !== 'pong') return false;
+     const payload = parsed.value as { type?: string }
+     if (payload?.type !== 'pong') return false
 
-     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
-     this.pongTimeoutTimer = null;
-     return true;
+     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer)
+     this.pongTimeoutTimer = null
+     return true
    }
    ```
 
-8. 其余代码
+   :::
+
+8. 收口清理和辅助方法
+
+   重连之外还要考虑主动关闭、消息解析、定时器清理和状态派发，这些方法本身不复杂，但如果没有统一收口，连接生命周期就会变得很乱
+
+   :::tip 关键点
+
+   把“资源清理”和“状态变更”封装成独立方法，保证任何路径下都能复用，而不是把 `clearTimeout`、`clearInterval` 之类的逻辑散落到各处
+   :::
+
+   :::details 代码
 
    ```ts
    close(code = 1000, reason = 'manual close') {
-     this.manualClose = true;
-     this.clearReconnectTimer();
-     this.stopHeartbeat();
-     this.ws?.close(code, reason);
-     this.ws = null;
-     this.updateStatus('closed');
+     this.manualClose = true
+     this.clearReconnectTimer()
+     this.stopHeartbeat()
+     this.ws?.close(code, reason)
+     this.ws = null
+     this.updateStatus('closed')
    }
 
    private parseMessage(raw: unknown): { ok: true; value: unknown } | { ok: false } {
-     if (typeof raw !== 'string') return { ok: false };
+     if (typeof raw !== 'string') return { ok: false }
      try {
-       return { ok: true, value: JSON.parse(raw) };
+       return { ok: true, value: JSON.parse(raw) }
      } catch {
-       return { ok: false };
+       return { ok: false }
      }
    }
 
    private stopHeartbeat() {
-     if (this.heartbeatTimer) clearInterval(this.heartbeatTimer);
-     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer);
-     this.heartbeatTimer = null;
-     this.pongTimeoutTimer = null;
+     if (this.heartbeatTimer) clearInterval(this.heartbeatTimer)
+     if (this.pongTimeoutTimer) clearTimeout(this.pongTimeoutTimer)
+     this.heartbeatTimer = null
+     this.pongTimeoutTimer = null
    }
 
    private clearReconnectTimer() {
-     if (this.reconnectTimer) clearTimeout(this.reconnectTimer);
-     this.reconnectTimer = null;
+     if (this.reconnectTimer) clearTimeout(this.reconnectTimer)
+     this.reconnectTimer = null
    }
 
    private updateStatus(status: ReliableStatus) {
-     this.opts.onStatusChange?.(status);
+     this.opts.onStatusChange?.(status)
    }
    ```
 
-9. 完整代码
+   :::
 
-   :::code-tabs
-   @tab reliable-ws.ts
+9. 完整实现
+
+   :::details reliable-ws.ts
 
    ```ts
    type ReliableStatus =
@@ -584,7 +612,6 @@ ws.addEventListener('close', (event) => {
        }
 
        this.ws.onerror = () => {
-         // 统一交给 close 事件触发重连，避免错误和关闭双重处理
          this.ws?.close()
        }
 
@@ -718,10 +745,9 @@ ws.addEventListener('close', (event) => {
 
    :::
 
-10. 使用
+10. 使用示例
 
-    :::code-tabs
-    @tab app.ts
+    :::details app.ts
 
     ```ts
     import { ReliableWS } from './reliable-ws'
@@ -754,17 +780,12 @@ ws.addEventListener('close', (event) => {
       },
     })
 
-    // 建立连接
     client.connect()
-
-    // 正常发送（断线时会自动排队，重连后补发）
     client.send({ type: 'chat.send', payload: { text: 'hello' } })
 
-    // 页面离开时释放连接
     window.addEventListener('beforeunload', () => {
       client.close()
     })
-
     ```
 
     :::
