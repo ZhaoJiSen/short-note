@@ -88,6 +88,10 @@ export const vueCollection = defineCollection({
                   text: '处理数组',
                   link: '/vue/zsn174ya/',
                 },
+                {
+                  text: '实现只读代理',
+                  link: '/vue/3d7jpgao/',
+                },
               ],
             },
             {
