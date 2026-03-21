@@ -92,29 +92,12 @@ export const vueCollection = defineCollection({
                   text: '实现只读代理',
                   link: '/vue/3d7jpgao/',
                 },
+                {
+                  text: '实现浅层代理',
+                  link: '/vue/h8xyw8s4/',
+                }
               ],
-            },
-            {
-              text: 'Ref 实现原理',
-            },
-            {
-              text: 'computed 实现原理',
-            },
-            {
-              text: 'scheduler 原理',
-            },
-            {
-              text: 'watch 原理',
-            },
-            {
-              text: 'Diff',
-            },
-            {
-              text: 'Pinia',
-            },
-            {
-              text: 'Vue Router',
-            },
+            }
           ],
         },
       ],
