@@ -95,8 +95,20 @@ export const vueCollection = defineCollection({
                 {
                   text: '实现浅层代理',
                   link: '/vue/h8xyw8s4/',
+                },
+                {
+                  text: '完善副作用机制',
+                  link: '/vue/qje1vr19/'
                 }
               ],
+            },
+            {
+              text: '渲染器',
+              collapsed: true,
+            },
+            {
+              text: '编译器',
+              collapsed: true,
             }
           ],
         },

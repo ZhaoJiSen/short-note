@@ -212,12 +212,58 @@
   padding: 0.12em 0.42em !important;
   margin: 0 0.08em;
   color: color-mix(in srgb, var(--vp-c-brand-3) 60%, var(--vp-c-text-1));
-  background: color-mix(in srgb, var(--vp-c-brand-soft) 26%, var(--vp-c-bg-elv));
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 14%, var(--vp-c-bg-elv));
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-2) 14%, transparent);
   border-radius: 6px;
   line-height: inherit;
   vertical-align: baseline;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+
+.vp-doc .custom-block.info :where(p, li, td, th, blockquote) > code,
+.vp-doc .hint-container.info :where(p, li, td, th, blockquote) > code {
+  color: #d8fbff;
+  background: rgb(38 187 217 / 0.09);
+  border: 1px solid rgb(89 227 227 / 0.12);
+}
+
+.vp-doc .custom-block.note :where(p, li, td, th, blockquote) > code,
+.vp-doc .hint-container.note :where(p, li, td, th, blockquote) > code,
+.vp-doc .custom-block.details :where(p, li, td, th, blockquote) > code {
+  color: #edf1f5;
+  background: rgb(75 82 100 / 0.16);
+  border: 1px solid rgb(182 190 202 / 0.16);
+}
+
+.vp-doc .custom-block.tip :where(p, li, td, th, blockquote) > code,
+.vp-doc .hint-container.tip :where(p, li, td, th, blockquote) > code {
+  color: #dcfff1;
+  background: rgb(41 211 152 / 0.09);
+  border: 1px solid rgb(63 218 164 / 0.12);
+}
+
+.vp-doc .custom-block.important :where(p, li, td, th, blockquote) > code,
+.vp-doc .hint-container.important :where(p, li, td, th, blockquote) > code,
+.vp-doc .custom-block.danger :where(p, li, td, th, blockquote) > code,
+.vp-doc .hint-container.danger :where(p, li, td, th, blockquote) > code {
+  color: #ffe1e8;
+  background: rgb(233 86 120 / 0.09);
+  border: 1px solid rgb(240 147 131 / 0.12);
+}
+
+.vp-doc .custom-block.warning :where(p, li, td, th, blockquote) > code,
+.vp-doc .hint-container.warning :where(p, li, td, th, blockquote) > code {
+  color: #fff3ea;
+  background: rgb(250 183 149 / 0.09);
+  border: 1px solid rgb(251 195 167 / 0.12);
+}
+
+.vp-doc .custom-block.caution :where(p, li, td, th, blockquote) > code,
+.vp-doc .hint-container.caution :where(p, li, td, th, blockquote) > code {
+  color: #fff0ea;
+  background: rgb(240 147 131 / 0.09);
+  border: 1px solid rgb(250 183 149 / 0.12);
 }
 
 .vp-doc .custom-block.note .custom-block-title {
