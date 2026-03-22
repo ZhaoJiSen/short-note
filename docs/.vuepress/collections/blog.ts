@@ -10,7 +10,7 @@ export const blogCollection = defineCollection({
     permalink: true,
   },
   profile: {
-    avatar: 'logo.jpg',
+    avatar: 'https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@master/logo.jpg',
     circle: false,
     name: '弟弟森的编程小博客',
     description: '零散信息存放处',

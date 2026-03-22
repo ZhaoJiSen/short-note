@@ -18,7 +18,7 @@ import collections from './collections';
  * @see https://theme-plume.vuejs.press/config/basic/
  */
 export default defineThemeConfig({
-  logo: 'logo.jpg',
+  logo: 'https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@master/logo.jpg',
 
   appearance: 'force-dark', // 固定暗色并隐藏切换按钮
 
@@ -47,7 +47,7 @@ export default defineThemeConfig({
    * @see https://theme-plume.vuejs.press/config/basic/#profile
    */
   profile: {
-    avatar: 'logo.jpg',
+    avatar: 'https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@master/logo.jpg',
     name: '弟弟森的编程小笔记',
     description: '个人笔记存放处',
     circle: true,

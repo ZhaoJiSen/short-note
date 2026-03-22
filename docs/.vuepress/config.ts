@@ -26,7 +26,7 @@ export default defineUserConfig({
       {
         rel: 'icon',
         type: 'image.jpg',
-        href: '/short-note/logo.jpg',
+        href: 'https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@master/logo.jpg',
       },
     ],
   ],
