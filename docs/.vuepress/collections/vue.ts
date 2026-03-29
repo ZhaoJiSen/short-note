@@ -11,36 +11,6 @@ export const vueCollection = defineCollection({
       icon: 'vscode-icons:file-type-vue',
       items: [
         {
-          text: '基础篇',
-          collapsed: true,
-          items: [
-            {
-              text: '模板语法与属性绑定',
-              link: '/vue/iorgmo8s/',
-            },
-            {
-              text: '响应式',
-              link: '/vue/lnalkeew/',
-            },
-            {
-              text: '计算属性与侦听器',
-              link: '/vue/44zt1ybc/',
-            },
-            {
-              text: '条件渲染与列表渲染',
-              link: '/vue/slbeqpqt/',
-            },
-            {
-              text: '组件',
-              link: '/vue/27n0q1k1/',
-            },
-            {
-              text: '事件处理',
-              link: '/vue/tc38f00o/',
-            },
-          ],
-        },
-        {
           text: '补充篇',
           collapsed: true,
           items: [
@@ -99,6 +69,10 @@ export const vueCollection = defineCollection({
                 {
                   text: '完善副作用机制',
                   link: '/vue/qje1vr19/'
+                },
+                {
+                  text: '实现调度执行',
+                  link: '/vue/kaw881ya/'
                 }
               ],
             },

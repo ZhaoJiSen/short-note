@@ -1,7 +1,7 @@
 ---
 title: HTTP 请求流程与连接管理
 createTime: 2025/07/10 15:28:52
-permalink: /browser/g9wen3tg/
+permalink: /浏览器/g9wen3tg/
 ---
 
 很多人把“发起请求”理解成一行 `fetch`，但浏览器底层实际经历了多层网络协议协作。

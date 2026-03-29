@@ -1,7 +1,7 @@
 ---
 title: WebSocket
 createTime: 2026/02/27 00:28:20
-permalink: /browser/150p4d3o/
+permalink: /浏览器/150p4d3o/
 ---
 
 [+回压]: 发送速度 > 接收速度时产生的数据堆积问题

@@ -39,7 +39,7 @@ export default defineNavbarConfig([
     items: [
       {
         text: 'Browser',
-        link: '/browser/0pkbd4hl/',
+        link: '/浏览器/0pkbd4hl/',
         icon: 'material-icon-theme:http',
       },
       {
