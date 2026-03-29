@@ -73,6 +73,22 @@ export const vueCollection = defineCollection({
                 {
                   text: '实现调度执行',
                   link: '/vue/kaw881ya/'
+                },
+                {
+                  text: '实现 computed',
+                  link: '/vue/u2wbbrzr/'
+                },
+                {
+                  text: '实现 Ref',
+                  link: '/vue/rxnrhf5b/'
+                },
+                {
+                  text: '实现 watch',
+                  link: '/vue/b385jshj/'
+                },
+                {
+                  text: '响应式系统的源码重构',
+                  link: '/vue/vhyfe2xb/'
                 }
               ],
             },
