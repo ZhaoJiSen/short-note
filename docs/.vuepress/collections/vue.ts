@@ -43,6 +43,16 @@ export const vueCollection = defineCollection({
           collapsed: true,
           items: [
             {
+              text: '工程化搭建',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Monorepo 工程搭建',
+                  link: '/vue/ppldcls4/',
+                },
+              ],
+            },
+            {
               text: '响应式',
               collapsed: true,
               items: [
@@ -95,6 +105,62 @@ export const vueCollection = defineCollection({
             {
               text: '渲染器',
               collapsed: true,
+              items: [
+                {
+                  text: '渲染器的基本设计',
+                  link: '/vue/lablrqv5/',
+                },
+                {
+                  text: '卸载的处理',
+                  link: '/vue/mcwewu0x/',
+                },
+                {
+                  text: '事件处理',
+                  link: '/vue/bqf9w8ei/',
+                },
+                {
+                  text: '更新子节点',
+                  link: '/vue/a0j67j5x/',
+                },
+                {
+                  text: 'diff 算法',
+                  link: '/vue/4ogxq0k2/',
+                },
+              ],
+            },
+            {
+              text: '组件系统',
+              collapsed: true,
+              items: [
+                {
+                  text: '组件系统的基本实现',
+                  link: '/vue/mxzsbw3g/',
+                },
+                {
+                  text: '组件实例对象处理',
+                  link: '/vue/n9xrfvxr/',
+                },
+                {
+                  text: 'props 处理',
+                  link: '/vue/kpufjoe6/',
+                },
+                {
+                  text: 'setup',
+                  link: '/vue/n3gsttui/',
+                },
+                {
+                  text: 'emit 处理',
+                  link: '/vue/93g27biy/',
+                },
+                {
+                  text: 'slots',
+                  link: '/vue/7uot2834/',
+                },
+                {
+                  text: '生命周期',
+                  link: '/vue/yi3ljkm5/',
+                },
+              ],
             },
             {
               text: '编译器',

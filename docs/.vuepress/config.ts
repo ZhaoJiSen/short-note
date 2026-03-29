@@ -16,7 +16,7 @@ import { plumeTheme } from 'vuepress-theme-plume';
 export default defineUserConfig({
   base: '/short-note/',
   lang: 'zh-CN',
-  title: '弟弟森的编程小笔记',
+  title: 'Aaron 的编程小笔记',
   description: '个人笔记存放处',
 
   head: [
