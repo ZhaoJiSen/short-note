@@ -17,7 +17,7 @@ export const buildToolsCollection = defineCollection({
       items: [
         {
           text: '基础篇',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Vite', link: '/engineering/n8cecFal/' },
             { text: '基本配置', link: '/engineering/nqqf1ea4/' },
@@ -28,7 +28,7 @@ export const buildToolsCollection = defineCollection({
         },
         {
           text: '性能优化篇',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: '依赖预构建 optimizeDeps', link: '/engineering/1m4nkdkg/' },
             { text: '构建配置与产物分析', link: '/engineering/80pgnp3d/' },
@@ -43,7 +43,7 @@ export const buildToolsCollection = defineCollection({
       items: [
         {
           text: '基础篇',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: '1.基本配置', link: '/engineering/Webpack/54ln0klw/' },
             { text: '2.Sourcemap', link: '/engineering/Webpack/opin99tz/' },
@@ -59,7 +59,7 @@ export const buildToolsCollection = defineCollection({
         },
         {
           text: '性能优化篇',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: '1.资源处理', link: '/engineering/Webpack/gvnvei3s/' },
             {
@@ -100,6 +100,6 @@ export const buildToolsCollection = defineCollection({
       text: 'Gulp',
       icon: 'material-icon-theme:gulp',
       link: '/engineering/gulp-guide/',
-    },
+    }
   ],
 });
