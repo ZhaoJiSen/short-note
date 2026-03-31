@@ -32,29 +32,18 @@ Reflect 是一个内置的 JavaScript 对象，它提供了一系列方法，让
 
 Proxy 用来为目标对象建立一层代理，从而拦截并自定义这个对象上的基础操作。Proxy 是一个构造函数，因此创建一个代理对象需要使用 `new` 来创建
 
-:::table full-width
-
-| 参数 | 描述 |
-| --- | --- |
-| `target` | 需要代理的原始对象 |
-| `handler` | 定义哪些操作将被拦截以及如何重定义拦截操作的对象 |
-
-:::
-
-::::details handler 配置
+Proxy 接收两个参数：`target` 和 `handler`。其中 `target` 是需要代理的原始对象，而 `handler` 是一个对象，定义了哪些操作将被拦截以及如何重定义拦截操作的对象
 
 :::table full-width
 
-| Trap | 触发时机 |  返回值要求 |
-| --- | --- | --- | --- |
-| `get` | 读取属性：`obj.foo` |  任意值 |
+| Trap | 触发时机 | 返回值 |
+| --- | --- | --- |
+| `get` | 读取属性：`obj.foo` | 任意值 |
 | `set` | 设置属性：`obj.foo = v` | `boolean` |
 | `has` | `key in obj` | `boolean` |
 | `deleteProperty` | `delete obj.foo` | `boolean` |
-| `ownKeys` | `Object.keys / Reflect.ownKeys` | 键数组 |
+| `ownKeys` | `Object.keys()` / `Reflect.ownKeys()` | 键数组 |
 | `apply` | 代理函数被调用 | 任意值 |
 | `construct` | 代理函数被 `new` 调用 | 对象 |
 
 :::
-
-::::

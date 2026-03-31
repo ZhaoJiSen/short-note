@@ -134,6 +134,7 @@ export const javascriptCollection = defineCollection({
         },
         {
           text: 'Fetch',
+          link: '/javascript/43422541/'
         },
         {
           text: '迭代器与生成器',

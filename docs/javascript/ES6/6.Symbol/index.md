@@ -84,11 +84,13 @@ console.log(x1 === x2) // true
 console.log(Symbol.keyFor(x1)) // 'app.cache'
 console.log(Symbol.keyFor(Symbol('app.cache'))) // undefined
 ```
+
 :::
 
 ## 演示：字符串键与 Symbol 键互不干扰
 
 :::demo
+
 ```html
 <!doctype html>
 <html lang="zh-CN">
@@ -119,4 +121,5 @@ console.log(Symbol.keyFor(Symbol('app.cache'))) // undefined
   </body>
 </html>
 ```
+
 :::
