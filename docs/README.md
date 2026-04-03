@@ -6,7 +6,7 @@ config:
   -
     type: hero
     full: true,
-    # effect: lightning
+    effect: dot-grid
     hero:
       name: Theme Plume
       tagline: VuePress Next Theme
