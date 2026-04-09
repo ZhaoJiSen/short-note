@@ -107,59 +107,21 @@ export const vueCollection = defineCollection({
               collapsed: true,
               items: [
                 {
-                  text: '渲染器的基本设计',
-                  link: '/vue/lablrqv5/',
+                  text: '渲染器的基本实现',
+                  link: '/vue/1om5vu9p/'
                 },
                 {
-                  text: '卸载的处理',
-                  link: '/vue/mcwewu0x/',
-                },
-                {
-                  text: '事件处理',
-                  link: '/vue/bqf9w8ei/',
-                },
-                {
-                  text: '更新子节点',
-                  link: '/vue/a0j67j5x/',
+                  text: '节点处理',
+                  link: '/vue/303cu2ti/'
                 },
                 {
                   text: 'diff 算法',
-                  link: '/vue/4ogxq0k2/',
-                },
-              ],
-            },
-            {
-              text: '组件系统',
-              collapsed: true,
-              items: [
-                {
-                  text: '组件系统的基本实现',
-                  link: '/vue/mxzsbw3g/',
+                  link: '/vue/4ogxq0k2/'
                 },
                 {
-                  text: '组件实例对象处理',
-                  link: '/vue/n9xrfvxr/',
-                },
-                {
-                  text: 'props 处理',
-                  link: '/vue/kpufjoe6/',
-                },
-                {
-                  text: 'setup',
-                  link: '/vue/n3gsttui/',
-                },
-                {
-                  text: 'emit 处理',
-                  link: '/vue/93g27biy/',
-                },
-                {
-                  text: 'slots',
-                  link: '/vue/7uot2834/',
-                },
-                {
-                  text: '生命周期',
-                  link: '/vue/yi3ljkm5/',
-                },
+                  text: '组件渲染体系',
+                  link: '/vue/tha3vavr/'
+                }
               ],
             },
             {
