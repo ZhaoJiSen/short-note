@@ -22,10 +22,15 @@ export default defineNavbarConfig([
         link: '/typescript/iB2WgoFC/',
         icon: 'material-icon-theme:typescript',
       },
+      // {
+      //   text: 'Go',
+      //   icon: 'material-icon-theme:go-gopher',
+      //   link: '/go/',
+      // },
       {
-        text: 'Go',
-        icon: 'material-icon-theme:go-gopher',
-        link: '/go/',
+        text: 'Python',
+        link: '/python/',
+        icon: 'material-icon-theme:python',
       },
       {
         text: 'Rust',
@@ -60,7 +65,7 @@ export default defineNavbarConfig([
       {
         text: 'Vue',
         icon: 'material-icon-theme:vue',
-        link: '/vue/',
+        link: '/vue/t3u5nbjp/',
       },
       {
         text: 'React',

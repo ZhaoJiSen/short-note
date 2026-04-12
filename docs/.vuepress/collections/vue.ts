@@ -127,6 +127,12 @@ export const vueCollection = defineCollection({
             {
               text: '编译器',
               collapsed: true,
+            },
+            {
+              text: 'Pinia 源码'
+            },
+            {
+              text: 'Vue Router 源码'
             }
           ],
         },
