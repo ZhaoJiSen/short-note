@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VPIcon from '@theme/VPIcon.vue';
 import { withBase } from 'vuepress/client';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 const topics = [
   {
@@ -47,18 +48,86 @@ const topics = [
   },
 ];
 
-const routes = [
-  { title: '基础知识', desc: '语言、类型、浏览器基础', link: '/javascript/' },
-  { title: '框架相关', desc: 'Vue、React、Electron', link: '/vue/' },
-  { title: '工程实践', desc: '构建、依赖、发布、规范', link: '/package-manager/ghjscjaz/' },
-  { title: '博客文章', desc: '阶段性记录和专题文章', link: '/blog/' },
-];
+const heroCard = ref<HTMLElement | null>(null);
+const topicsSection = ref<HTMLElement | null>(null);
+const topicsVisible = ref(false);
+
+let reduceMotion = false;
+let magnetFrame = 0;
+let topicObserver: IntersectionObserver | undefined;
+
+function resetMagnet() {
+  if (magnetFrame) {
+    cancelAnimationFrame(magnetFrame);
+    magnetFrame = 0;
+  }
+
+  heroCard.value?.style.setProperty('--magnet-x', '0px');
+  heroCard.value?.style.setProperty('--magnet-y', '0px');
+  heroCard.value?.style.setProperty('--magnet-rotate', '0deg');
+}
+
+function handleMagnetMove(event: MouseEvent) {
+  if (reduceMotion || !heroCard.value)
+    return;
+
+  const card = heroCard.value;
+  const rect = card.getBoundingClientRect();
+  const offsetX = event.clientX - rect.left - rect.width / 2;
+  const offsetY = event.clientY - rect.top - rect.height / 2;
+
+  if (magnetFrame)
+    cancelAnimationFrame(magnetFrame);
+
+  magnetFrame = requestAnimationFrame(() => {
+    card.style.setProperty('--magnet-x', `${offsetX * 0.035}px`);
+    card.style.setProperty('--magnet-y', `${offsetY * 0.045}px`);
+    card.style.setProperty('--magnet-rotate', `${offsetX * 0.002}deg`);
+  });
+}
+
+onMounted(() => {
+  reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion) {
+    topicsVisible.value = true;
+    return;
+  }
+
+  if (topicsSection.value) {
+    topicObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting)
+          return;
+
+        topicsVisible.value = true;
+        topicObserver?.disconnect();
+      },
+      {
+        threshold: 0.18,
+        rootMargin: '0px 0px -8% 0px',
+      },
+    );
+
+    topicObserver.observe(topicsSection.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  resetMagnet();
+  topicObserver?.disconnect();
+});
 </script>
 
 <template>
   <div class="linear-home-shell">
     <section class="linear-home-hero" aria-label="个人简介展示">
-      <div class="vp-demo-wrapper normal linear-profile-demo">
+      <div
+        ref="heroCard"
+        class="vp-demo-wrapper normal linear-profile-demo"
+        @mouseleave="resetMagnet"
+        @mousemove="handleMagnetMove"
+      >
         <div class="demo-draw">
           <section class="about-aaron">
             <div class="hero-badge">Open Source Contributor · Frontend Engineer</div>
@@ -114,7 +183,12 @@ const routes = [
       </div>
     </section>
 
-    <section class="linear-home-section" aria-labelledby="topics-title">
+    <!-- <section
+      ref="topicsSection"
+      class="linear-home-section animated-topics"
+      :class="{ 'is-visible': topicsVisible }"
+      aria-labelledby="topics-title"
+    >
       <div class="section-heading">
         <p class="linear-kicker">Topics</p>
       </div>
@@ -130,6 +204,6 @@ const routes = [
           <em>{{ topic.desc }}</em>
         </a>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
