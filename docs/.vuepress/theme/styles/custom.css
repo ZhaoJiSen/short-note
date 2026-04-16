@@ -2253,6 +2253,10 @@ mark {
   }
 }
 
+.code-repl .code-repl-title h4 {
+  padding: unset;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

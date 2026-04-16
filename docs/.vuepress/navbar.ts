@@ -22,11 +22,11 @@ export default defineNavbarConfig([
         link: '/typescript/iB2WgoFC/',
         icon: 'material-icon-theme:typescript',
       },
-      // {
-      //   text: 'Go',
-      //   icon: 'material-icon-theme:go-gopher',
-      //   link: '/go/',
-      // },
+      {
+        text: 'Go',
+        icon: 'material-icon-theme:go-gopher',
+        link: '/go/',
+      },
       {
         text: 'Python',
         link: '/python/',
@@ -73,9 +73,9 @@ export default defineNavbarConfig([
         link: '/react/xp46o97u/',
       },
       // {
-        // text: "Electron",
-        // icon: 'https://www.electronjs.org/assets/img/logo.svg',
-        // link: '/electron/',
+      // text: "Electron",
+      // icon: 'https://www.electronjs.org/assets/img/logo.svg',
+      // link: '/electron/',
       // }
     ],
   },
