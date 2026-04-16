@@ -4,8 +4,7 @@ externalLinkIcon: false
 footer: false
 config:
   - type: hero
-    full: true
-    effect: dot-grid
+    full: false
     hero:
       name: Aaron 的编程小笔记
       text: 只看见局部，不看见全体，只看见树木，不看见森林

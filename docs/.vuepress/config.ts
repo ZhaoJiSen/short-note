@@ -20,6 +20,15 @@ export default defineUserConfig({
   description: '个人笔记存放处',
 
   head: [
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:opsz,wght@14..32,300..600&display=swap',
+      },
+    ],
     // 配置站点图标
     [
       'link',
@@ -103,7 +112,7 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/config/plugins/code-highlight/
      */
     codeHighlighter: {
-      themes: { light: 'github-light', dark: 'horizon' },
+      themes: { light: 'github-light-default', dark: 'github-dark-dimmed' },
       lineNumbers: false,
       notationDiff: true,
       notationErrorLevel: true,
@@ -152,13 +161,7 @@ export default defineUserConfig({
      * 水印
      * @see https://theme-plume.vuejs.press/guide/features/watermark/
      */
-    watermark: {
-      enabled: (page) => true,
-      watermarkOptions: {
-        content: '桀桀桀',
-      },
-      fullPage: true,
-    },
+    watermark: false,
 
     /**
      * 评论 comments

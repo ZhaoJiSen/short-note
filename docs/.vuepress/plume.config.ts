@@ -20,7 +20,7 @@ import collections from './collections';
 export default defineThemeConfig({
   logo: 'https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@master/logo.jpg',
 
-  appearance: 'force-dark', // 固定暗色并隐藏切换按钮
+  appearance: 'dark',
 
   social: [{ icon: 'github', link: 'https://github.com/ZhaoJiSen/short-note' }],
   // navbarSocialInclude: ['github'], // 允许显示在导航栏的 social 社交链接
