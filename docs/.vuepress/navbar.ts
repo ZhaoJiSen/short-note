@@ -49,7 +49,7 @@ export default defineNavbarConfig([
       },
       {
         text: 'Node',
-        link: '/node/',
+        link: '/node/8ndhljae/',
         icon: 'material-icon-theme:nodejs',
       },
       // {

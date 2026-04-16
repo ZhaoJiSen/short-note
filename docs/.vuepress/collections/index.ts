@@ -5,7 +5,6 @@ export { rustCollection } from './rust';
 export { reactCollection } from './react';
 export { nodeCollection } from './node';
 export { browserCollection } from './browser';
-export { notesCollection } from './notes';
 export { blogCollection } from './blog';
 export { javascriptCollection } from './javascript';
 export { typescriptCollection } from './typescript';

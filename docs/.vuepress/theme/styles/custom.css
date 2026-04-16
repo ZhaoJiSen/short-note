@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
 :root {
   color-scheme: light;
 
@@ -78,7 +80,7 @@
     system-ui,
     sans-serif;
   --vp-font-family-mono:
-    "Maple Mono",
+    "Input Mono",
     "Fira Code",
     "Berkeley Mono",
     ui-monospace,
@@ -1488,7 +1490,7 @@ body {
 .vp-doc div[class*='language-'] code {
   padding: 0 22px;
   font-family: var(--vp-font-family-mono);
-  font-size: 13px;
+  font-size: 14px;
   font-variant-ligatures: contextual common-ligatures;
   font-feature-settings: "calt", "liga";
 }

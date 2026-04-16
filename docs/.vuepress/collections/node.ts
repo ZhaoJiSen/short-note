@@ -6,54 +6,72 @@ export const nodeCollection = defineCollection({
   title: 'Node',
   sidebar: [
     {
-      text: 'Node 总览',
-      collapsed: false,
-      items: [
-        { text: '概览', link: '/node/' },
-      ],
-    },
-    {
-      text: 'Bun 专题',
-      collapsed: false,
-      items: [
-        { text: '专题总览', link: '/bun/' },
-      ],
-    },
-    {
       text: '基础篇',
-      collapsed: false,
+      collapsed: true,
       items: [
-        { text: '简介', link: '/bun/intro/' },
-        { text: '模块', link: '/bun/modules/' },
-        { text: 'TS 支持', link: '/bun/typescript/' },
-        { text: 'Buffer', link: '/bun/buffer/' },
-        { text: '文件处理', link: '/bun/files/' },
-      ],
+        {
+          text: '全局对象',
+          link: '/node/8ndhljae/'
+        },
+        {
+          text: 'Node 模块',
+          collapsed: true,
+          items: [
+            {
+              text: 'fs 模块',
+              link: '/node/1jbhp0rf/',
+            },
+            {
+              text: 'net 模块',
+              link: '/node/76zcct25/'
+            },
+            {
+              text: 'path 模块',
+              link: '/node/m4tkcgr5/',
+            },
+            {
+              text: 'http 模块',
+              link: '/node/zyzfztfm/',
+            },
+            {
+              text: '生命周期',
+              link: '/node/2xt2aon8/'
+            }
+          ],
+        },
+      ]
     },
     {
-      text: '服务端篇',
-      collapsed: false,
+      text: '补充篇',
+      collapsed: true,
       items: [
-        { text: 'HTTP 服务器', link: '/bun/http/' },
-        { text: 'Bun 与 WebSocket', link: '/bun/websocket/' },
-      ],
+        {
+          text: 'Sequelize'
+        },
+        {
+          text: 'Node 组成原理'
+        },
+        {
+          text: 'CSRF 与 XSS 攻击与防御'
+        }
+      ]
     },
     {
-      text: '生态篇',
-      collapsed: false,
+      text: '框架篇',
+      collapsed: true,
       items: [
-        { text: 'Bun 与 Express', link: '/bun/express/' },
-        { text: 'Bun 与 SQLite', link: '/bun/sqlite/' },
-        { text: 'Elysia', link: '/bun/elysia/' },
-      ],
-    },
-    {
-      text: '实战篇',
-      collapsed: false,
-      items: [
-        { text: 'CRUD 应用', link: '/bun/crud/' },
-      ],
-    },
+        {
+          text: 'Express',
+          link: '/node/9libnz58/',
+          icon: 'skill-icons:expressjs-light'
+        },
+        {
+          text: 'Koa',
+          link: '/node/1hdtad3y/',
+          icon: 'simple-icons:koa'
+        }
+      ]
+    }
   ],
   autoFrontmatter: {
     title: true,
