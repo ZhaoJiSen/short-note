@@ -168,7 +168,7 @@ onBeforeUnmount(() => {
               <a href="https://github.com/ZhaoJiSen" target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
-              <a href="https://github.com/jumpserver">
+              <a href="https://github.com/jumpserver" target="_blank" rel="noopener noreferrer">
                 JumpServer
               </a>
             </div>
