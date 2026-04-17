@@ -7,6 +7,23 @@ const route = useRoute();
 let observer: IntersectionObserver | undefined;
 let reduceMotion = false;
 
+const defaultCalloutTitles = new Set([
+  '信息',
+  '提示',
+  '重要',
+  '警告',
+  '注意',
+  '危险',
+  '注',
+  'Info',
+  'Tip',
+  'Important',
+  'Warning',
+  'Caution',
+  'Danger',
+  'Note',
+]);
+
 const revealSelector = [
   'h2',
   'h3',
@@ -32,11 +49,26 @@ function cleanupReveal() {
   });
 }
 
+function setupCalloutTone() {
+  const doc = document.querySelector('.vp-doc');
+
+  if (!doc)
+    return;
+
+  doc.querySelectorAll<HTMLElement>('.hint-container').forEach((container) => {
+    const title = container.querySelector<HTMLElement>('.hint-container-title')?.textContent?.trim();
+
+    container.classList.toggle('github-alert', Boolean(title && defaultCalloutTitles.has(title)));
+    container.classList.toggle('plume-callout', Boolean(title && !defaultCalloutTitles.has(title)));
+  });
+}
+
 async function setupReveal() {
   await nextTick();
   await new Promise(resolve => window.setTimeout(resolve, 80));
 
   cleanupReveal();
+  setupCalloutTone();
 
   if (reduceMotion)
     return;

@@ -1844,6 +1844,72 @@ body {
   padding-left: 1.35rem;
 }
 
+.vp-doc .hint-container.plume-callout {
+  padding: 16px 18px;
+  background: color-mix(in srgb, var(--vp-c-bg-elv) 76%, transparent);
+  border-color: var(--vp-c-divider);
+  box-shadow: var(--vp-shadow-1);
+}
+
+.vp-doc .hint-container.plume-callout .hint-container-title {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 590;
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc .hint-container.github-alert {
+  padding: 11px 14px 11px 15px;
+  margin: 18px 0;
+  background: color-mix(in srgb, var(--vp-c-bg-elv) 38%, transparent);
+  border-color: var(--vp-c-gutter);
+  border-left-width: 2px;
+  box-shadow: none;
+}
+
+.vp-doc .hint-container.github-alert .hint-container-title {
+  gap: 6px;
+  min-height: 18px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 590;
+  line-height: 1.35;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc .hint-container.github-alert .hint-container-title::before {
+  width: 0.95em;
+  height: 0.95em;
+}
+
+.vp-doc .hint-container.github-alert :where(p, li) {
+  font-size: 14px;
+  line-height: 1.68;
+}
+
+.vp-doc .hint-container.github-alert :where(p, ul, ol) {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.vp-doc .hint-container.github-alert.info,
+.vp-doc .hint-container.github-alert.tip,
+.vp-doc .hint-container.github-alert.important {
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 42%, transparent);
+  border-left-color: color-mix(in srgb, var(--vp-c-brand-1) 58%, var(--vp-c-divider));
+}
+
+.vp-doc .hint-container.github-alert.warning,
+.vp-doc .hint-container.github-alert.caution {
+  background: color-mix(in srgb, var(--vp-c-warning-soft) 44%, transparent);
+  border-left-color: color-mix(in srgb, var(--vp-c-warning-1) 58%, var(--vp-c-divider));
+}
+
+.vp-doc .hint-container.github-alert.danger {
+  background: color-mix(in srgb, var(--vp-c-danger-soft) 46%, transparent);
+  border-left-color: color-mix(in srgb, var(--vp-c-danger-1) 62%, var(--vp-c-divider));
+}
+
 .vp-collapse {
   gap: 10px;
   padding: 10px 14px;
