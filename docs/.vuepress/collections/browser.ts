@@ -104,6 +104,10 @@ export const browserCollection = defineCollection({
       link: '/浏览器/150p4d3o/',
     },
     {
+      text: '性能指标',
+      link: '/浏览器/a7f3c9d2/'
+    },
+    {
       text: '实时音视频',
       collapsed: false,
       items: [
