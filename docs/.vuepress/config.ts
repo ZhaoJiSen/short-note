@@ -13,6 +13,59 @@ import { viteBundler } from '@vuepress/bundler-vite';
 import { defineUserConfig } from 'vuepress';
 import { plumeTheme } from 'vuepress-theme-plume';
 
+const calloutTypes = ['note', 'tip', 'important', 'warning', 'caution', 'danger', 'info'] as const;
+const calloutTypePattern = calloutTypes.join('|');
+
+function collectCalloutMarkers(src: string) {
+  const markers: Array<{ type: string; github: boolean }> = [];
+  const githubAlertRE = new RegExp(`^\\s*>\\s*\\[!(${calloutTypePattern})\\]`, 'i');
+  const plumeCalloutRE = new RegExp(`^\\s*:{3,}\\s*(${calloutTypePattern})\\b`, 'i');
+
+  for (const line of src.split(/\r?\n/)) {
+    const githubAlert = line.match(githubAlertRE);
+
+    if (githubAlert) {
+      markers.push({ type: githubAlert[1].toLowerCase(), github: true });
+      continue;
+    }
+
+    const plumeCallout = line.match(plumeCalloutRE);
+
+    if (plumeCallout)
+      markers.push({ type: plumeCallout[1].toLowerCase(), github: false });
+  }
+
+  return markers;
+}
+
+function markGithubAlertHtml(src: string, html: string) {
+  const markers = collectCalloutMarkers(src);
+
+  if (!markers.some(marker => marker.github))
+    return html;
+
+  let markerIndex = 0;
+
+  return html.replace(
+    /<div class="hint-container (note|tip|important|warning|caution|danger|info)([^"]*)">/g,
+    (match, type: string, rest: string) => {
+      while (markers[markerIndex] && markers[markerIndex].type !== type)
+        markerIndex += 1;
+
+      const marker = markers[markerIndex];
+
+      if (!marker || marker.type !== type)
+        return match;
+
+      markerIndex += 1;
+
+      return marker.github
+        ? `<div class="hint-container ${type}${rest} github-alert-source">`
+        : match;
+    },
+  );
+}
+
 export default defineUserConfig({
   base: '/short-note/',
   lang: 'zh-CN',
@@ -41,6 +94,17 @@ export default defineUserConfig({
   ],
 
   bundler: viteBundler(),
+  plugins: [
+    {
+      name: 'github-alert-source-class',
+      extendsPage(page) {
+        page.contentRendered = markGithubAlertHtml(page.content, page.contentRendered);
+
+        if (page.sfcBlocks.template)
+          page.sfcBlocks.template.contentStripped = markGithubAlertHtml(page.content, page.sfcBlocks.template.contentStripped);
+      },
+    },
+  ],
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
   theme: plumeTheme({

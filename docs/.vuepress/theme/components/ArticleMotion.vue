@@ -5,24 +5,8 @@ import { useRoute } from 'vuepress/client';
 const route = useRoute();
 
 let observer: IntersectionObserver | undefined;
+let calloutToneObserver: MutationObserver | undefined;
 let reduceMotion = false;
-
-const defaultCalloutTitles = new Set([
-  '信息',
-  '提示',
-  '重要',
-  '警告',
-  '注意',
-  '危险',
-  '注',
-  'Info',
-  'Tip',
-  'Important',
-  'Warning',
-  'Caution',
-  'Danger',
-  'Note',
-]);
 
 const revealSelector = [
   'h2',
@@ -57,15 +41,34 @@ function setupCalloutTone() {
 
   doc.querySelectorAll<HTMLElement>('.hint-container').forEach((container) => {
     const title = container.querySelector<HTMLElement>('.hint-container-title')?.textContent?.trim();
+    const isGithubAlert = container.classList.contains('github-alert-source');
 
-    container.classList.toggle('github-alert', Boolean(title && defaultCalloutTitles.has(title)));
-    container.classList.toggle('plume-callout', Boolean(title && !defaultCalloutTitles.has(title)));
+    container.classList.toggle('github-alert', isGithubAlert);
+    container.classList.toggle('plume-callout', Boolean(title && !isGithubAlert));
+  });
+}
+
+function watchCalloutTone() {
+  setupCalloutTone();
+
+  calloutToneObserver?.disconnect();
+
+  const doc = document.querySelector('.vp-doc');
+
+  if (!doc)
+    return;
+
+  calloutToneObserver = new MutationObserver(() => setupCalloutTone());
+  calloutToneObserver.observe(doc, {
+    childList: true,
+    subtree: true,
   });
 }
 
 async function setupReveal() {
   await nextTick();
-  await new Promise(resolve => window.setTimeout(resolve, 80));
+  watchCalloutTone();
+  await new Promise(resolve => window.setTimeout(resolve, 40));
 
   cleanupReveal();
   setupCalloutTone();
@@ -123,6 +126,7 @@ async function setupReveal() {
 
 onMounted(() => {
   reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  watchCalloutTone();
   setupReveal();
 });
 
@@ -132,6 +136,8 @@ watch(() => route.path, () => {
 
 onBeforeUnmount(() => {
   cleanupReveal();
+  calloutToneObserver?.disconnect();
+  calloutToneObserver = undefined;
 });
 </script>
 

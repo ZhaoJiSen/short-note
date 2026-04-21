@@ -16,6 +16,8 @@
   --ln-border: rgb(14 18 22 / 0.1);
   --ln-border-strong: rgb(14 18 22 / 0.16);
   --ln-indigo: #5e6ad2;
+  --ln-blue: #3d75dd;
+  --ln-cyan: #14758f;
   --ln-violet: #7170ff;
   --ln-violet-hover: #5555d9;
   --ln-green: #168a3a;
@@ -46,22 +48,22 @@
   --vp-c-brand-3: var(--ln-violet);
   --vp-c-brand-soft: rgb(94 106 210 / 0.12);
 
-  --vp-c-tip-1: var(--ln-indigo);
-  --vp-c-tip-2: var(--ln-violet-hover);
-  --vp-c-tip-3: var(--ln-violet);
-  --vp-c-tip-soft: rgb(94 106 210 / 0.11);
-  --vp-c-info-1: var(--ln-indigo);
-  --vp-c-info-2: var(--ln-violet-hover);
-  --vp-c-info-3: var(--ln-violet);
-  --vp-c-info-soft: rgb(94 106 210 / 0.12);
+  --vp-c-tip-1: var(--ln-cyan);
+  --vp-c-tip-2: #0f637a;
+  --vp-c-tip-3: #1d8aa8;
+  --vp-c-tip-soft: rgb(20 117 143 / 0.1);
+  --vp-c-info-1: var(--ln-blue);
+  --vp-c-info-2: #2f63be;
+  --vp-c-info-3: #4d86ef;
+  --vp-c-info-soft: rgb(61 117 221 / 0.1);
   --vp-c-note-1: var(--ln-text-3);
   --vp-c-note-2: var(--ln-text-2);
   --vp-c-note-3: var(--ln-text-4);
-  --vp-c-note-soft: rgb(115 122 132 / 0.11);
-  --vp-c-important-1: var(--ln-indigo);
+  --vp-c-note-soft: rgb(115 122 132 / 0.1);
+  --vp-c-important-1: var(--ln-violet);
   --vp-c-important-2: var(--ln-violet-hover);
   --vp-c-important-3: var(--ln-violet);
-  --vp-c-important-soft: rgb(94 106 210 / 0.12);
+  --vp-c-important-soft: rgb(113 112 255 / 0.12);
   --vp-c-warning-1: var(--ln-yellow);
   --vp-c-warning-2: #805200;
   --vp-c-warning-3: #b67c12;
@@ -209,6 +211,8 @@
   --ln-border: rgb(255 255 255 / 0.08);
   --ln-border-strong: rgb(255 255 255 / 0.12);
   --ln-indigo: #5e6ad2;
+  --ln-blue: #7aa2ff;
+  --ln-cyan: #58d5e7;
   --ln-violet: #7170ff;
   --ln-violet-hover: #828fff;
   --ln-green: #27a644;
@@ -237,18 +241,18 @@
   --vp-c-brand-2: var(--ln-violet-hover);
   --vp-c-brand-3: #8f9bff;
   --vp-c-brand-soft: rgb(113 112 255 / 0.14);
-  --vp-c-tip-1: var(--ln-violet);
-  --vp-c-tip-2: var(--ln-violet-hover);
-  --vp-c-tip-3: #8f9bff;
-  --vp-c-tip-soft: rgb(113 112 255 / 0.14);
-  --vp-c-info-1: var(--ln-violet);
-  --vp-c-info-2: var(--ln-violet-hover);
-  --vp-c-info-3: #8f9bff;
-  --vp-c-info-soft: rgb(113 112 255 / 0.14);
+  --vp-c-tip-1: var(--ln-cyan);
+  --vp-c-tip-2: #8eeafa;
+  --vp-c-tip-3: #39b8cb;
+  --vp-c-tip-soft: rgb(88 213 231 / 0.12);
+  --vp-c-info-1: var(--ln-blue);
+  --vp-c-info-2: #a7c1ff;
+  --vp-c-info-3: #5f8ff0;
+  --vp-c-info-soft: rgb(122 162 255 / 0.12);
   --vp-c-note-1: var(--ln-text-3);
   --vp-c-note-2: var(--ln-text-2);
   --vp-c-note-3: var(--ln-text-4);
-  --vp-c-note-soft: rgb(138 143 152 / 0.14);
+  --vp-c-note-soft: rgb(138 143 152 / 0.12);
   --vp-c-important-1: var(--ln-violet);
   --vp-c-important-2: var(--ln-violet-hover);
   --vp-c-important-3: #8f9bff;
@@ -1900,6 +1904,38 @@ body {
   color: var(--vp-c-danger-1);
 }
 
+.vp-doc .custom-block.info .custom-block-title::before,
+.vp-doc .hint-container.info .hint-container-title::before {
+  color: var(--vp-c-info-1);
+}
+
+.vp-doc .custom-block.note .custom-block-title::before,
+.vp-doc .hint-container.note .hint-container-title::before {
+  color: var(--vp-c-note-1);
+}
+
+.vp-doc .custom-block.tip .custom-block-title::before,
+.vp-doc .hint-container.tip .hint-container-title::before {
+  color: var(--vp-c-tip-1);
+}
+
+.vp-doc .custom-block.important .custom-block-title::before,
+.vp-doc .hint-container.important .hint-container-title::before {
+  color: var(--vp-c-important-1);
+}
+
+.vp-doc .custom-block.warning .custom-block-title::before,
+.vp-doc .custom-block.caution .custom-block-title::before,
+.vp-doc .hint-container.warning .hint-container-title::before,
+.vp-doc .hint-container.caution .hint-container-title::before {
+  color: var(--vp-c-warning-1);
+}
+
+.vp-doc .custom-block.danger .custom-block-title::before,
+.vp-doc .hint-container.danger .hint-container-title::before {
+  color: var(--vp-c-danger-1);
+}
+
 .vp-doc .hint-container-title::before {
   flex: 0 0 auto;
   width: 1.05em;
@@ -1966,56 +2002,108 @@ body {
   color: var(--vp-c-text-1);
 }
 
-.vp-doc .hint-container.github-alert {
+.vp-doc .hint-container:not(.github-alert, .github-alert-source).info {
+  --plume-callout-icon-color: var(--vp-c-info-1);
+}
+
+.vp-doc .hint-container:not(.github-alert, .github-alert-source).note {
+  --plume-callout-icon-color: var(--vp-c-note-1);
+}
+
+.vp-doc .hint-container:not(.github-alert, .github-alert-source).tip {
+  --plume-callout-icon-color: var(--vp-c-tip-1);
+}
+
+.vp-doc .hint-container:not(.github-alert, .github-alert-source).important {
+  --plume-callout-icon-color: var(--vp-c-important-1);
+}
+
+.vp-doc .hint-container:not(.github-alert, .github-alert-source):is(.warning, .caution) {
+  --plume-callout-icon-color: var(--vp-c-warning-1);
+}
+
+.vp-doc .hint-container:not(.github-alert, .github-alert-source).danger {
+  --plume-callout-icon-color: var(--vp-c-danger-1);
+}
+
+.vp-doc .hint-container:not(.github-alert, .github-alert-source) .hint-container-title::before {
+  color: var(--plume-callout-icon-color, currentColor) !important;
+}
+
+.vp-doc .hint-container:not(.github-alert, .github-alert-source) .hint-container-title :where(svg, [class*='icon'], .vp-icon, [class*='vpi-']) {
+  color: var(--plume-callout-icon-color, currentColor) !important;
+  fill: var(--plume-callout-icon-color, currentColor) !important;
+  stroke: var(--plume-callout-icon-color, currentColor) !important;
+  background-color: var(--plume-callout-icon-color, currentColor) !important;
+}
+
+.vp-doc .hint-container:is(.github-alert, .github-alert-source) {
+  --github-alert-accent: var(--vp-c-brand-1);
   padding: 11px 14px 11px 15px;
   margin: 18px 0;
   background: color-mix(in srgb, var(--vp-c-bg-elv) 96%, var(--vp-c-bg-soft));
   border-color: var(--vp-c-gutter);
-  border-left-width: 2px;
+  border-left: 2px solid var(--github-alert-accent);
   box-shadow: none;
 }
 
-.vp-doc .hint-container.github-alert .hint-container-title {
+.vp-doc .hint-container:is(.github-alert, .github-alert-source) .hint-container-title {
   gap: 6px;
   min-height: 18px;
   margin-bottom: 6px;
   font-size: 12px;
   font-weight: 590;
   line-height: 1.35;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-brand-1);
 }
 
-.vp-doc .hint-container.github-alert .hint-container-title::before {
+.vp-doc .hint-container:is(.github-alert, .github-alert-source) .hint-container-title::before {
   width: 0.95em;
   height: 0.95em;
 }
 
-.vp-doc .hint-container.github-alert :where(p, li) {
+.vp-doc .hint-container:is(.github-alert, .github-alert-source) :where(p, li) {
   font-size: 14px;
   line-height: 1.68;
 }
 
-.vp-doc .hint-container.github-alert :where(p, ul, ol) {
+.vp-doc .hint-container:is(.github-alert, .github-alert-source) :where(p, ul, ol) {
   margin-top: 8px;
   margin-bottom: 0;
 }
 
-.vp-doc .hint-container.github-alert.info,
-.vp-doc .hint-container.github-alert.tip,
-.vp-doc .hint-container.github-alert.important {
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).info {
+  --github-alert-accent: var(--vp-c-info-1);
+}
+
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).note {
+  --github-alert-accent: var(--vp-c-note-1);
+}
+
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).tip {
+  --github-alert-accent: var(--vp-c-tip-1);
+}
+
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).important {
+  --github-alert-accent: var(--vp-c-important-1);
+}
+
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).info,
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).tip,
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).important,
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).note {
   background: color-mix(in srgb, var(--vp-c-bg-elv) 90%, var(--vp-c-brand-soft));
-  border-left-color: color-mix(in srgb, var(--vp-c-brand-1) 58%, var(--vp-c-divider));
 }
 
-.vp-doc .hint-container.github-alert.warning,
-.vp-doc .hint-container.github-alert.caution {
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).warning,
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).caution {
+  --github-alert-accent: var(--vp-c-warning-1);
   background: color-mix(in srgb, var(--vp-c-bg-elv) 90%, var(--vp-c-warning-soft));
-  border-left-color: color-mix(in srgb, var(--vp-c-warning-1) 58%, var(--vp-c-divider));
 }
 
-.vp-doc .hint-container.github-alert.danger {
+.vp-doc .hint-container:is(.github-alert, .github-alert-source).danger {
+  --github-alert-accent: var(--vp-c-danger-1);
   background: color-mix(in srgb, var(--vp-c-bg-elv) 88%, var(--vp-c-danger-soft));
-  border-left-color: color-mix(in srgb, var(--vp-c-danger-1) 62%, var(--vp-c-divider));
 }
 
 .vp-collapse {
