@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "个人笔记存放处",
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@10.33.1",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",
@@ -35,7 +35,7 @@
     "mermaid": "^11.14.0",
     "ogl": "^1.0.11",
     "three": "^0.183.2",
-    "vue": "^3.5.32",
+    "vue": "^3.5.33",
     "vuepress": "2.0.0-rc.28"
   },
   "volta": {
