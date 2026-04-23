@@ -2054,7 +2054,7 @@ body {
   font-size: 12px;
   font-weight: 590;
   line-height: 1.35;
-  color: var(--vp-c-brand-1);
+  color: var(--github-alert-accent);
 }
 
 .vp-doc .hint-container:is(.github-alert, .github-alert-source) .hint-container-title::before {
