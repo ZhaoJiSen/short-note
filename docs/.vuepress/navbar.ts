@@ -43,15 +43,20 @@ export default defineNavbarConfig([
     text: '运行时与平台',
     items: [
       {
+        text: 'Node',
+        link: '/node/8ndhljae/',
+        icon: 'material-icon-theme:nodejs',
+      },
+      {
         text: 'Browser',
         link: '/浏览器/0pkbd4hl/',
         icon: 'material-icon-theme:http',
       },
       {
-        text: 'Node',
-        link: '/node/8ndhljae/',
-        icon: 'material-icon-theme:nodejs',
-      },
+        text: 'Electron',
+        link: '/electron/zgtxe1f1/',
+        icon: 'https://www.electronjs.org/assets/img/logo.svg',
+      }
       // {
       //   text: 'Bun',
       //   link: '/bun/flp74gm9/',
