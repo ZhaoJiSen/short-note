@@ -12,6 +12,10 @@ export const electronCollection = defineCollection({
       text: '原理篇',
       items: [
         {
+          text: 'Node 执行环境',
+          link: '/electron/aisvw1te/'
+        },
+        {
           text: '进程通信',
           link: '/electron/zgtxe1f1/',
         },
