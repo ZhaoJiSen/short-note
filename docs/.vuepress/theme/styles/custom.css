@@ -1942,11 +1942,39 @@ body {
   height: 1.05em;
   margin-right: 0;
   vertical-align: baseline;
-  background-color: currentColor;
-  background-image: none !important;
-  -webkit-mask: var(--icon) no-repeat center / contain;
-  mask: var(--icon) no-repeat center / contain;
+  background-color: transparent !important;
+  background-image: var(--vp-hint-container-icon) !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
   transform: none;
+}
+
+.vp-doc .hint-container.info .hint-container-title::before {
+  filter: hue-rotate(7deg) saturate(76%) brightness(98%);
+}
+
+.vp-doc .hint-container.note .hint-container-title::before {
+  filter: hue-rotate(29deg) saturate(26%) brightness(96%);
+}
+
+.vp-doc .hint-container.tip .hint-container-title::before {
+  filter: hue-rotate(44deg) saturate(136%) brightness(76%);
+}
+
+.vp-doc .hint-container.important .hint-container-title::before {
+  filter: hue-rotate(332deg) saturate(164%) brightness(118%);
+}
+
+.vp-doc .hint-container.warning .hint-container-title::before,
+.vp-doc .hint-container.caution .hint-container-title::before {
+  filter: hue-rotate(3deg) saturate(122%) brightness(64%);
+}
+
+.vp-doc .hint-container.danger .hint-container-title::before {
+  filter: hue-rotate(1deg) saturate(83%) brightness(116%);
 }
 
 .vp-doc .hint-container.danger .hint-container-title::before,
