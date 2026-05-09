@@ -1651,43 +1651,45 @@ html:not([data-theme='dark'])
 }
 
 .vp-doc h1 {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   font-size: 36px;
   line-height: 1.11;
 }
 
 .vp-doc h2 {
-  padding-top: 32px;
-  margin: 56px 0 18px;
-  font-size: 26px;
-  line-height: 1.16;
+  padding-top: 24px;
+  margin: 48px 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.33;
+  letter-spacing: -0.6px;
   border-top: 1px solid var(--vp-c-divider);
 }
 
 .vp-doc h2:first-of-type {
-  padding-top: 16px;
-  margin-top: 40px;
+  padding-top: 0;
+  margin-top: 24px;
   border-top: 0;
 }
 
 .vp-doc h3 {
-  margin: 38px 0 14px;
+  margin: 32px 0 12px;
   font-size: 20px;
-  font-weight: 600;
-  line-height: 1.33;
-}
-
-.vp-doc h4 {
-  margin: 30px 0 12px;
-  font-size: 17px;
   font-weight: 600;
   line-height: 1.4;
 }
 
+.vp-doc h4 {
+  margin: 24px 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.56;
+}
+
 .vp-doc h5,
 .vp-doc h6 {
-  margin: 26px 0 10px;
-  font-size: 15px;
+  margin: 20px 0 8px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.43;
 }
@@ -1711,7 +1713,7 @@ html:not([data-theme='dark'])
 
 .vp-doc p,
 .vp-doc summary {
-  margin: 18px 0;
+  margin: 16px 0;
   color: var(--vp-c-text-2);
 }
 
@@ -1721,7 +1723,7 @@ html:not([data-theme='dark'])
 
 .vp-doc :where(ul, ol) {
   padding-left: 1.35rem;
-  margin: 18px 0;
+  margin: 16px 0;
   color: var(--vp-c-text-2);
 }
 
@@ -1730,7 +1732,7 @@ html:not([data-theme='dark'])
 }
 
 .vp-doc li + li {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .vp-doc li > :where(ol, ul) {
@@ -1765,7 +1767,7 @@ html:not([data-theme='dark'])
 }
 
 .vp-doc hr {
-  margin: 34px 0;
+  margin: 32px 0;
   border: 0;
   border-top: 1px solid var(--vp-c-divider);
 }
@@ -2962,7 +2964,7 @@ html:not([data-theme='dark'])
   display: flex;
   flex-wrap: wrap;
   gap: 6px 16px;
-  margin: 0 0 30px;
+  margin: 0 0 20px;
   padding-bottom: 12px;
   color: var(--vp-c-text-3);
   border-bottom: 1px solid
@@ -2979,7 +2981,7 @@ html:not([data-theme='dark'])
   gap: 6px;
   margin: 0;
   font-family: var(--vp-font-family-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 

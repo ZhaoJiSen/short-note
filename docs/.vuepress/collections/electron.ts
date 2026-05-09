@@ -16,6 +16,18 @@ export const electronCollection = defineCollection({
           link: '/electron/aisvw1te/'
         },
         {
+          text: 'API 支持',
+          link: '/electron/3xl557ck/'
+        },
+        {
+          text: '系统底层支持',
+          link: '/electron/v1afpl07/'
+        },
+        {
+          text: '解析 asar 文件',
+          link: '/electron/uuxr1ozd/'
+        },
+        {
           text: '进程通信',
           link: '/electron/zgtxe1f1/',
         },
