@@ -1,0 +1,178 @@
+---
+title: 解析 asar 文件
+createTime: 2026/05/09 08:23:36
+permalink: /electron/uuxr1ozd/
+---
+
+## asar 文件结构
+
+asar 文件本身是一个归档文件，该文件会把项目中的每一个文件的文件名、路径信息、开始位置、长度信息等都记录在一个名为 header 的结构体里面，header 本身的大小也会被包含在 asar 文件中
+
+:::table full-width
+
+| 信息类型 | 说明 |
+| --- | --- |
+| 文件名 | 每个文件的名称 |
+| 路径信息 | 文件在归档中的路径 |
+| 开始位置 | 文件内容在归档中的偏移量 |
+| 长度信息 | 文件内容的大小 |
+| header 大小 | header 结构体本身的大小 |
+
+:::
+
+## Electron 的 asar 解析能力
+
+Electron 自身也内置了 asar 文件的解析能力，并且还重写了 Node.js 的 `require` 方法
+
+当 Electron 执行开发者的代码，遇到 `require` 方法要加载本地文件内容的时候，asar 文件所重写的 `require` 方法就会介入，从 header 里面检索出文件的位置和大小，再根据这些信息读取文件的内容
+
+:::tip 理解加载机制
+这也就意味着 asar 内部在加载文件的时候，并非将整个 asar 文件的内容都加载到内存里面，而是只加载指定长度的数据
+:::
+
+## InitAsarSupport 方法
+
+在初始化 Electron 系统底层模块的时候，会执行一个名为 `InitAsarSupport` 的方法，源码位于 `shell/common/api/electron_api_asar.cc`
+
+在 `InitAsarSupport` 的方法里面，接收一个 `require` 作为参数，这个 `require` 就是原本的 Node.js 的 `require` 方法，在该方法内部，就对原本的 `require` 方法进行修改
+
+:::: steps
+
+1. 接收原始 require 方法
+
+   `InitAsarSupport` 方法接收 Node.js 原本的 `require` 方法作为参数
+
+   ```c++
+   // shell/common/api/electron_api_asar.cc
+   // InitAsarSupport 方法，接收原始 require 方法
+   void InitAsarSupport(v8::Isolate* isolate,
+                        v8::Local<v8::Value> require) {
+     // require 是 Node.js 原本的 require 方法
+   }
+   ```
+
+2. 调用 CompileAndCall 方法
+
+   内部调用了一个名为 `CompileAndCall` 的方法
+
+   ```c++
+   // shell/common/api/electron_api_asar.cc
+   // CompileAndCall 方法，执行 asar 模块初始化脚本
+   v8::MaybeLocal<v8::Value> CompileAndCall(
+       v8::Isolate* isolate,
+       v8::Local<v8::Context> context,
+       const char* source,
+       size_t source_len) {
+     // 编译并执行 asar_bundle.js 脚本
+     // 该脚本重写了 require 方法以支持 asar 文件
+   }
+   ```
+
+3. 执行 asar 模块初始化脚本
+
+   在 `CompileAndCall` 方法中，执行了 asar 模块的初始化脚本，也就是 `asar_bundle.js` 文件
+
+   ```c++
+   // shell/common/api/electron_api_asar.cc
+   // 执行 asar 模块初始化脚本
+   v8::Local<v8::String> source =
+       v8::String::NewFromUtf8(isolate, asar_source).ToLocalChecked();
+   v8::Local<v8::Script> script =
+       v8::Script::Compile(context, source).ToLocalChecked();
+   script->Run(context);
+   ```
+
+::::
+
+:::warning 注意
+Electron 仍然是通过打补丁的方式来修改 Node.js 的源码，从而调用上面的 `InitAsarSupport` 方法
+:::
+
+## 对 fs 模块的修改
+
+在 `init.ts` 和 `fs-wrapper.ts` 文件里面，还局部的修改了 `fs` 模块的一些方法：
+
+- `open`
+- `openSync`
+- `copyFile`
+- ...
+
+这就意味着用户使用 `require` 方法加载 asar 文件内部的模块，以及使用 `fs` 模块读取 asar 文件内部的模块的时候，执行的其实都是 Electron 提供的内部实现，而非 Node.js 原本的实现
+
+```typescript
+// lib/common/asar.ts
+// asar_bundle.js 的核心逻辑，重写 require 方法
+const { createArchive } = require('@electron/asar')
+
+// 存储已加载的 asar 文件缓存
+const asarCache = new Map<string, Archive>()
+
+// 重写 Module._resolveFilename 方法
+// 当 require 路径包含 .asar 时，解析 asar 内部文件
+const originalResolveFilename = Module._resolveFilename
+Module._resolveFilename = function (request, parent, isMain, options) {
+  // 检查路径是否包含 .asar
+  if (request.includes('.asar')) {
+    // 解析 asar 文件路径和内部文件路径
+    const [asarPath, internalPath] = splitAsarPath(request)
+    // 读取 asar 文件头信息
+    const archive = getOrCreateArchive(asarPath)
+    // 返回 asar 内部文件的真实路径
+    return archive.getRealPath(internalPath)
+  }
+  return originalResolveFilename.call(this, request, parent, isMain, options)
+}
+```
+
+```typescript
+// lib/common/fs-wrapper.ts
+// 修改 fs 模块以支持 asar 文件
+const fs = require('fs')
+
+// 保存原始的 fs.open 方法
+const originalOpen = fs.open
+
+// 重写 fs.open 方法
+fs.open = function (path, flags, mode, callback) {
+  // 检查路径是否在 asar 文件中
+  if (isAsarPath(path)) {
+    // 从 asar 文件中读取内容
+    const archive = getOrCreateArchive(getAsarPath(path))
+    const fileOffset = archive.getFileOffset(getInternalPath(path))
+    // 返回 asar 内部文件的偏移量
+    return openAsarFile(path, fileOffset, flags, callback)
+  }
+  // 否则调用原始方法
+  return originalOpen.call(this, path, flags, mode, callback)
+}
+```
+
+## 对 child_process 和 process 模块的修改
+
+另外，`child_process` 以及 `process` 模块里面，也会涉及到部分读取相关的 API：
+
+:::table full-width
+
+| 模块 | 方法 | 说明 |
+| --- | --- | --- |
+| `child_process` | `execFile` | 执行文件 |
+| `process` | `dlopen` | 动态加载库 |
+
+:::
+
+针对这一系列方法，在 Electron 内部也是修改了的
+
+## 可执行程序的处理
+
+:::warning 重要提示
+Electron 无法执行一个位于 asar 文件内部的可执行程序，如果你的 asar 文件内部存在可执行程序，那么 Electron 会先把这一类可执行程序释放到一个临时目录下面，再执行 `execFile` 方法
+:::
+
+因此这样操作是会增加一些开销的，所以不建议把可执行程序打包到 asar 文件里面
+
+## 文件信息的获取
+
+asar 文件中关于文件信息的获取，并非是在 `init.ts` 和 `fs-wrapper.ts` 文件里面，而是在 `shell/common/api/electron_api_asar.cc` 文件里面的 `Stat` 方法中来获取文件信息
+
+> [!NOTE]
+> asar 文件的核心设计思想是：通过 header 索引来快速定位文件，避免加载整个归档文件，同时通过重写 Node.js 的 `require` 和 `fs` 模块来提供无缝的使用体验
