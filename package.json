@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "个人笔记存放处",
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@11.0.9",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",
@@ -26,17 +26,17 @@
   "devDependencies": {
     "http-server": "^14.1.1",
     "typescript": "^5.9.3",
-    "vuepress-theme-plume": "1.0.0-rc.198"
+    "vuepress-theme-plume": "1.0.0-rc.200"
   },
   "dependencies": {
-    "@vuepress/bundler-vite": "2.0.0-rc.29",
+    "@vuepress/bundler-vite": "2.0.0-rc.28",
     "flowchart.ts": "^3.0.1",
     "gsap": "^3.15.0",
     "mermaid": "^11.14.0",
     "ogl": "^1.0.11",
-    "three": "^0.183.2",
+    "three": "^0.184.0",
     "vue": "^3.5.34",
-    "vuepress": "2.0.0-rc.29"
+    "vuepress": "2.0.0-rc.28"
   },
   "volta": {
     "node": "24.14.1"
