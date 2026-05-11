@@ -11,8 +11,8 @@
  */
 
 import { defineThemeConfig } from 'vuepress-theme-plume';
-import navbar from './navbar';
 import collections from './collections';
+import navbar from './navbar';
 
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
@@ -25,7 +25,7 @@ export default defineThemeConfig({
   social: [{ icon: 'github', link: 'https://github.com/ZhaoJiSen/short-note' }],
   // navbarSocialInclude: ['github'], // 允许显示在导航栏的 social 社交链接
   // aside: true, // 页内侧边栏， 默认显示在右侧
-  outline: [2, 3], // 页内大纲仅显示 h2、h3
+  outline: [2, 4], // 页内大纲仅显示 h2、h3、h4
 
   /**
    * 文章版权信息
