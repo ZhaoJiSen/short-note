@@ -10,11 +10,6 @@ let reduceMotion = false;
 
 const revealSelector = [
   'h2',
-  'h3',
-  'h4',
-  'p',
-  'ul',
-  'ol',
   'blockquote',
   'table',
   'figure',
@@ -103,23 +98,22 @@ async function setupReveal() {
   observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
+        if (!entry.isIntersecting)
           continue;
-        }
 
-        entry.target.classList.remove('is-visible');
+        entry.target.classList.add('is-visible');
+        observer?.unobserve(entry.target);
       }
     },
     {
-      threshold: 0.04,
-      rootMargin: '0px 0px -6% 0px',
+      threshold: 0.08,
+      rootMargin: '0px 0px -10% 0px',
     },
   );
 
   elements.forEach((element, index) => {
     element.classList.add('motion-reveal');
-    element.style.setProperty('--reveal-delay', `${Math.min(index % 3, 2) * 28}ms`);
+    element.style.setProperty('--reveal-delay', `${Math.min(index % 2, 1) * 20}ms`);
     observer?.observe(element);
   });
 }

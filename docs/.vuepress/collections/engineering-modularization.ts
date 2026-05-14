@@ -10,7 +10,6 @@ export const modularizationCollection = defineCollection({
       text: '模块化',
       collapsed: false,
       items: [
-        { text: '模块化概览', link: '/modularization/' },
         { text: 'ES Module', link: '/modularization/0xn4bq3b/' },
         { text: 'CommonJS', link: '/modularization/d12bafr7/' },
       ],

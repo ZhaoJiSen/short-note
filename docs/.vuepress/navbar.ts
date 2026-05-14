@@ -90,7 +90,7 @@ export default defineNavbarConfig([
       {
         text: '模块化',
         icon: 'material-icon-theme:folder-gh-workflows',
-        link: '/modularization/',
+        link: '/modularization/0xn4bq3b/',
       },
       {
         text: '包管理',
