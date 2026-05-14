@@ -966,13 +966,16 @@ body {
 }
 
 .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
-  padding: 0.18rem 0.42rem;
+  display: inline-block;
+  padding: 0.08rem 0.42rem;
   font-family: var(--vp-font-family-mono);
   font-size: 0.88em;
+  line-height: 1.45;
+  vertical-align: baseline;
   color: var(--vp-code-color);
   background: var(--vp-code-bg);
   border: 1px solid rgb(94 106 210 / 0.14);
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 .vp-doc blockquote {
@@ -1094,8 +1097,46 @@ div[class*='language-'] code {
 }
 
 .vp-doc .hint-container :where(p, li),
-.vp-doc .custom-block :where(p, li) {
+.vp-doc .custom-block :where(p, li),
+.vp-doc .vp-collapse :where(p, li) {
   color: var(--vp-c-text-2);
+  line-height: 1.95;
+}
+
+.vp-doc .hint-container p,
+.vp-doc .custom-block p,
+.vp-doc .vp-collapse p {
+  margin: 0.9rem 0;
+}
+
+.vp-doc .hint-container :not(pre) > code,
+.vp-doc .custom-block :not(pre) > code,
+.vp-doc .vp-collapse :not(pre) > code {
+  padding-top: 0.02rem;
+  padding-bottom: 0.02rem;
+  line-height: 1.3;
+}
+
+.vp-doc .hint-container.details summary,
+.vp-doc .vp-collapse summary {
+  margin-bottom: 0.7rem;
+  line-height: 1.45;
+}
+
+.vp-doc .hint-container.details summary + p,
+.vp-doc .vp-collapse summary + p {
+  margin-top: 0.95rem;
+}
+
+.vp-doc .vp-steps > :where(ol, ul) > li::before {
+  background-color: color-mix(in srgb, var(--vp-c-bg-soft) 88%, var(--sn-panel));
+  border-color: color-mix(in srgb, var(--vp-c-text-3) 32%, transparent);
+}
+
+.vp-doc .vp-steps > :where(ol, ul) > li:not(:last-of-type)::after {
+  width: 2px;
+  background-color: color-mix(in srgb, var(--vp-c-text-3) 26%, transparent);
+  border-radius: 999px;
 }
 
 .vp-doc-title .page-title {
@@ -1358,6 +1399,7 @@ mark {
   --vp-mark-bg-shift: 0.78em;
   --vp-mark-linear-color: color-mix(in srgb, var(--sn-accent) 72%, black 8%);
   --vp-mark-bg-image: linear-gradient(to right, var(--vp-mark-linear-color) 50%, transparent 50%);
+  --vp-mark-animation: mark-highlight 1.5s 0.5s forwards;
 
   padding: 2px;
   color: var(--vp-mark-text);
@@ -1365,13 +1407,13 @@ mark {
   background-color: var(--vp-mark-bg);
   background-image: var(--vp-mark-bg-image);
   background-repeat: no-repeat;
-  background-position: 0 var(--vp-mark-bg-shift);
+  background-position: 100% var(--vp-mark-bg-shift);
   background-size: 200% 0.52em;
   border-radius: 0;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   box-shadow: none;
-  animation: none;
+  animation: var(--vp-mark-animation);
 }
 
 mark:where(.note, .info, .tip, .warning, .caution, .danger, .important) {
