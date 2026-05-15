@@ -921,8 +921,9 @@ body {
 .vp-doc h2 {
   margin-top: 3.6rem;
   margin-bottom: 1.15rem;
-  padding-top: 0.2rem;
+  padding-top: 0;
   font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  border-top: 0;
 }
 
 .vp-doc h3 {
@@ -1147,9 +1148,10 @@ div[class*='language-'] code {
 
 .vp-doc-meta {
   gap: 0.8rem 1rem;
-  padding: 1rem 0 1.2rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--vp-c-divider);
+  padding: 1rem 0 1rem !important;
+  margin-bottom: 1rem !important;
+  /* border-bottom: 1px solid var(--vp-c-divider); */
+  border-bottom: unset !important;
 }
 
 .vp-doc-meta::after {

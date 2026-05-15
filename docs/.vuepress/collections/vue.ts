@@ -106,9 +106,31 @@ export const vueCollection = defineCollection({
               text: '渲染器',
               collapsed: true,
               items: [
-                {
-                  text: '渲染器的基本实现',
-                  link: '/vue/1om5vu9p/'
+                { 
+                  text: '渲染器的基础实现',
+                  collapsed: false,
+                  items: [
+                    {
+                      text: '基础设计与实现',
+                      link: '/vue/1om5vu9p/',
+                    },
+                    {
+                      text: '挂载的基本实现',
+                      link: '/vue/lvpsbec3/'
+                    },
+                    {
+                      text: '卸载的基本实现',
+                      link: '/vue/318palft/'
+                    },
+                    {
+                      text: '事件处理',
+                      link: '/vue/idya5m1d/'
+                    },
+                    {
+                      text: '平台无关性处理',
+                      link: '/vue/vhxy1ahy/'
+                    }
+                  ]
                 },
                 {
                   text: '节点处理',
