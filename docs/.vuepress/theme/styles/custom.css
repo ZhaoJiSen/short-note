@@ -891,8 +891,8 @@ body {
 }
 
 .vp-doc {
-  font-size: 16px;
-  line-height: 1.9;
+  font-size: 15px;
+  line-height: 1.85;
   color: var(--vp-c-text-2);
 }
 
@@ -915,21 +915,21 @@ body {
 
 .vp-doc h1 {
   margin-bottom: 0.9rem;
-  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  font-size: clamp(1.85rem, 3.2vw, 2.55rem);
 }
 
 .vp-doc h2 {
-  margin-top: 3.6rem;
+  margin-top: 3rem;
   margin-bottom: 1.15rem;
   padding-top: 0;
-  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-size: clamp(1.45rem, 2.2vw, 1.95rem);
   border-top: 0;
 }
 
 .vp-doc h3 {
-  margin-top: 2.5rem;
+  margin-top: 2.15rem;
   margin-bottom: 0.9rem;
-  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-size: clamp(1.16rem, 1.7vw, 1.42rem);
 }
 
 .vp-doc h4 {
@@ -980,13 +980,14 @@ body {
 }
 
 .vp-doc blockquote {
-  padding: 1rem 1.15rem;
-  margin: 1.4rem 0;
+  padding: 0.7rem 0.9rem;
+  margin: 1rem 0;
   color: var(--vp-c-text-2);
   background: color-mix(in srgb, var(--vp-c-bg-elv) 90%, var(--vp-c-bg-soft));
   border: 1px solid var(--vp-c-border);
   border-left: 2px solid var(--sn-accent);
-  border-radius: 0 14px 14px 0;
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 .vp-doc blockquote::before {
@@ -994,7 +995,20 @@ body {
 }
 
 .vp-doc blockquote > p {
-  margin: 0.25rem 0;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.vp-doc :is(.vp-collapse, .hint-container.details) blockquote {
+  padding: 0.7rem 0.9rem;
+  margin: 1rem 0;
+  border-left-width: 2px;
+  border-radius: 14px;
+}
+
+.vp-doc :is(.vp-collapse, .hint-container.details) blockquote > p {
+  margin: 0;
+  line-height: 1.7;
 }
 
 .vp-doc table {
@@ -1042,14 +1056,145 @@ body {
 
 div[class*='language-'] {
   margin: 1.35rem 0;
+  overflow: hidden;
   border: 1px solid var(--vp-code-block-border);
   border-radius: 16px;
+  background: var(--vp-code-block-bg);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
 }
 
 div[class*='language-'] pre,
 div[class*='language-'] code {
   font-family: var(--vp-font-family-mono);
+}
+
+.vp-doc .vp-code-group {
+  margin: 1.35rem 0;
+  overflow: hidden;
+  background: var(--vp-code-block-bg);
+  border: 1px solid var(--vp-code-block-border);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+}
+
+.vp-doc .vp-code-group div[class*='language-'] {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vp-doc .vp-code-group div[class*='language-'] pre {
+  border-radius: 0;
+}
+
+.vp-doc .code-repl,
+.vp-doc .vp-code-tabs {
+  margin: 1.35rem 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--vp-code-block-bg);
+  border: 1px solid var(--vp-code-block-border);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+}
+
+.vp-doc .code-repl-title,
+.vp-doc .vp-code-tabs-nav {
+  background: color-mix(in srgb, var(--vp-code-tab-bg) 94%, var(--vp-code-block-bg));
+  border-bottom: 1px solid var(--vp-code-block-divider-color);
+}
+
+.vp-doc .code-repl-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.65rem 0.95rem;
+}
+
+.vp-doc .code-repl-title h4 {
+  margin: 0;
+  color: var(--vp-c-text-1);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.vp-doc .code-repl-title .icon-run {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  color: var(--vp-c-text-2);
+  background: rgb(255 255 255 / 0.03);
+  border: 1px solid var(--vp-code-block-divider-color);
+  border-radius: 999px;
+}
+
+.vp-doc .code-repl > div[class*='language-'],
+.vp-doc .vp-code-tabs .vp-code-tab > div[class*='language-'] {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vp-doc .code-repl > div[class*='language-']::before,
+.vp-doc .vp-code-tabs .vp-code-tab > div[class*='language-']::before {
+  top: 12px;
+  right: 16px;
+}
+
+.vp-doc .vp-code-tabs-nav {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-height: 0;
+  padding: 0 0.85rem;
+  margin: 0;
+  line-height: 1;
+}
+
+.vp-doc .vp-code-tab-nav {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 0;
+  padding: 0.75rem 0.35rem 0.7rem;
+  margin: 0 0.9rem 0 0;
+  color: var(--vp-code-tab-text-color);
+  background: transparent;
+  border: 0;
+  line-height: 1.2;
+  font: inherit;
+}
+
+.vp-doc .vp-code-tab-nav.active {
+  color: var(--vp-code-tab-active-text-color);
+}
+
+.vp-doc .vp-code-tab-nav.active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  content: '';
+  background: var(--vp-code-tab-active-bar-color);
+  border-radius: 999px;
+}
+
+.vp-doc .vp-code-tabs .vp-code-tab {
+  margin: 0;
+  padding: 0;
+}
+
+.vp-doc .vp-code-tabs .vp-code-tab-title {
+  display: none;
 }
 
 .vp-code-group .tabs {
@@ -1069,6 +1214,106 @@ div[class*='language-'] code {
   border: 1px solid var(--vp-c-border);
   border-radius: 12px;
   box-shadow: none;
+}
+
+.vp-doc .vp-collapse {
+  display: flex;
+  flex-direction: column;
+  gap: 0 !important;
+  overflow: hidden;
+}
+
+.vp-doc .vp-collapse-item {
+  background: transparent;
+  border: 0;
+  display: block;
+  overflow: hidden;
+  padding-top: 0 !important;
+  border-radius: 0;
+}
+
+.vp-doc .vp-collapse-item + .vp-collapse-item {
+  border-top: 1px solid color-mix(in srgb, var(--vp-c-divider) 94%, transparent);
+}
+
+.vp-doc .vp-collapse-header,
+.vp-doc .vp-collapse summary {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.5rem;
+  min-height: 0;
+  padding: 0.2rem 0.75rem;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.vp-doc details.hint-container.details {
+  padding: 0.85rem 1rem 1rem;
+  overflow: hidden;
+}
+
+.vp-doc details.hint-container.details summary {
+  margin: 0;
+  padding: 0;
+  color: var(--vp-c-text-1);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  cursor: pointer;
+  user-select: none;
+}
+
+.vp-doc details.hint-container.details[open] summary {
+  margin-bottom: 0.75rem;
+}
+
+.vp-doc .vp-collapse-header {
+  border-bottom: 1px solid transparent;
+}
+
+.vp-doc .vp-collapse-header .vpi-chevron-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center !important;
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  color: var(--vp-c-text-3);
+  font-size: 12px;
+  line-height: 1;
+  transition: transform var(--vp-t-color);
+  transform: rotate(0deg);
+}
+
+.vp-doc .vp-collapse-item.expanded .vp-collapse-header,
+.vp-doc .vp-collapse-item.open .vp-collapse-header {
+  border-bottom-color: color-mix(in srgb, var(--vp-c-divider) 94%, transparent);
+}
+
+.vp-doc .vp-collapse-item.expanded .vp-collapse-header .vpi-chevron-right,
+.vp-doc .vp-collapse-item.open .vp-collapse-header .vpi-chevron-right {
+  transform: rotate(90deg);
+}
+
+.vp-doc .vp-collapse-title {
+  display: block;
+  margin: 0;
+  color: var(--vp-c-text-1);
+  font-size: 0.9rem;
+  line-height: 1.15;
+}
+
+.vp-doc .vp-collapse-content,
+.vp-doc .vp-collapse-content-inner {
+  overflow: hidden;
+}
+
+.vp-doc .vp-collapse-content-inner {
+  padding: 0 0.9rem 0.85rem;
 }
 
 .vp-doc .hint-container.plume-callout {
@@ -1099,20 +1344,23 @@ div[class*='language-'] code {
 
 .vp-doc .hint-container :where(p, li),
 .vp-doc .custom-block :where(p, li),
-.vp-doc .vp-collapse :where(p, li) {
+.vp-doc .vp-collapse :where(p, li),
+.vp-doc .vp-collapse-content :where(p, li) {
   color: var(--vp-c-text-2);
   line-height: 1.95;
 }
 
 .vp-doc .hint-container p,
 .vp-doc .custom-block p,
-.vp-doc .vp-collapse p {
+.vp-doc .vp-collapse p,
+.vp-doc .vp-collapse-content p {
   margin: 0.9rem 0;
 }
 
 .vp-doc .hint-container :not(pre) > code,
 .vp-doc .custom-block :not(pre) > code,
-.vp-doc .vp-collapse :not(pre) > code {
+.vp-doc .vp-collapse :not(pre) > code,
+.vp-doc .vp-collapse-content :not(pre) > code {
   padding-top: 0.02rem;
   padding-bottom: 0.02rem;
   line-height: 1.3;
@@ -1120,7 +1368,6 @@ div[class*='language-'] code {
 
 .vp-doc .hint-container.details summary,
 .vp-doc .vp-collapse summary {
-  margin-bottom: 0.7rem;
   line-height: 1.45;
 }
 
@@ -1306,11 +1553,11 @@ div[class*='language-'] code {
 }
 
 .motion-reveal {
-  opacity: 0;
-  transform: translateY(8px);
+  opacity: 0.84;
+  transform: translateY(3px);
   transition:
-    opacity 220ms ease,
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }

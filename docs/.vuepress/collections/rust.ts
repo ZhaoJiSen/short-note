@@ -59,9 +59,9 @@ export const rustCollection = defineCollection({
           text: '集合',
           collapsed: true,
           items: [
-            { text: '1. 动态数组', link: '/rust/bkb5lpbm/' },
-            { text: '2. 字符串', link: '/rust/nytp8hdg/' },
-            { text: '2. HashMap', link: '/rust/88xu261b/' },
+            { text: 'Vector', link: '/rust/bkb5lpbm/' },
+            { text: 'String 与字符串切片', link: '/rust/nytp8hdg/' },
+            { text: 'HashMap', link: '/rust/88xu261b/' },
           ],
         },
         {
