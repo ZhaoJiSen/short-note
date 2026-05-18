@@ -131,7 +131,7 @@ export const rustCollection = defineCollection({
     },
     {
       text: '生态系统',
-      collapsed: false,
+      collapsed: true,
       items: [
         {
           text: '错误处理',
