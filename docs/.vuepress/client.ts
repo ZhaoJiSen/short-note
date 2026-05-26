@@ -5,10 +5,11 @@ import { defineClientConfig } from 'vuepress/client';
 // import Swiper from 'vuepress-theme-plume/features/Swiper.vue'
 
 // import CustomComponent from './theme/components/Custom.vue'
-import VPCodeTree from './theme/components/VPCodeTree.vue';
-import HomeLanding from './theme/components/HomeLanding.vue';
 import ArticleMotion from './theme/components/ArticleMotion.vue';
+import HomeLanding from './theme/components/HomeLanding.vue';
+import VPCodeTree from './theme/components/VPCodeTree.vue';
 
+// @ts-ignore
 import './theme/styles/custom.css';
 
 export default defineClientConfig({

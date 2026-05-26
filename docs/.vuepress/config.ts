@@ -15,6 +15,29 @@ import { plumeTheme } from 'vuepress-theme-plume';
 
 const calloutTypes = ['note', 'tip', 'important', 'warning', 'caution', 'danger', 'info'] as const;
 const calloutTypePattern = calloutTypes.join('|');
+const mermaidFenceTypes = new Set([
+  'architecture',
+  'block',
+  'c4c',
+  'class',
+  'er',
+  'gantt',
+  'git-graph',
+  'journey',
+  'kanban',
+  'mermaid',
+  'mindmap',
+  'packet',
+  'pie',
+  'quadrant',
+  'requirement',
+  'sankey',
+  'sequence',
+  'state',
+  'timeline',
+  'xy',
+]);
+const mermaidGlobalInit = '%%{init: { "look": "handDrawn", "themeVariables": { "fontSize": "12px" }, "flowchart": { "nodeSpacing": 20, "rankSpacing": 28, "diagramPadding": 4, "useMaxWidth": false } }}%%';
 
 function collectCalloutMarkers(src: string) {
   const markers: Array<{ type: string; github: boolean }> = [];
@@ -66,6 +89,18 @@ function markGithubAlertHtml(src: string, html: string) {
   );
 }
 
+function injectMermaidInit(content: string) {
+  if (content.includes('%%{init:'))
+    return content;
+
+  const frontmatterMatch = content.match(/^(---\n[\s\S]*?\n---\n\n?)/);
+
+  if (!frontmatterMatch)
+    return `${mermaidGlobalInit}\n${content}`;
+
+  return `${frontmatterMatch[1]}${mermaidGlobalInit}\n${content.slice(frontmatterMatch[1].length)}`;
+}
+
 export default defineUserConfig({
   base: '/short-note/',
   lang: 'zh-CN',
@@ -102,6 +137,24 @@ export default defineUserConfig({
 
         if (page.sfcBlocks.template)
           page.sfcBlocks.template.contentStripped = markGithubAlertHtml(page.content, page.sfcBlocks.template.contentStripped);
+      },
+    },
+    {
+      name: 'global-mermaid-init',
+      extendsMarkdown(md) {
+        md.core.ruler.push('global-mermaid-init', (state) => {
+          for (const token of state.tokens) {
+            if (token.type !== 'fence')
+              continue;
+
+            const [info] = token.info.split(':', 1);
+
+            if (!mermaidFenceTypes.has(info))
+              continue;
+
+            token.content = injectMermaidInit(token.content);
+          }
+        });
       },
     },
   ],

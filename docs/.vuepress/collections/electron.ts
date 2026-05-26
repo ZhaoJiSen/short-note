@@ -5,9 +5,9 @@ export const electronCollection = defineCollection({
   dir: 'electron',
   title: 'Electron',
   sidebar: [
-    {
-      text: '基础篇',
-    },
+    // {
+    //   text: '基础篇',
+    // },
     {
       text: '原理篇',
       items: [
