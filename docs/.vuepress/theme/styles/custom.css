@@ -1313,7 +1313,39 @@ div[class*='language-'] code {
 }
 
 .vp-doc .vp-collapse-content-inner {
-  padding: 0 0.9rem 0.85rem;
+  padding: 0.82rem 1rem 0.95rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.98rem;
+  line-height: 1.95;
+}
+
+.vp-doc .vp-collapse-content-inner > :first-child {
+  margin-top: 0;
+}
+
+.vp-doc .vp-collapse-content-inner > :last-child {
+  margin-bottom: 0;
+}
+
+.vp-doc .vp-collapse-content-inner > :where(ul, ol) {
+  margin: 0.1rem 0 0.2rem;
+  padding-inline-start: 1.6rem;
+}
+
+.vp-doc .vp-collapse-content-inner > :where(p, blockquote, .hint-container, .custom-block, .vp-steps, table) {
+  padding-inline-start: 0.2rem;
+}
+
+.vp-doc .vp-collapse-content-inner > :where(ul, ol) > li + li {
+  margin-top: 0.35rem;
+}
+
+.vp-doc .vp-collapse-content-inner > :where(ul, ol) > li > :first-child {
+  margin-top: 0;
+}
+
+.vp-doc .vp-collapse-content-inner > :where(ul, ol) > li > :last-child {
+  margin-bottom: 0;
 }
 
 .vp-doc .hint-container.plume-callout {
