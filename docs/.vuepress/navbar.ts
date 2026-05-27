@@ -29,7 +29,7 @@ export default defineNavbarConfig([
       },
       {
         text: 'Python',
-        link: '/python/',
+        link: '/python/1v6j4ncj/',
         icon: 'material-icon-theme:python',
       },
       {

@@ -1,21 +1,22 @@
 import { defineCollections } from 'vuepress-theme-plume';
 
 import {
-  bunCollection,
-  goCollection,
-  vueCollection,
-  rustCollection,
-  nodeCollection,
-  browserCollection,
-  reactCollection,
-  blogCollection,
-  javascriptCollection,
-  typescriptCollection,
-  modularizationCollection,
-  packageManagerCollection,
   babelCollection,
+  blogCollection,
+  browserCollection,
   buildToolsCollection,
+  bunCollection,
   electronCollection,
+  goCollection,
+  javascriptCollection,
+  modularizationCollection,
+  nodeCollection,
+  packageManagerCollection,
+  pythonCollection,
+  reactCollection,
+  rustCollection,
+  typescriptCollection,
+  vueCollection
 } from './collections/index';
 
 export default defineCollections([
@@ -34,4 +35,5 @@ export default defineCollections([
   babelCollection,
   buildToolsCollection,
   electronCollection,
+  pythonCollection
 ]);
