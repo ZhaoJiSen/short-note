@@ -418,6 +418,16 @@ body {
   padding: 0 0.75rem;
 }
 
+.vp-sidebar-item.level-0 > .item {
+  padding-inline: 0;
+}
+
+.vp-sidebar-item.level-0 > .item > .link,
+.vp-sidebar-item.level-0 > .item > .text {
+  border-radius: 10px;
+  padding-inline: 0.75rem;
+}
+
 .vp-sidebar-item.level-0 > .item > .text,
 .vp-sidebar-item.level-0 > .item > .link > .text {
   font-weight: 600;
@@ -436,6 +446,16 @@ body {
   background: rgb(255 255 255 / 0.04);
 }
 
+.vp-sidebar-item.level-0 > .item:hover {
+  background: transparent;
+}
+
+.vp-sidebar-item.level-0 > .item:hover > .link,
+.vp-sidebar-item.level-0 > .item:hover > .text,
+.vp-sidebar-item.level-0 > .item > .link:hover {
+  background: rgb(255 255 255 / 0.04);
+}
+
 .vp-sidebar-item.is-active > .item > .link,
 .vp-sidebar-item.is-active > .item > .text {
   background: color-mix(in srgb, var(--vp-c-bg-elv) 86%, var(--sn-accent-soft));
@@ -449,6 +469,10 @@ body {
 .vp-sidebar-item.level-0.has-active > .item > .text,
 .vp-sidebar-item.level-0.has-active > .item > .link > .text {
   color: var(--vp-c-text-1);
+}
+
+.vp-sidebar-item.level-1.collapsible > .item {
+  padding-inline-start: 0.7rem;
 }
 
 .vp-sidebar-control .toggle-sidebar-btn {
