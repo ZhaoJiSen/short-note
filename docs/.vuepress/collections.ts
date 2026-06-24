@@ -1,6 +1,7 @@
 import { defineCollections } from 'vuepress-theme-plume';
 
 import {
+  aiCollection,
   babelCollection,
   blogCollection,
   browserCollection,
@@ -16,10 +17,11 @@ import {
   reactCollection,
   rustCollection,
   typescriptCollection,
-  vueCollection
+  vueCollection,
 } from './collections/index';
 
 export default defineCollections([
+  aiCollection,
   bunCollection,
   goCollection,
   vueCollection,
@@ -35,5 +37,5 @@ export default defineCollections([
   babelCollection,
   buildToolsCollection,
   electronCollection,
-  pythonCollection
+  pythonCollection,
 ]);

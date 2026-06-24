@@ -10,6 +10,10 @@ export default defineNavbarConfig([
   { text: '首页', link: '/' },
   { text: '博客', link: '/blog/' },
   {
+    text: 'AI',
+    link: '/AI/llm/589616cb/'
+  },
+  {
     text: '编程语言',
     items: [
       {
@@ -109,4 +113,5 @@ export default defineNavbarConfig([
       },
     ],
   },
+
 ]);

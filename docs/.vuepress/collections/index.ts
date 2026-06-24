@@ -1,3 +1,4 @@
+export { aiCollection } from './ai';
 export { blogCollection } from './blog';
 export { browserCollection } from './browser';
 export { buildToolsCollection } from './buildTools';
@@ -15,4 +16,3 @@ export { electronCollection } from './electron';
 export { babelCollection } from './engineering-babel';
 export { modularizationCollection } from './engineering-modularization';
 export { packageManagerCollection } from './engineering-package-manager';
-

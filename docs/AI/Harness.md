@@ -1,7 +1,10 @@
 ---
 title: Harness Engineering
 createTime: 2026/04/15 11:00:28
-permalink: /blog/hkcyj344/
+permalink: /AI/engineering/e22b513a/
+tags:
+  - AI
+  - AI 工程
 ---
 
 Harness Engineering 驾驭工程，指的是==在一个 Agent 系统中，除了模型本身以外几乎所有决定它能不能稳定交付的东西==。其核心目标是解决 AI Agent 在真实场景中的==执行稳定性==问题，确保模型能够从 "能思考" 到 "能稳定做事" 的关键跨越
