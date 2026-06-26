@@ -79,6 +79,50 @@ These notes are written incrementally as the author learns each topic. When coll
 - **Respect topic boundaries.** Keep each note focused on its own subject; a syncing primitive like `WaitGroup` belongs in its dedicated note (`sync 同步原语`), not duplicated into `goroutine`. Distinguish 核心特性 (objective runtime/scheduler behavior) from 常见陷阱 (mistakes from misuse).
 - **Verify after edits.** Run `pnpm docs:build` after structural edits to confirm pages still render.
 
+### Resuming in a fresh session
+
+A new Claude (different chat) won't know where the author left off. The author only needs to state **which topic/section is next**; everything else is recoverable:
+
+- Project conventions and this workflow → this `CLAUDE.md` (read automatically).
+- Personal preferences (e.g. straight-quote style) → long-term memory (loaded automatically).
+- **Progress** → not written down anywhere on purpose, because it changes constantly. To infer it, check which `.md` files under the relevant topic dir (e.g. `docs/go/2.并发与协程/`) have real content vs. are still empty placeholders (only frontmatter). Files with content = already learned; empty = not yet.
+
+A typical resume prompt from the author looks like: *"在 `~/short-note` 项目里按 CLAUDE.md 的 learning-notes workflow 配合我学 Go 的 select 这节。"*
+
 ### plume container nesting
 
-When nesting plume containers (`:::details`, `:::note`, `:::table`, `:::code-tabs`, etc.), the **outer** container must use **more** colons than the inner one (markdown-it-container uses colon count to disambiguate boundaries). e.g. outer `:::::details` wraps inner `::::details`. Equal or fewer colons on the outer fence cause the outer block to close prematurely and the nesting to render wrong — `pnpm docs:build` still "succeeds" even when this is broken, so verify the rendered output.
+When nesting plume containers (`:::details`, `:::note`, `:::table`, `:::steps`, etc.), the **outer** container must use **more** colons than the inner one (markdown-it-container uses colon count to disambiguate boundaries). e.g. outer `::::details` wraps inner `:::steps`. Equal or fewer colons on the outer fence cause the outer block to close prematurely and the nesting to render wrong — `pnpm docs:build` still "succeeds" even when this is broken, so verify the rendered output.
+
+### plume markdown containers (reference)
+
+These come from `vuepress-plugin-md-power` (bundled with the theme) plus a few core plugins — **not** the theme main package, so don't conclude "it doesn't exist" by grepping `node_modules/vuepress-theme-plume` alone. Most are already enabled in this repo's `config.ts` `markdown` block (`annotation, abbr, repl, image, demo, timeline, collapse, mermaid, flowchart, codeTree, table`). Official docs: https://theme-plume.vuejs.press/guide/markdown/. Containers default to `:::` (3 colons); bump the colon count on the outer one when nesting.
+
+**Hint/callout** (`note`, `tip`, `info`, `warning`, `caution`, `details`): `::: tip 自定义标题` … `:::`. `details` is the collapsible one. GitHub-alert syntax (`> [!NOTE]`) also works and is tagged with a `github-alert-source` class by a local plugin.
+
+**Steps** — numbered procedure. Ordered list inside; item bodies (code blocks, sub-lists) indent 3 spaces:
+```md
+:::steps
+1. 第一步
+
+   ```go
+   // code
+   ```
+2. 第二步
+:::
+```
+
+**Tabs** (`:::tabs`, items split by `@tab 标题`): `@tab:active 标题` sets the default; `:::tabs#groupId` syncs switching across same-id groups; `@tab 标题#值` overrides the tab value. `:::code-tabs` is the code-specific variant already used in the Go notes.
+
+**Card / card-grid** — `::: card title="…" icon="iconify名或图片URL"`; wrap multiple in `:::: card-grid` for side-by-side.
+
+**File-tree** — `::: file-tree title="…" icon="colored|simple"` + nested unordered list. `**name**` highlights, `name # 注释`, `++`/`--` mark added/removed, trailing `/` collapses a dir, `…` placeholder. A ` ```file-tree ` code block accepting raw `tree` output also works.
+
+**Field / field-group** — structured docs for config keys or component props. `::: field 名称` with JSDoc-style tags `@type @required @optional @default @deprecated @description`; group with `:::: field-group`.
+
+**Timeline** (`:::timeline`, enabled) — unordered list; each item: title line, optional config line (`time=… type=success icon=… card=true`), blank line, then body. Container opts: `horizontal`, `card`, `placement="left|right|between"`, `line="solid|dashed|dotted"`.
+
+**Collapse** (`:::collapse`, enabled) — unordered list of fold regions. Container opts `accordion` (only one open) / `expand` (all open by default); per-item `:+` (start expanded) / `:-` (start collapsed). Differs from `details`: collapse is a *list* of regions with accordion support; `details` is a single fold block.
+
+**Window** (`::: window title="…" height="…" gap="…"`) — a standalone demo/example frame separated from body text; can hold markdown, HTML, or Vue with `<style>`.
+
+Other available containers (less used here): `flex`, `npmTo`, `qrcode`, `caniuse`, `chat` (对话记录), `mark` (==高亮==), `plot` (隐秘文本), plus math, emoji, icon, include. See the docs index for the full list.

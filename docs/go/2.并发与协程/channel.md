@@ -112,7 +112,7 @@ func main() {
 
 :::
 
-### 关闭 channel 与接收的"逗号 ok"
+### 关闭与 ok 检测
 
 `close` 表示发送方不再发送数据了，接收方可以用第二个返回值判断 `channel` 是否已关闭且取空：
 
@@ -215,3 +215,91 @@ func main() {
     consume(ch)
 }
 ```
+
+## 延伸阅读
+
+为什么 Go 用 `<-`，而 Rust 用 `tx.send()` / `rx.recv()`？
+
+Go 把 channel 做成了**语言内置的一等公民**，所以能给它一套专属语法；Rust 把 channel 做成了**标准库里的普通类型**，只能用普通方法调用
+
+:::table full-width
+
+| 维度 | Go `ch <- v` / `<-ch` | Rust `tx.send(v)` / `rx.recv()` |
+| --- | --- | --- |
+| channel 的地位 | **语言内置类型** + 关键字 | **标准库类型**（`std::sync::mpsc`） |
+| 收发语法 | 专属操作符 `<-` | 普通方法调用 |
+| 收发端 | **同一个 channel 值**，双向 | **拆成两个值** tx/rx |
+| 失败处理 | 阻塞/panic/`ok` 布尔 | 返回 `Result`，强制处理 |
+
+:::
+
+`<-` 不是某个库设计的，它是 **Go 语言规范里的运算符**，和 `+` `*` 一个级别。正因为 channel 内置，Go 才有资格给它发明专属语法。Rust 的 channel 只是 `std` 里一个普通结构体，没有任何语言特权，自然只能 `.send()` / `.recv()`
+
+**Go 选 `<-` 操作符，有三个原因。**
+
+:::steps
+
+1. channel 是 Go 并发模型的核心，值得一等公民待遇。Go 的设计信条是 "通过通信共享内存"，channel 是这套哲学的主角。`go` 关键字、`chan` 类型、`select` 语句、`<-` 操作符——这一整套都是语言级的，浑然一体。
+
+2. `<-` 是个 "会说话" 的符号，方向即语义。箭头本身就表达了数据流向：
+
+   ```go
+   ch <- v      // 数据流进 channel：发送
+   v := <-ch    // 数据从 channel 流出：接收
+   ```
+
+   这个直觉还延伸到了类型层面（单向 channel）：
+
+   ```go
+   chan<- int   // 箭头朝里，只能发
+   <-chan int   // 箭头朝外，只能收
+   ```
+
+   类型签名和操作语法用的是同一个符号、同一个方向直觉，这是 `.send()/.recv()` 给不了的统一性。
+
+3. 配合 `select` 才成立。Go 真正离不开操作符的地方是 `select`——同时等待多个 channel：
+
+   ```go
+   select {
+   case v := <-ch1:
+       // ch1 可读
+   case ch2 <- x:
+       // ch2 可写
+   case <-time.After(time.Second):
+       // 超时
+   }
+   ```
+
+   `select` 是语言关键字，它的每个 `case` 必须是一个 channel 操作。如果收发是普通方法调用 `ch1.recv()`，编译器没法把它识别成 "一个可被多路选择的通信操作"。正是因为 `<-` 是语言内置操作符，`select` 才能在语法层面把它们组织起来。
+
+:::
+
+**Rust 选 tx/rx + 方法，同样有三个原因。**
+
+:::steps
+
+1. Rust 不想给 channel 语言特权。Rust 的设计原则是 "语言核心尽量小，能用库实现的就放进库"。channel 用 `mpsc`（标准库）或 `tokio::mpsc`（第三方库）实现。发明一个 `<-` 操作符就把 channel 焊死进了语言，违背 "机制归库" 的原则。
+
+2. 拆成 tx/rx 是所有权模型的要求。这是最关键的点：
+
+   ```rust
+   let (tx, rx) = mpsc::channel();
+   ```
+
+   - `mpsc` = **m**ulti-**p**roducer **s**ingle-**c**onsumer。`tx` 可以 `clone` 给多个线程（多生产者），`rx` 不可 clone（单消费者）。这个约束直接编码在**类型**里。
+   - `tx` 全部被 drop 时，`rx.recv()` 会自动返回 `Err`——靠所有权/生命周期天然实现了 "关闭"，不需要 Go 那样手动 `close(ch)`，也就没有 Go 里 "向已关闭 channel 发送会 panic" "谁负责 close" 那些坑。
+
+   Go 的 channel 是一个双向的值，发送方关闭、接收方误用都可能在运行时 panic。Rust 把收发拆开 + 用所有权管生死，是把这类错误搬到编译期消灭掉。
+
+3. 返回 `Result`，强制处理失败。
+
+   ```rust
+   tx.send(v)?;            // send 返回 Result，对端关了就是 Err
+   let v = rx.recv()?;     // recv 返回 Result，发送端全没了就是 Err
+   ```
+
+   方法调用能自然地返回 `Result`，操作符 `<-` 就很难塞进一个 "返回可能失败的值" 的语义。
+
+:::
+
+所以不是 Go "没采用" Rust 的写法，而是两者在 "该把并发的复杂性放在语言里还是类型系统里" 这个根本问题上做了相反的选择。有意思的是 `select` 这个反例：Go 因为 channel 内置才有 `select` 关键字；Rust 想多路等待 channel 反而得靠宏（`tokio::select!`）或 `crossbeam` 的 `Select`，写起来比 Go 啰嗦——这正是 "机制归库" 的代价。两种哲学各有得失，没有谁绝对更优。
