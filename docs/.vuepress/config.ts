@@ -108,15 +108,6 @@ export default defineUserConfig({
   description: '个人笔记存放处',
 
   head: [
-    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
-    [
-      'link',
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap',
-      },
-    ],
     // 配置站点图标
     [
       'link',
@@ -229,7 +220,7 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/config/plugins/code-highlight/
      */
     codeHighlighter: {
-      themes: { light: 'github-light-default', dark: 'github-dark-dimmed' },
+      themes: { light: 'vitesse-light', dark: 'vitesse-dark' },
       lineNumbers: false,
       notationDiff: true,
       notationErrorLevel: true,
