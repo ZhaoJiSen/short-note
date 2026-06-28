@@ -52,6 +52,17 @@ Navbar and sidebar entries link to these permalinks (`/python/umipekr0/`), **not
 
 Topic directories live directly under `docs/` (e.g. `docs/python/`, `docs/vue/`, `docs/javascript/`, `docs/blog/`). Directory names and headings are Chinese. The `blog` collection is type `post`; most others are type `doc` with an explicit `sidebar` tree.
 
+### Styling & design system
+
+The site has a hand-written design system documented in **`DESIGN.md`** (repo root) — **read it before changing any styles**, don't redesign from scratch. All styles live in `docs/.vuepress/theme/styles/custom.css`; the home hero is `docs/.vuepress/theme/components/HomeLanding.vue`. Key points:
+
+- **Vitesse Dark** palette: bg `#121212`, warm-white text `#ece9e0`, muted-green accent `#5bb992` (token `--sn-accent`). Code highlighting uses `vitesse-dark` / `vitesse-light`.
+- **Apple system font stack** (`-apple-system` / `PingFang SC` / `SF Mono`) — no webfont.
+- Design tokens: `--sn-*` for colors, `--sn-radius-xs/sm/md/lg/xl/pill` for radii. Change a color at its `--sn-*` source and it cascades everywhere.
+- Tone is reserved, calm, low-contrast for reading. Accent only as an accent, never large fills; no grids/glows/rainbow tags/flashy motion.
+- **Three-tier quote language** (deliberately distinct): plain `>` = gray vertical-bar quote; GitHub alert `> [!NOTE]` = transparent + colored left bar + colored title (lightweight, distinguished by the `.github-alert-source` class, icon via `mask`+`currentColor`); Plume `:::note` = solid filled card. Semantic colors: note gray / tip green / important muted-purple `#a98bc9` / warning amber / danger soft-red.
+- Always `pnpm docs:build` after style edits to verify rendering.
+
 ### Custom markdown plugins (in config.ts)
 
 Two `extendsPage`/`extendsMarkdown` plugins run at build time:
@@ -74,7 +85,10 @@ These notes are written incrementally as the author learns each topic. When coll
 - **Reply in Chinese.** All explanations, reviews, and discussion are in Chinese.
 - **Generate explanations and code in the chat, not by writing files** — the author copies what they find useful into the note themselves. Only edit `.md` files directly when explicitly asked (e.g. "重排", "帮我改").
 - **Structured form preferred.** When explaining a topic, organize it: 概念 → 用法 → 核心特性 → 协作/进阶 → 常见陷阱 → 小结. Use headings, tables, and runnable code blocks.
-- **Code must be runnable.** Every Go (etc.) snippet should compile/run as-is so it can be verified with `go run`. Don't post pseudo-code that won't build.
+- **Code must be runnable.** Every Go (etc.) snippet should compile/run as-is so it can be verified with `go run`. Don't post pseudo-code that won't build. Prefer complete programs (with `main` and expected output) over fragments.
+- **Explain the "why", but don't list-dump.** The author reads your explanation and rewrites it into the note in his own words, so explanations must be thorough on the underlying mechanism — not a cheatsheet. At the same time keep prose natural and narrated, not a pile of bullet points.
+- **No period at end of lines.** The author's notes deliberately omit the trailing 。/period on lines — match that.
+- **Preserve existing indentation.** When editing `.md` directly, keep the author's existing code-block indentation exactly (his spacing may be non-standard, e.g. 4/12/20 spaces); never convert to tabs.
 - **Never alter the author's existing wording.** When asked to "重排" / restructure, only move blocks and adjust heading levels — do not rewrite, rephrase, or fix prose. Surface suggested deletions/merges as recommendations for the author to action.
 - **Respect topic boundaries.** Keep each note focused on its own subject; a syncing primitive like `WaitGroup` belongs in its dedicated note (`sync 同步原语`), not duplicated into `goroutine`. Distinguish 核心特性 (objective runtime/scheduler behavior) from 常见陷阱 (mistakes from misuse).
 - **Verify after edits.** Run `pnpm docs:build` after structural edits to confirm pages still render.
