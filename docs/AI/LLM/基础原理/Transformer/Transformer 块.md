@@ -6,6 +6,10 @@ permalink: /AI/llm/fr740ep0/
 
 上一节说整个 LLM 是由一串 **堆叠的 Transformer 块** 组成的，每块处理输入再把结果传给下一块。原始 Transformer 论文里约 6 块，现在很多 LLM 已经超过 100 块。这一节就把单个块拆开看：每个 Transformer 块由两个首尾相接的组件构成 —— **自注意力层** 和 **前馈神经网络层**。
 
+![整个模型由一串堆叠的 Transformer 块组成 =780x](https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@c7e57f5bf4ef727f75920ee11bb27646b0036e25/AI/source-images/transformer-block-stack.png)
+
+![每个 Transformer 块由自注意力层和前馈神经网络层首尾相接构成 =780x](https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@c7e57f5bf4ef727f75920ee11bb27646b0036e25/AI/source-images/transformer-block-components.png)
+
 一句话抓住二者的分工：==自注意力让词元"看别人"（整合上下文），前馈网络让词元"想自己"（单独提炼）==
 
 ## 自注意力层：看别人
@@ -17,6 +21,8 @@ permalink: /AI/llm/fr740ep0/
 ```
 
 要预测"它"之后的内容，模型得先知道"它"指代谁 —— 是"狗"还是"猫"？注意力机制做的事，就是把上下文信息 **添加进"它"这个词元的表示里**
+
+![注意力机制把上下文信息添加进它这个词元的表示中 =780x](https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@c7e57f5bf4ef727f75920ee11bb27646b0036e25/AI/source-images/transformer-self-attention-context.png)
 
 ### 工作原理：算关联、分权重
 
@@ -50,6 +56,8 @@ The cat sat on the mat
 ```
 
 自注意力层会生成一个方阵，横轴纵轴都是这几个词：
+
+![The cat sat on the mat 的注意力权重矩阵热力图 =780x](https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@c7e57f5bf4ef727f75920ee11bb27646b0036e25/AI/source-images/transformer-attention-weight-matrix.png)
 
 :::table title="注意力权重矩阵的读法" full-width
 | 维度 | 含义 |

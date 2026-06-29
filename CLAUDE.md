@@ -88,6 +88,7 @@ Images are **not** stored in this repo. They live in a separate GitHub repo `not
 2. `git add` + commit + push in `~/note-images` (it's a normal repo; rebase if the remote moved — images never conflict).
 3. Link it in the note with standard `![alt](url)` markdown, pinning the URL to the **commit hash** (not `@master`): `https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@<hash>/<topic>/source-images/<file>`. Commit-hash URLs are immutable and permanently cached; `@master` is mutable and can silently change or expire — prefer the hash.
 4. Verify the CDN URL returns 200 before relying on it (jsDelivr syncs within seconds of push).
+5. **Controlling display size**: plume's size syntax goes **inside the alt brackets at the end** — `![alt =780x](url)` (width 780, height auto; `=780x540` sets both). It is **not** `![alt](url =780x)` (that breaks the whole image syntax and renders as plain text), and it's unrelated to the theme's `image.size: true` option (that only auto-stamps each image's real pixel dimensions at build time, it doesn't control display size). `=780x` ≈ the content column width, so it fills the column. Avoid raw `<img width>` tags — straight quotes in a Chinese `alt` will break the double-quoted attribute.
 
 ## Learning-notes workflow
 
