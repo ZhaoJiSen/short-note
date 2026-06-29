@@ -62,12 +62,12 @@ export const aiCollection = defineCollection({
           link: '/AI/llm/fyzg14pj/',
         },
         {
-          text: 'Transformer 块',
-          link: '/AI/llm/fr740ep0/',
-        },
-        {
           text: '解码策略',
           link: '/AI/llm/qcl2gnwp/',
+        },
+        {
+          text: 'Transformer 块',
+          link: '/AI/llm/fr740ep0/',
         },
       ],
     },
