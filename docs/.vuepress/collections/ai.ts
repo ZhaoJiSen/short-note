@@ -5,32 +5,32 @@ export const aiCollection = defineCollection({
   dir: 'AI',
   title: 'AI',
   sidebar: [
-    {
-      text: 'LLM 基础',
-      collapsed: false,
-      items: [
-        {
-          text: '大模型基础',
-          link: '/AI/llm/589616cb/',
-        },
-        {
-          text: 'LangChain 安装、模型接入与快速上手',
-          link: '/AI/llm/ce5af0ad/',
-        },
-        {
-          text: '聊天模型、工具调用与结构化输出',
-          link: '/AI/llm/c321bf11/',
-        },
-        {
-          text: '消息机制、提示词与少样本实践',
-          link: '/AI/llm/9bda02d4/',
-        },
-        {
-          text: 'RAG、文本分割与向量存储',
-          link: '/AI/llm/3e19785e/',
-        },
-      ],
-    },
+    // {
+    //   text: 'LLM 基础',
+    //   collapsed: false,
+    //   items: [
+    //     {
+    //       text: '大模型基础',
+    //       link: '/AI/llm/589616cb/',
+    //     },
+    //     {
+    //       text: 'LangChain 安装、模型接入与快速上手',
+    //       link: '/AI/llm/ce5af0ad/',
+    //     },
+    //     {
+    //       text: '聊天模型、工具调用与结构化输出',
+    //       link: '/AI/llm/c321bf11/',
+    //     },
+    //     {
+    //       text: '消息机制、提示词与少样本实践',
+    //       link: '/AI/llm/9bda02d4/',
+    //     },
+    //     {
+    //       text: 'RAG、文本分割与向量存储',
+    //       link: '/AI/llm/3e19785e/',
+    //     },
+    //   ],
+    // },
     {
       text: '基础原理',
       collapsed: false,
