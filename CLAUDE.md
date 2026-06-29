@@ -76,6 +76,8 @@ Two `extendsPage`/`extendsMarkdown` plugins run at build time:
 - Node `^20.6.0 || >=22.0.0` required.
 - Content is Chinese-language; match the existing language and tone when editing or adding notes.
 - **Quote style**: the author intentionally uses straight ASCII quotes (`"..."` / `'...'`) in place of Chinese quotes (`“...”` / `‘...’`). This is a deliberate personal style — never "correct" straight quotes to Chinese ones.
+- **CJK/Latin spacing**: when English, numbers, or quoted content is embedded in Chinese prose, leave one space on each side of that segment — e.g. `xxxx "123123" xxxx`, `使用 VuePress 构建`. Match this spacing when writing or editing the author's text.
+- **Tables must be full-width**: every markdown table must be wrapped in a plume `:::table full-width` container (optionally `:::table title="…" full-width`), never left as a bare markdown table. Bump the colon count on the fence when nesting inside another container. See the Go notes for examples.
 - `docs/.vuepress/dist`, `.cache`, and `.temp` are build artifacts (gitignored) — never edit them.
 
 ### Images

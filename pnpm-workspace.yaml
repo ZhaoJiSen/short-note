@@ -1,5 +1,8 @@
 allowBuilds:
   esbuild: true
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
 minimumReleaseAgeExclude:
   - '@vue/compiler-core@3.5.39'
   - '@vue/compiler-dom@3.5.39'

@@ -11,7 +11,7 @@ export default defineNavbarConfig([
   { text: '博客', link: '/blog/' },
   {
     text: 'AI',
-    link: '/AI/llm/589616cb/'
+    link: '/AI/llm/34cc7a39/'
   },
   {
     text: '编程语言',

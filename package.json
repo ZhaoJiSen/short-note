@@ -4,12 +4,6 @@
   "version": "1.0.0",
   "description": "个人笔记存放处",
   "packageManager": "pnpm@11.9.0",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild"
-    ]
-  },
   "author": "zhaojisen <1301338853@qq.com>",
   "license": "MIT",
   "engines": {
