@@ -32,6 +32,28 @@ export const aiCollection = defineCollection({
       ],
     },
     {
+      text: '基础原理',
+      collapsed: false,
+      items: [
+        {
+          text: 'N-Gram 模型',
+          link: '/AI/llm/34cc7a39/',
+        },
+        {
+          text: '词袋模型',
+          link: '/AI/llm/4a1a980a/',
+        },
+        {
+          text: '词元 Token',
+          link: '/AI/llm/e6291c2e/',
+        },
+        {
+          text: '嵌入 Embedding',
+          link: '/AI/llm/24ed4164/',
+        },
+      ],
+    },
+    {
       text: 'LangChain',
       collapsed: false,
       items: [

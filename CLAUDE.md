@@ -78,6 +78,15 @@ Two `extendsPage`/`extendsMarkdown` plugins run at build time:
 - **Quote style**: the author intentionally uses straight ASCII quotes (`"..."` / `'...'`) in place of Chinese quotes (`“...”` / `‘...’`). This is a deliberate personal style — never "correct" straight quotes to Chinese ones.
 - `docs/.vuepress/dist`, `.cache`, and `.temp` are build artifacts (gitignored) — never edit them.
 
+### Images
+
+Images are **not** stored in this repo. They live in a separate GitHub repo `note-images` (cloned at `~/note-images`, remote `github.com/ZhaoJiSen/note-images`) and are served via jsDelivr CDN. Workflow when a note needs an image:
+
+1. Put the image under `~/note-images/<topic>/source-images/` (e.g. `AI/source-images/embedding-foo.png`) — mirror the note's topic.
+2. `git add` + commit + push in `~/note-images` (it's a normal repo; rebase if the remote moved — images never conflict).
+3. Link it in the note with standard `![alt](url)` markdown, pinning the URL to the **commit hash** (not `@master`): `https://cdn.jsdelivr.net/gh/ZhaoJiSen/note-images@<hash>/<topic>/source-images/<file>`. Commit-hash URLs are immutable and permanently cached; `@master` is mutable and can silently change or expire — prefer the hash.
+4. Verify the CDN URL returns 200 before relying on it (jsDelivr syncs within seconds of push).
+
 ## Learning-notes workflow
 
 These notes are written incrementally as the author learns each topic. When collaborating on a note:
