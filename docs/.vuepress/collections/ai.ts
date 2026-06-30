@@ -72,44 +72,6 @@ export const aiCollection = defineCollection({
       ],
     },
     {
-      text: '模型应用基础',
-      collapsed: true,
-      items: [
-        {
-          text: '本地部署大模型',
-          link: '/AI/llm/d312ad0a/',
-        },
-        {
-          text: 'Agent',
-          link: '/AI/llm/3b8ac0de/',
-        },
-        {
-          text: '流式返回信息',
-          link: '/AI/llm/81d03569/',
-        },
-        {
-          text: '支持上下文',
-          link: '/AI/llm/dc62377e/',
-        },
-        {
-          text: '获取实时信息 part1',
-          link: '/AI/llm/0f8d1c20/',
-        },
-        {
-          text: '获取实时信息 part2',
-          link: '/AI/llm/7dc3d2d9/',
-        },
-        {
-          text: '获取实时信息 part3',
-          link: '/AI/llm/fe5bcae7/',
-        },
-        {
-          text: '接入 DeepSeek',
-          link: '/AI/llm/26fe28dd/',
-        },
-      ],
-    },
-    {
       text: 'Function Calling',
       collapsed: true,
       items: [
