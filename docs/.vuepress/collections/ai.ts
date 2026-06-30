@@ -5,32 +5,6 @@ export const aiCollection = defineCollection({
   dir: 'AI',
   title: 'AI',
   sidebar: [
-    // {
-    //   text: 'LLM 基础',
-    //   collapsed: false,
-    //   items: [
-    //     {
-    //       text: '大模型基础',
-    //       link: '/AI/llm/589616cb/',
-    //     },
-    //     {
-    //       text: 'LangChain 安装、模型接入与快速上手',
-    //       link: '/AI/llm/ce5af0ad/',
-    //     },
-    //     {
-    //       text: '聊天模型、工具调用与结构化输出',
-    //       link: '/AI/llm/c321bf11/',
-    //     },
-    //     {
-    //       text: '消息机制、提示词与少样本实践',
-    //       link: '/AI/llm/9bda02d4/',
-    //     },
-    //     {
-    //       text: 'RAG、文本分割与向量存储',
-    //       link: '/AI/llm/3e19785e/',
-    //     },
-    //   ],
-    // },
     {
       text: '基础原理',
       collapsed: false,
@@ -55,7 +29,7 @@ export const aiCollection = defineCollection({
     },
     {
       text: 'Transformer',
-      collapsed: true,
+      collapsed: false,
       items: [
         {
           text: '内部结构与整体流程',
@@ -73,17 +47,7 @@ export const aiCollection = defineCollection({
     },
     {
       text: 'Function Calling',
-      collapsed: true,
-      items: [
-        {
-          text: '理论知识',
-          link: '/AI/llm/98b8d529/',
-        },
-        {
-          text: '实践',
-          link: '/AI/llm/cbc39c5f/',
-        },
-      ],
+      link: '/AI/llm/98b8d529/',
     },
     {
       text: 'MCP',
@@ -155,15 +119,32 @@ export const aiCollection = defineCollection({
             },
           ],
         },
+      ],
+    },
+    {
+      text: 'Prompt Engineering',
+      collapsed: true,
+      link: '/AI/llm/14a2b523/',
+      items: [
         {
-          text: '实战',
-          collapsed: true,
-          items: [
-            {
-              text: '天气应用实战',
-              link: '/AI/llm/258bb29a/',
-            },
-          ],
+          text: 'RCT 构词法',
+          link: '/AI/llm/14a2b523/#rct-构词法',
+        },
+        {
+          text: '提示词常见技巧',
+          link: '/AI/llm/14a2b523/#提示词常见技巧',
+        },
+        {
+          text: '基于反馈迭代优化',
+          link: '/AI/llm/14a2b523/#基于反馈迭代优化',
+        },
+        {
+          text: '改善提示效果',
+          link: '/AI/llm/14a2b523/#改善提示效果',
+        },
+        {
+          text: '提示词评估',
+          link: '/AI/llm/14a2b523/#提示词评估',
         },
       ],
     },
@@ -208,28 +189,29 @@ export const aiCollection = defineCollection({
       ],
     },
     {
-      text: '提示词工程',
+      text: 'Harness Engineering',
       collapsed: true,
+      link: '/AI/engineering/e22b513a/',
       items: [
         {
-          text: 'RCT 构词法',
-          link: '/AI/llm/14a2b523/',
+          text: 'AI 工程的演变',
+          link: '/AI/engineering/e22b513a/#ai-工程的演变',
         },
         {
-          text: '提示词常见技巧',
-          link: '/AI/llm/5ea67fde/',
+          text: 'Harness 架构',
+          link: '/AI/engineering/e22b513a/#harness-架构',
         },
         {
-          text: '基于反馈迭代优化',
-          link: '/AI/llm/c2116f50/',
+          text: 'Anthropic 的实践',
+          link: '/AI/engineering/e22b513a/#anthropic-的实践',
         },
         {
-          text: '改善提示效果',
-          link: '/AI/llm/f6b0ac6d/',
+          text: 'OpenAI 的工程哲学',
+          link: '/AI/engineering/e22b513a/#openai-的工程哲学',
         },
         {
-          text: '提示词评估',
-          link: '/AI/llm/8ca87b50/',
+          text: '在后台管理系统中落地 Harness',
+          link: '/AI/engineering/e22b513a/#在后台管理系统中落地-harness',
         },
       ],
     },
@@ -252,16 +234,6 @@ export const aiCollection = defineCollection({
         {
           text: 'LangChain.js 使用',
           link: '/AI/langchain/7618e341/',
-        },
-      ],
-    },
-    {
-      text: 'AI 工程',
-      collapsed: true,
-      items: [
-        {
-          text: 'Harness Engineering',
-          link: '/AI/engineering/e22b513a/',
         },
       ],
     },

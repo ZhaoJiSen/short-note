@@ -34,7 +34,15 @@ export const nodeCollection = defineCollection({
               link: '/node/zyzfztfm/',
             },
             {
-              text: '生命周期',
+              text: 'child_process 模块',
+              link: '/node/hv1s28mq/',
+            },
+            {
+              text: 'stream 模块',
+              link: '/node/bye9cq7r/',
+            },
+            {
+              text: '事件循环',
               link: '/node/2xt2aon8/'
             }
           ],
