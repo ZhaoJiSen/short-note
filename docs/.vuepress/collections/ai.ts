@@ -124,27 +124,26 @@ export const aiCollection = defineCollection({
     {
       text: 'Prompt Engineering',
       collapsed: true,
-      link: '/AI/llm/14a2b523/',
       items: [
         {
           text: 'RCT 构词法',
-          link: '/AI/llm/14a2b523/#rct-构词法',
+          link: '/AI/7ljx13hc/',
         },
         {
           text: '提示词常见技巧',
-          link: '/AI/llm/14a2b523/#提示词常见技巧',
+          link: '/AI/7p08vdbu/',
         },
         {
           text: '基于反馈迭代优化',
-          link: '/AI/llm/14a2b523/#基于反馈迭代优化',
+          link: '/AI/cjz3q4mj/',
         },
         {
           text: '改善提示效果',
-          link: '/AI/llm/14a2b523/#改善提示效果',
+          link: '/AI/y52x1wfq/',
         },
         {
           text: '提示词评估',
-          link: '/AI/llm/14a2b523/#提示词评估',
+          link: '/AI/3lo54cqg/',
         },
       ],
     },
