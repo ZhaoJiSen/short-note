@@ -160,14 +160,6 @@ export const aiCollection = defineCollection({
           link: '/AI/llm/a6e57fed/',
         },
         {
-          text: '实践 part1',
-          link: '/AI/llm/56ca9f21/',
-        },
-        {
-          text: '实践 part2',
-          link: '/AI/llm/f7a5ffb3/',
-        },
-        {
           text: '架构演进',
           link: '/AI/llm/0e2874fe/',
         },
